@@ -1,0 +1,46 @@
+.page-article-list .btn {
+    outline: none !important;
+    margin-right: 10px;
+}
+
+.page-article-list .select-title-second {
+    display: none;
+}
+.page-article-list .select-title-third {
+    display: none;
+}
+.page-article-list .select-title-fourth {
+    display: none;
+}
+.page-article-list .row {
+    margin-bottom: 10px;
+}
+.page-article-list .pager a{
+    cursor: pointer;
+}
+.page-article-list .operate-panel {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+.ui-loading {
+    width: 100%;
+    text-align: center;
+}
+.ui-nodata {
+    width: 100%;
+    text-align: center;
+}
+.table-bordered {
+    border: 1px solid #eee;
+}
+
+.table-bordered>tbody>tr>td, 
+.table-bordered>tbody>tr>th, 
+.table-bordered>tfoot>tr>td, 
+.table-bordered>tfoot>tr>th, 
+.table-bordered>thead>tr>td, 
+.table-bordered>thead>tr>th{
+    vertical-align: middle;
+	border: 1px solid #eee;
+    border-bottom-width: 1px;
+}

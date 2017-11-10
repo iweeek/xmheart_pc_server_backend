@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <link rel="stylesheet" type="text/css" href="./css/business.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/angular-growl.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/article-list.css">
+</head>
+
+<body>
+    <div class="page-article-list">
+        <ol class="breadcrumb">
+            <li class="active">在线视频列表</li>
+        </ol>
+        <div class="operate-panel">
+            <button class="btn btn-primary" id="J_create_btn">新建</button>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="text-align: center;">在线视频名称</th>
+                    <th style="text-align: center;">在线视频摘要介绍</th>
+                    <th style="text-align: center;">是否发布</th>
+                    <th style="text-align: center;">发布时间</th>
+                    <th style="text-align: center;">操作</th>
+                </tr>
+            </thead>
+            <tbody id="J_articles"></tbody>
+        </table>
+        <div class="ui-loading">
+            <img src="./img/progress_circle.gif" alt="loading">
+        </div>
+        <!--  翻页的按钮  -->
+        <div>
+            <ul class="pager">
+                <li class="previous">
+                    <a>
+                        <span aria-hidden="true">&larr;</span> 前一页
+                    </a>
+                </li>
+                <li class="next">
+                    <a>
+                        后一页 <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script id="J_articles_tmpl" type="x-tmpl-mustache">
+        {{#result}}
+        <tr>
+            <td>{{title}}</td>
+            <td>{{brief}}</td>
+			<td>
+				{{#isPublished}}是{{/isPublished}}
+				{{^isPublished}}否{{/isPublished}}
+			</td>
+			<td>{{publishTime}}</td>
+            <td>
+                <button class='btn btn-default edit-btn' data-id={{id}}>编辑</button>
+                {{#isPublished}}
+                		<button class='btn btn-danger offline-btn' data-id={{id}}>下线</button>
+				{{/isPublished}}
+				{{^isPublished}}
+                		<button class='btn btn-default publish-btn' data-id={{id}}>发布</button>
+				{{/isPublished}}
+				<!--{{#isPinned}}
+					<button class='btn btn-default cancel-pinned-btn' data-id={{id}}>取消置顶</button>
+					<button class='btn btn-default up-btn' data-id={{id}} data-order={{pinOrder}}>上移</button>
+					<button class='btn btn-default down-btn' data-id={{id}} data-order={{pinOrder}}>下移</button>
+				{{/isPinned}}
+				{{^isPinned}}
+					<button class='btn btn-default pinned-btn' data-id={{id}}>置顶</button>
+				{{/isPinned}}-->
+            </td>
+        </tr>
+        {{/result}}
+
+    </script>     
+    <script type="text/javascript" src="./js/third_party/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/sweetalert-dev.js"></script>
+    <script type="text/javascript" src="./js/third_party/mustache.min.js"></script>
+    <script type="text/javascript" src="./js/http-intercept.js"></script>
+    <script type="text/javascript" src="./js/online-video-list.js"></script>
+</body>
+
+</html>

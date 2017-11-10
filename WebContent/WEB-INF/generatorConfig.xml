@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+  <!-- 根据本地环境填写JDBC驱动包的路径 -->
+  <classPathEntry location="/Users/nimon/Important/java/mysql-connector/mysql-connector-java-5.1.44-bin.jar" />
+
+  <context id="xmheart_pc_web" targetRuntime="MyBatis3">
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+        connectionURL="jdbc:mysql://119.23.12.36:3306/xmheart_pc_web"
+        userId="remote"
+        password="251725">
+    </jdbcConnection>
+
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+
+    <javaModelGenerator targetPackage="com.xmheart.model" targetProject="xmheart_pc_server_backend">
+    </javaModelGenerator>
+
+    <sqlMapGenerator targetPackage="com.xmheart.mapper"  targetProject="xmheart_pc_server_backend">
+    </sqlMapGenerator>
+
+    <javaClientGenerator type="MIXEDMAPPER" targetPackage="com.xmheart.mapper"  targetProject="xmheart_pc_server_backend">
+    </javaClientGenerator>
+
+    <table schema="xmeart_pc_web" tableName="xpw_column" domainObjectName ="XPWColumn" >
+      <generatedKey column="id" sqlStatement="MySql" identity="true" />
+      <columnOverride column="position" property="position" javaType="java.lang.Boolean"/>
+      <ignoreColumn column="created_at"/>
+      <ignoreColumn column="updated_at"/>
+    </table>
+
+    <table schema="xmeart_pc_web" tableName="xpw_nav" domainObjectName ="XPWNav" >
+      <generatedKey column="id" sqlStatement="MySql" identity="true" />
+      <ignoreColumn column="created_at"/>
+      <ignoreColumn column="updated_at"/>
+    </table>
+
+    <table schema="xmeart_pc_web" tableName="xpw_article" domainObjectName ="XPWArticle" >
+      <generatedKey column="id" sqlStatement="MySql" identity="true" />
+      <columnOverride column="is_pinned" property="isPinned" javaType="java.lang.Boolean"/>
+      <columnOverride column="is_published" property="isPublished" javaType="java.lang.Boolean"/>
+      <ignoreColumn column="created_at"/>
+      <ignoreColumn column="updated_at"/>
+    </table>
+
+    <table schema="xmeart_pc_web" tableName="xpw_doctor" domainObjectName ="XPWDoctor" >
+      <generatedKey column="id" sqlStatement="MySql" identity="true" />
+      <columnOverride column="is_displayed" javaType="java.lang.Boolean"/>
+      <ignoreColumn column="created_at"/>
+      <ignoreColumn column="updated_at"/>
+    </table>
+    
+    <table schema="xmeart_pc_web" tableName="xpw_teacher" domainObjectName ="XPWTeacher" >
+      <generatedKey column="id" sqlStatement="MySql" identity="true" />
+      <columnOverride column="is_displayed" javaType="java.lang.Boolean"/>
+      <ignoreColumn column="created_at"/>
+      <ignoreColumn column="updated_at"/>
+    </table>
+
+    <table schema="xmeart_pc_web" tableName="xpw_dept" domainObjectName ="XPWDept" >
+      <generatedKey column="id" sqlStatement="MySql" identity="true" />
+      <columnOverride column="out_service" javaType="java.lang.Boolean"/>
+      <columnOverride column="is_displayed" javaType="java.lang.Boolean"/>
+      <ignoreColumn column="created_at"/>
+      <ignoreColumn column="updated_at"/>
+    </table>
+
+    <table schema="xmeart_pc_web" tableName="xpw_electronic_newspaper" domainObjectName ="XPWElecNewspaper" >
+      <generatedKey column="id" sqlStatement="MySql" identity="true" />
+      <columnOverride column="is_published" javaType="java.lang.Boolean"/>
+      <ignoreColumn column="created_at"/>
+      <ignoreColumn column="updated_at"/>
+    </table>
+ 
+    <table schema="xmeart_pc_web" tableName="xpw_index" domainObjectName ="XPWIndex" >
+      <generatedKey column="id" sqlStatement="MySql" identity="true" />
+      <ignoreColumn column="created_at"/>
+      <ignoreColumn column="updated_at"/>
+    </table>   
+    
+    <table schema="xmeart_pc_web" tableName="xpw_xtindex" domainObjectName ="XPWXTIndex" >
+      <generatedKey column="id" sqlStatement="MySql" identity="true" />
+      <ignoreColumn column="created_at"/>
+      <ignoreColumn column="updated_at"/>
+    </table>
+    
+    <table schema="xmeart_pc_web" tableName="xpw_user" domainObjectName ="XPWUser" >
+      <generatedKey column="id" sqlStatement="MySql" identity="true" />
+      <ignoreColumn column="created_at"/>
+      <ignoreColumn column="updated_at"/>
+    </table>
+
+    <table schema="xmeart_pc_web" tableName="xpw_video" domainObjectName ="XPWVideo" >
+      <generatedKey column="id" sqlStatement="MySql" identity="true" />
+      <columnOverride column="is_pinned" javaType="java.lang.Boolean"/>
+      <columnOverride column="is_published" javaType="java.lang.Boolean"/>
+      <ignoreColumn column="created_at"/>
+      <ignoreColumn column="updated_at"/>
+    </table>
+    
+    <table schema="xmeart_pc_web" tableName="xpw_online_video" domainObjectName ="XPWOnlineVideo" >
+      <generatedKey column="id" sqlStatement="MySql" identity="true" />
+      <columnOverride column="is_pinned" javaType="java.lang.Boolean"/>
+      <columnOverride column="is_published" javaType="java.lang.Boolean"/>
+      <ignoreColumn column="created_at"/>
+      <ignoreColumn column="updated_at"/>
+    </table>
+    
+    <table schema="xmeart_pc_web" tableName="xpw_role" domainObjectName ="XPWRole" >
+      <generatedKey column="id" sqlStatement="MySql" identity="true" />
+      <ignoreColumn column="created_at"/>
+      <ignoreColumn column="updated_at"/>
+    </table>
+    
+    <table schema="xmeart_pc_web" tableName="xpw_user_role" domainObjectName ="XPWUserRole" >
+      <generatedKey column="id" sqlStatement="MySql" identity="true" />
+    </table>
+    
+    <table schema="xmeart_pc_web" tableName="xpw_priv" domainObjectName ="XPWPriv" >
+      <generatedKey column="id" sqlStatement="MySql" identity="true" />
+      <ignoreColumn column="created_at"/>
+      <ignoreColumn column="updated_at"/>
+    </table>
+  </context>
+</generatorConfiguration>

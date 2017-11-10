@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<link rel="stylesheet" type="text/css" href="./css/business.min.css">
+<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="./css/sweetalert.css">
+<link rel="stylesheet" type="text/css" href="./css/select2.min.css">
+<link rel="stylesheet" type="text/css" href="./css/index-edit.css">
+</head>
+<body>
+    <!--   主题部分  -->
+    <div class="index-edit-container">
+        <div class="slide-edit-container">
+        		<div class="row">
+             	<h4 class="slide-title">图片轮播编辑<span>（上传图片规格900px*450px）</span></h4>
+             </div>
+             <div class="row add-list-main">
+                	<div class="add-img-list ">
+              		<div class="add-image-button" id="addImgBtn">
+         				 添加图片
+        				</div>
+        				<div class="add-image-url">
+        					<img src="#" class="upload-img">
+        				</div>
+        				<div class="add-image-edit">
+        					<img src="./img/manager/edit.png">
+        				</div>
+        				<form class="upload-form js-upload-form" enctype="multipart/form-data" method="post" action="/uploadImage" >
+                  			<input type="file" name="image" class="add-img-file" />
+                  			<input type="submit" class="add-img-submit" />
+              		    </form>
+                		<div class="add-img-link">
+                			<p>请输入跳转的链接地址</p>
+                			<input type="text">
+                		</div>
+                	</div>
+                	<div class="add-img-list">
+              		<div class="add-image-button" id="addImgBtn">
+         				 添加图片
+        				</div>
+        				<div class="add-image-url">
+        					<img src="#" class="upload-img">
+        				</div>
+        				<div class="add-image-edit">
+        					<img src="./img/manager/edit.png">
+        				</div>
+        				<form class="upload-form js-upload-form" enctype="multipart/form-data" method="post" action="/uploadImage" >
+              			<input type="file" name="image" class="add-img-file" />
+              			<input type="submit" class="add-img-submit" />
+              		</form>
+                		<div class="add-img-link">
+                			<p>请输入跳转的链接地址</p>
+                			<input type="text">
+                		</div>
+                	</div>
+                	<div class="add-img-list">
+              		<div class="add-image-button" id="addImgBtn">
+         				 添加图片
+        				</div>
+        				<div class="add-image-url">
+        					<img src="#" class="upload-img">
+        				</div>
+        				<div class="add-image-edit">
+        					<img src="./img/manager/edit.png">
+        				</div>
+        				<form class="upload-form js-upload-form" enctype="multipart/form-data" method="post" action="/uploadImage" >
+              			<input type="file" name="image" class="add-img-file" />
+              			<input type="submit" class="add-img-submit" />
+              		</form>
+                		<div class="add-img-link">
+                			<p>请输入跳转的链接地址</p>
+                			<input type="text">
+                		</div>
+                	</div>
+             </div>
+        		 <div class="row btn-group">
+                 <input type="button" class="search-button" id="submit" value="确定">
+                 <!-- <input type="button" class="search-button" id="cancel" value="取消"> -->
+        		 </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="./js/third_party/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/mustache.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/sweetalert-dev.js"></script>
+    <script type="text/javascript" src="./js/third_party/jquery.form.min.js"></script>
+	<script type="text/javascript" src="./js/third_party/bootstrap.min.js"></script>
+	<script type="text/javascript" src="./js/http-intercept.js"></script>
+    <script type="text/javascript" src="./js/edit-xtIndex.js"></script>
+    <!-- <script type="text/javascript">XPW.xtIndexEdit()</script> -->
+</body>
+</html>

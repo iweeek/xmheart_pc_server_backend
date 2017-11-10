@@ -1,0 +1,38 @@
+<html>
+<head>
+	<!--<meta charset="utf-8">-->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="renderer" content="webkit">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" href="./css/reset.css">
+	<link rel="stylesheet" href="./css/swiper-3.4.2.min.css">
+	<link rel="stylesheet" href="./css/layout.css">
+	<link rel="stylesheet" href="./css/index.css">
+	<link rel="stylesheet" href="./css/common.css">
+</head>
+
+<body>
+  <div>
+      #parse("/WEB-INF/fragments/_header.vm")
+  </div>
+  
+  
+  <div>
+  
+    <!-- View abc.vm is inserted here -->
+    <!-- Noi dung View abc.vm se duoc tren tai day -->   
+    $screen_content
+ 
+  </div>
+  
+  <div>
+      #parse("/WEB-INF/fragments/_footer.vm")
+  </div>
+  <script src="js/jquery-1.9.1.min.js"></script>
+  <script src="js/respond.min.js"></script>
+  <script src="js/swiper-3.4.2.jquery.min.js"></script>
+  <script src="./js/common.js"></script>
+</body>
+</html>

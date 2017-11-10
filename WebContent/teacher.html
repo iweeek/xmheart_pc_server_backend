@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<link rel="stylesheet" type="text/css" href="./css/business.min.css">
+<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="./css/sweetalert.css">
+<link rel="stylesheet" type="text/css" href="./css/select2.min.css">
+<link rel="stylesheet" type="text/css" href="./css/article-list.css">
+</head>
+<body>
+    <div class="page-article-list">
+        <ol class="breadcrumb">
+            <li><a href="#"></a>栏目管理</li>
+            <li class="active">导师列表</li>
+        </ol>
+        <div class="row" id="tools">
+            <div class="col-md-1" style="line-height: 34px;">科室名称</div>
+            <div class="col-md-2">
+                <select class="form-control col-md-10" id="typeSelectInput">
+                </select>
+            </div>
+            <button class="btn btn-primary" id="columnSearch">搜索</button>
+            <button class="btn btn-primary" id="columnNew">添加导师</button>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="text-align: center; width: 170px;">导师姓名</th>
+                    <th style="text-align: center; width: 170px;">职称</th>
+                    <th style="text-align: center; width: 170px;">头像</th>
+                    <th style="text-align: center; width: 150px;">职位</th>
+                    <th style="text-align: center; width: 80px;">操作</th>
+                </tr>
+            </thead>
+            <tbody id="doctorTable">
+            </tbody>
+        </table>
+        <!--  翻页的按钮  -->
+        <div>
+            <ul class="pager">
+                <li class="previous">
+                    <a>
+                        <span aria-hidden="true">&larr;</span> 前一页
+                    </a>
+                </li>
+                <li class="next">
+                    <a>
+                        后一页 <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="ui-loading">
+            <img src="./img/progress_circle.gif" alt="loading">
+        </div>
+    </div>
+    <script id="firstColumnTemplate" type="x-tmpl-mustache">
+      {{#data}}
+        <option value="{{id}}">{{name}}</option>
+      {{/data}}
+    </script>
+    <script id="doctorTd" type="x-tmpl-mustache">
+      {{#data}}
+        <tr id="{{id}}">
+        	 <td style="vertical-align: middle;">{{name}}</td>
+          <td style="vertical-align: middle;">{{professionalTitle}}</td>
+          <td style="vertical-align: middle; width: 100px;"><img width="100" height="100" src={{imageUrl}} /></td>
+          <td style="vertical-align: middle; width: 100px;">{{duty}}</td>
+          <td style="vertical-align: middle;">
+			 <button class="btn btn-default post-btn-edit" data-doctor-id={{id}} style="margin-bottom: 5px;">编辑</button>	
+			 {{#isDisplayed}}
+            	 	<button data-id={{id}} data-is-displayed={{isDisplayed}} class="btn btn-default post-btn-online" style="margin-bottom: 5px;">不展示</button>
+                <button class='btn btn-default up-btn' data-id={{id}} data-order={{docOrder}}>上移</button>
+                <button class='btn btn-default down-btn' data-id={{id}} data-order={{docOrder}}>下移</button>
+			 {{/isDisplayed}}
+			 {{^isDisplayed}}
+				<button data-id={{id}} data-is-displayed={{isDisplayed}} class="btn btn-default post-btn-online" style="margin-bottom: 5px;">展示</button>
+			 {{/isDisplayed}}
+          </td>
+        </tr>
+      {{/data}}
+    </script>
+    <script type="text/javascript" src="./js/third_party/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/mustache.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/sweetalert-dev.js"></script>
+    <script type="text/javascript" src="./js/third_party/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/select2.min.js"></script>
+    <script type="text/javascript" src="./js/i18n/select2.zh-CN.js"></script>
+    <script type="text/javascript" src="./js/http-intercept.js"></script>   
+    <script type="text/javascript" src="./js/edit-teacher.js"></script>
+    <!-- <script type="text/javascript">XPW.DoctorEdit()</script> -->
+</body>
+</html>

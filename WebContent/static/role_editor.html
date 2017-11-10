@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/editor.css">
+    <link rel="stylesheet" type="text/css" href="../css/sweetalert.css">
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="../js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="editor-container">
+        <ol class="breadcrumb">
+	        <li><a href="#"></a>栏目管理</li>
+	        <li><a href="../role_list.html">角色管理</a></li>
+	        <li class="active">编辑用户</li>
+        </ol>
+      
+     	<p class="subtit">角色名称</p>
+		<div class="input-wrapper">
+			<input type="text" class="article-title" id="roleName" value="">
+		</div>
+		<p class="subtit">权限选择</p>
+		<div class="input-wrapper role-input" id="roleBoxWrapper">
+		</div>
+	   <div class="btn-group">
+	       <input id="save" type="button" name="" value="保存">
+	       <input id="cancel" type="button" name="cancel" value="取消">
+	   </div>
+	</div>	   
+ 
+</body>
+<script id="roleCheckbox" type="x-tmpl-mustache">
+	{{#data}}
+        <label class="checkbox-inline user-limit">
+			  <input type="checkbox"  value="{{id}}"> {{columnName}}
+		</label>
+	{{/data}}
+</script>
+<script type="text/javascript" src="../js/third_party/jquery.min.js"></script>
+<script type="text/javascript" src="../js/third_party/mustache.min.js"></script>
+<script type="text/javascript" src="../js/third_party/sweetalert-dev.js"></script> 
+<script type="text/javascript" src="../js/http-intercept.js"></script>     
+<script type="text/javascript" src="../js/role-editor.js"></script>
+<!-- <script type="text/javascript">
+        XPW.RoleUeditor();
+</script> -->
+
+</html>
+

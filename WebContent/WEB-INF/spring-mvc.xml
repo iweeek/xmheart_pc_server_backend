@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd  
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd  
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd"  
+    	default-lazy-init="false">
+    	
+    <bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<array>
+				<value>classpath:config.properties</value>
+			</array>
+		</property>
+	</bean>
+	
+	<bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+	<!-- 配置使用注解的包 -->
+	<context:component-scan base-package="com.xmheart.*" />
+
+	<!-- 配置静态资源 -->
+	<mvc:resources mapping="/**" location="/" />
+	<mvc:resources mapping="/**" location="/images" />
+	<!-- <mvc:resources mapping="/css/**" location="/css" />
+	<mvc:resources mapping="/**" location="/js" />
+	<mvc:resources mapping="/**" location="/images" /> -->
+	
+<!-- 	<bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+	    <property name="resourceLoaderPath">
+	        <value>/</value>
+	    </property>
+	    <property name="velocityProperties">
+            下面配置了一些常用的属性，其他的可以自行添加 
+            <props>
+                   <prop key="input.encoding">UTF-8</prop>
+                   <prop key="output.encoding">UTF-8</prop>
+                   <prop key="contentType">text/html;charset=UTF-8</prop>
+            </props>
+        </property>
+    </bean>
+    
+  	<bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
+	    <property name="cache" value="true" />
+	    <property name="prefix" value="/WEB-INF/views/" />
+	    <property name="layoutUrl" value="/WEB-INF/layouts/layout.vm" />
+	    <property name="suffix" value=".vm" />
+  	</bean> -->
+  	
+  	<!-- freemarker config -->
+	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+	    <property name="templateLoaderPath" value="/WEB-INF/views/"/>
+	    <property name="freemarkerSettings">  
+        <props>  
+            <prop key="defaultEncoding">UTF-8</prop>  
+        </props>  
+    </property> 
+	</bean>
+	
+	
+	<!-- View resolvers can also be configured with ResourceBundles or XML files. If you need
+	different view resolving based on Locale, you have to use the resource bundle resolver. -->
+	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+	    <property name="cache" value="true"/>
+	    <property name="prefix" value=""/>
+	    <property name="suffix" value=".ftl"/>
+	    <property name="contentType" value="text/html;charset=UTF-8"></property>
+	</bean>
+	
+	<!-- 拦截器 -->
+	<!-- 配置拦截器 -->
+	 <mvc:interceptors>
+	<!-- 定义在mvc:interceptor下面的表示是对特定的请求才进行拦截的 -->
+		<mvc:interceptor>
+		    <mvc:mapping path="/navs/**"/>
+			<mvc:mapping path="/articles/**"/>
+		    <mvc:mapping path="/videos/**"/>
+            <mvc:mapping path="/onlineVideos/**"/>
+		    <mvc:mapping path="/uploadVideo/**"/>
+			<mvc:mapping path="/columns/**"/>
+		    <mvc:mapping path="/indexPage/**"/>
+			<mvc:mapping path="/xtIndexPage/**"/>
+			<mvc:mapping path="/users/**"/>
+			<mvc:mapping path="/newspapers/**"/>
+			<mvc:mapping path="/depts/**"/>
+			<mvc:mapping path="/roles/**"/>
+            <mvc:mapping path="/deleteRoles/**"/>
+			<mvc:mapping path="/privs/**"/>
+			<mvc:mapping path="/doctors/**"/>
+			<mvc:mapping path="/news/**"/>
+			<mvc:mapping path="/userRole/**"/>
+			
+			<mvc:exclude-mapping path="/articles/show/**"/>
+			<!--  <mvc:exclude-mapping path="/articles/**"/> -->
+			<bean class="com.xmheart.interceptor.TokenInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors> 
+	
+	<!-- 跨域配置 -->
+	<mvc:cors>
+    	<mvc:mapping path="/**" 
+    		allowed-methods="GET, PUT, POST, DELETE, OPTIONS"/>
+	</mvc:cors>
+	
+	<context:annotation-config />  
+ 
+    <!-- 开启这个配置，spring才能识别@Scheduled注解 -->
+    <task:annotation-driven scheduler="myScheduler"/>
+    <task:scheduler id="myScheduler" pool-size="10"/>
+</beans>

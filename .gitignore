@@ -1,0 +1,7 @@
+/.gradle/
+/build/
+/bin/
+.class
+.vscode-upload.json
+.DS_Store
+.setting/

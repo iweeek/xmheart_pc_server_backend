@@ -1,0 +1,137 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<link rel="stylesheet" type="text/css" href="./css/business.min.css">
+<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="./css/sweetalert.css">
+<link rel="stylesheet" type="text/css" href="./css/jplayer.blue.monday.min.css">
+<link rel="stylesheet" type="text/css" href="./css/video-edit.css">
+
+</head>
+<body>
+    <!--   主题部分  -->
+    <div class="index-edit-container">
+        <div class="slide-edit-container">
+        		<div class="row">
+             	<h4 class="slide-title">视频上传<span>（上传视频规格式）</span></h4>
+             </div>
+             
+             <div class="title-input-wrapper" id="titleWrapper">
+                 <div class="article-title-wrapper">
+                     <span class="select-title required">视频标题：</span>
+                     <input type="text" class="article-title" id="videoTitle">
+                 </div>
+                 <div class="article-title-wrapper">
+                     <span class="select-title required">视频简介：</span>
+                     <input type="text" class="article-title" id="brief">
+                 </div>
+             </div>
+             <div class="row add-list-main">
+                	<div class="add-img-list ">
+              		<div class="add-image-button" id="addVideoBtn">
+         				 上传视频
+        				</div>
+        				<div class="add-video-url" id = "add-video-url">
+        					<div class="video-img-content">
+			             	<div id="jp_container_1" class="jp-video jp-video-360p" role="application" aria-label="media player">
+								<div class="jp-type-single">
+									<div id="jquery_jplayer_1" class="jp-jplayer"></div>
+									<div class="jp-gui">
+										<div class="jp-video-play">
+											<button class="jp-video-play-icon" role="button" tabindex="0">play</button>
+										</div>
+										<div class="jp-interface">
+											<div class="jp-progress">
+												<div class="jp-seek-bar">
+													<div class="jp-play-bar"></div>
+												</div>
+											</div>
+											<div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+											<div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+											<div class="jp-controls-holder">
+												<div class="jp-controls">
+													<button class="jp-play" role="button" tabindex="0">play</button>
+													<button class="jp-stop" role="button" tabindex="0">stop</button>
+												</div>
+												<div class="jp-volume-controls">
+													<button class="jp-mute" role="button" tabindex="0">mute</button>
+													<button class="jp-volume-max" role="button" tabindex="0">max volume</button>
+													<div class="jp-volume-bar">
+														<div class="jp-volume-bar-value"></div>
+													</div>
+												</div>
+												<div class="jp-toggles">
+													<button class="jp-repeat" role="button" tabindex="0">repeat</button>
+													<button class="jp-full-screen" role="button" tabindex="0">full screen</button>
+												</div>
+											</div>
+											<div class="jp-details">
+												<div class="jp-title" aria-label="title">&nbsp;</div>
+											</div>
+										</div>
+									</div>
+									<div class="jp-no-solution">
+										<span>Update Required</span>
+										To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+									</div>
+								</div>
+							</div>
+			             </div>
+        				</div>
+        				<div class="add-video-edit" id="add-video-edit">
+        					<img src="./img/manager/edit.png">
+        				</div>
+        				<form class="upload-form js-upload-form" enctype="multipart/form-data" method="post" action="/uploadVideo" >
+                  		<input type="file" name="video" class="add-video-file" />
+                  		<input type="submit" class="add-video-submit" />
+              		</form>
+                		<!-- <div class="add-img-link">
+                			<p>请输入跳转的链接地址</p>
+                			<input type="text">
+                		</div> -->
+                	</div>      	
+             </div>
+             <p></p>
+            <div class="row">
+                <h4 class="slide-title">请上传视频默认显示图片<span>（上传视频规格式）</span></h4>
+             </div>
+	        <div class="upload-wrapper" id="uploadWrapper">
+	            <div class="add-img-list">
+	                <div class="add-image-button" id="addImgBtn">
+	                     添加图片
+	                </div>
+	                <!-- 选择图片后显示的图片 -->
+	                <div class="add-image-url" id="add-image-url">
+	                    <img src="#" class="upload-img" id="upload-img">
+	                </div>
+	                <div class="add-image-edit" id="add-image-edit">
+	                    <img src="../img/manager/edit.png">
+	                </div>
+	                <form class="upload-form" id="uploadForm" enctype="multipart/form-data" method="post" action="/uploadImage" >
+	                        <input type="file" name="image" class="add-img-file" />
+	                        <input type="submit" class="add-img-submit" />
+	                    </form>
+	                </div>
+	        </div>
+             
+        		 <div class="row btn-group">
+        		 	<input type="button" class="search-button" id="publish" value="上传">
+        		 	<input type="button" class="search-button" id="update" value="更新">
+            		<input type="button" class="search-button" id="cancel" value="取消">
+        		 </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="./js/third_party/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/sweetalert-dev.js"></script>
+    <script type="text/javascript" src="./js/third_party/jquery.form.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/jquery.jplayer.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/jplayer.playlist.min.js"></script>
+	<script type="text/javascript" src="./js/http-intercept.js"></script>
+    <script type="text/javascript" src="./js/edit-video.js"></script>
+    <!-- <script type="text/javascript">XPW.videoEdit()</script> -->
+</body>
+</html>

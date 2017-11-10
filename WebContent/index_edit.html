@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<link rel="stylesheet" type="text/css" href="./css/business.min.css">
+<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="./css/sweetalert.css">
+<link rel="stylesheet" type="text/css" href="./css/select2.min.css">
+<link rel="stylesheet" type="text/css" href="./css/index-edit.css">
+</head>
+<body>
+    <!--   主题部分  -->
+    <div class="index-edit-container">
+        <div class="slide-edit-container">
+        		
+             <div class="row">
+             	<h4 class="slide-title">文字轮播编辑</h4>
+             </div>
+             <div class="row">
+             	<div class="add-font-list">
+             		<div class="add-font-link">
+                			<p>请输入标签</p>
+                			<input type="text" class="link-tag">
+                		</div>
+             		<div class="add-font-link">
+                			<p>请输入标题</p>
+                			<input type="text" class="link-title">
+                		</div>
+                		<div class="add-font-link">
+                			<p>请输入显示摘要（字数，40）</p>
+                			<div class="digest-wrapper" id="wordCount">
+							<textarea name="name" rows="8" cols="80"></textarea>
+							<span class="wordwrap"><var class="word">40</var>/40</span>
+						</div>
+                		</div>
+             		<div class="add-font-link">
+                			<p>请输入跳转的链接地址</p>
+                			<input type="text" class="input-link">
+                		</div>
+                		<p class="subtit">选择文章</p>
+                		<button id="search" class="btn btn-primary post-btn-edit1" style="margin-bottom: 5px;">搜索</button>
+             	</div>
+             	<div class="add-font-list">
+             		<div class="add-font-link">
+                			<p>请输入标签</p>
+                			<input type="text" class="link-tag">
+                		</div>
+             		<div class="add-font-link">
+                			<p>请输入标题</p>
+                			<input type="text" class="link-title">
+                		</div>
+                		<div class="add-font-link">
+                			<p>请输入显示摘要（字数，40）</p>
+                			<div class="digest-wrapper" id="wordCount">
+							<textarea name="name" rows="8" cols="80"></textarea>
+							<span class="wordwrap"><var class="word">40</var>/40</span>
+						</div>
+                		</div>
+             		<div class="add-font-link">
+                			<p>请输入跳转的链接地址</p>
+                			<input type="text" class="input-link">
+                		</div>
+                		<p class="subtit">选择文章</p>
+                    <button id="search" class="btn btn-primary post-btn-edit2" style="margin-bottom: 5px;">搜索</button>
+             	</div>
+             	<div class="add-font-list">
+             		<div class="add-font-link">
+                			<p>请输入标签</p>
+                			<input type="text" class="link-tag">
+                		</div>
+             		<div class="add-font-link">
+                			<p>请输入标题</p>
+                			<input type="text" class="link-title">
+                		</div>
+                		<div class="add-font-link">
+                			<p>请输入显示摘要（字数，40）</p>
+                			<div class="digest-wrapper" id="wordCount">
+							<textarea name="name" rows="8" cols="80"></textarea>
+							<span class="wordwrap"><var class="word">40</var>/40</span>
+						</div>
+                		</div>
+             		<div class="add-font-link">
+                			<p>请输入跳转的链接地址</p>
+                			<input type="text" class="input-link">
+                		</div>
+                		<p class="subtit">选择文章</p>
+                    <button id="search" class="btn btn-primary post-btn-edit3" style="margin-bottom: 5px;">搜索</button>
+             	</div>
+             </div>
+             
+             <div class="row">
+                <h4 class="slide-title">图片轮播编辑<span>（上传图片规格900px*450px）</span></h4>
+             </div>
+             <div class="row add-list-main">
+                    <div class="add-img-list ">
+                    <div class="add-image-button" id="addImgBtn">
+                         添加图片
+                        </div>
+                        <div class="add-image-url">
+                            <img src="#" class="upload-img">
+                        </div>
+                        <div class="add-image-edit">
+                            <img src="./img/manager/edit.png">
+                        </div>
+                        <form class="upload-form js-upload-form" enctype="multipart/form-data" method="post" action="/uploadImage" >
+                            <input type="file" name="image" class="add-img-file" />
+                            <input type="submit" class="add-img-submit" />
+                        </form>
+                        <div class="add-img-link">
+                            <p>请输入跳转的链接地址</p>
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="add-img-list">
+                    <div class="add-image-button" id="addImgBtn">
+                         添加图片
+                        </div>
+                        <div class="add-image-url">
+                            <img src="#" class="upload-img">
+                        </div>
+                        <div class="add-image-edit">
+                            <img src="./img/manager/edit.png">
+                        </div>
+                        <form class="upload-form js-upload-form" enctype="multipart/form-data" method="post" action="/uploadImage" >
+                        <input type="file" name="image" class="add-img-file" />
+                        <input type="submit" class="add-img-submit" />
+                    </form>
+                        <div class="add-img-link">
+                            <p>请输入跳转的链接地址</p>
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="add-img-list">
+                    <div class="add-image-button" id="addImgBtn">
+                         添加图片
+                        </div>
+                        <div class="add-image-url">
+                            <img src="#" class="upload-img">
+                        </div>
+                        <div class="add-image-edit">
+                            <img src="./img/manager/edit.png">
+                        </div>
+                        <form class="upload-form js-upload-form" enctype="multipart/form-data" method="post" action="/uploadImage" >
+                        <input type="file" name="image" class="add-img-file" />
+                        <input type="submit" class="add-img-submit" />
+                    </form>
+                        <div class="add-img-link">
+                            <p>请输入跳转的链接地址</p>
+                            <input type="text">
+                        </div>
+                    </div>
+             </div>
+             
+             <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="postModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">搜索文章标题</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-horizontal">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">文章搜索</label>
+                    <div class="col-sm-10">
+                      <select class="form-control" id="postSelect">
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="bindIndexTitle">确定</button>
+              </div>
+            </div>
+          </div>
+        </div>
+             
+        		 <div class="row btn-group">
+        		 	<input type="button" class="search-button" id="submit" value="确定">
+            		<!-- <input type="button" class="search-button" id="cancel" value="取消"> -->
+        		 </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="./js/third_party/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/mustache.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/sweetalert-dev.js"></script>
+    <script type="text/javascript" src="./js/third_party/jquery.form.min.js"></script>
+	<script type="text/javascript" src="./js/third_party/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/third_party/select2.min.js"></script>
+	<script type="text/javascript" src="./js/http-intercept.js"></script>
+    <script type="text/javascript" src="./js/edit-index.js"></script>
+    <!-- <script type="text/javascript">XPW.IndexEdit()</script> -->
+</body>
+</html>

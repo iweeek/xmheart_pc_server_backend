@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/editor.css">
+	<link rel="stylesheet" type="text/css" href="../css/sweetalert.css">
+	<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../ueditor/editor_api.js">
+
+	</script>
+	<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+	<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+	<script type="text/javascript" charset="utf-8" src="../ueditor/zh-cn.js"></script>
+	<!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="../js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+	<div class="editor-container">
+		<ol class="breadcrumb">
+			<li><a href="#"></a>栏目管理</li>
+			<li><a href="../office.html">科室列表</a></li>
+			<li class="active">编辑科室</li>
+		</ol>
+		<p class="subtit">栏目名称</p>
+		<div class="wrapper category-edit">科室信息</div>
+		<p class="subtit">科室名字</p>
+		<div class="input-wrapper">
+			<input type="text" class="article-title" id="officeName" value="">
+		</div>
+		<p class="subtit">科室头像</p>
+		<div class="upload-wrapper" id="uploadWrapper">
+			<div class="add-img-list">
+				<div class="add-image-button" id="addImgBtn">
+	   				 添加图片
+	  			</div>
+	  			<div class="add-image-url">
+	  				<img src="#" class="upload-img">
+	  			</div>
+	  			<div class="add-image-edit">
+	  				<img src="../img/manager/edit.png">
+	  			</div>
+	  			<form class="upload-form" id="uploadForm" enctype="multipart/form-data" method="post" action="/uploadImage" >
+	        			<input type="file" name="image" class="add-img-file" />
+	        			<input type="submit" class="add-img-submit" />
+	        		</form>
+        		</div>
+		</div>
+		<p class="subtit">是否出诊</p>
+		<div class="input-wrapper">
+			<input type="radio" name="outservice" class="outservice" value="true"> 是
+			<input type="radio" name="outservice" class="outservice" value="false"> 否
+		</div>
+		<p class="subtit">科室简介</p>
+		<textarea id="container" name="container" style="width: 1024px; height: 300px; margin: 0 auto;"></textarea>
+		<div class="btn-group">
+			<input id="save" type="button" name="" value="保存">
+			<input id="cancel" type="button" name="" value="取消">
+			<!-- <input id="reset" type="reset" name="" value="舍弃"> -->
+		</div>
+	</div>
+	<script type="text/javascript" src="../ueditor/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/third_party/mustache.min.js"></script>
+	<script type="text/javascript" src="../js/third_party/jquery.form.min.js"></script>
+	<script type="text/javascript" src="../js/third_party/sweetalert-dev.js"></script>
+	<script type="text/javascript" src="../js/http-intercept.js"></script>  
+	<script type="text/javascript" src="../js/office-ueditor.js"></script>
+	<!-- <script type="text/javascript">
+		XPW.OfficeUeditor()
+	</script> -->
+</body>
+</html>

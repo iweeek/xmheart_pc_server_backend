@@ -1,0 +1,33 @@
+<!doctype html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <title>厦门大学附属心血管病医院（厦门市心脏中心）</title>
+</head>
+
+<body>
+    <p>乘车路线</p>
+    <p>怎么走：乘坐958，43，99，10，45，23，27，30，136，941，856，20，123，122，118，656，309，758至中山医院站。</p>
+    <p>预约电话：0592－96166/0592－2292999</p>
+    <p>地址：厦门市湖滨南路205号振河大楼</p>
+    <div id="container" tabindex="0" style="width:500px; height:500px"></div>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.0&key=ea6d8c05aa31d0d6d46c928538c802d7"></script>
+    <script type="text/javascript">
+        var map = new AMap.Map('container', {
+            resizeEnable: true,
+            zoom: 13,
+            center: [118.097608, 24.471069]
+        });
+
+        var marker = new AMap.Marker({
+            position: [118.097608, 24.471069], //marker所在的位置
+            map: map //创建时直接赋予map属性
+        });
+        //也可以在创建完成后通过setMap方法执行地图对象
+        marker.setMap(map);
+    </script>
+</body>
+
+</html>

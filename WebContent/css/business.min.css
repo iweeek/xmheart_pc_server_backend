@@ -1,0 +1,1779 @@
+
+
+/* --------------------------------------------------------------全局样式 ---------------------------------------   */
+
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.clearfix{*zoom:1;}
+
+
+/* ----------------Reset Css--------------------- */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video  {
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: 0;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+table,thead,tbody,tr,th,td {
+	text-align: center;
+}
+
+thead {
+	background-color: rgb(249,249,249);
+}
+
+caption {
+	font-size: 20px;
+	margin: 10px auto;
+}
+
+
+span,input {
+	font-size: 14px;
+}
+
+
+html, body, form, fieldset, p, div, h1, h2, h3, h4, h5, h6 {
+	-webkit-text-size-adjust: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body{font-family:"hiragino sans gb","microsoft yahei";color:#686868;}
+
+ol, ul {
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none;
+}
+
+ins {
+	text-decoration: none;
+}
+
+del {
+	text-decoration: line-through;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+input:focus {
+	border: 2px solid #00bdef;
+
+}
+
+input {
+	padding-left: 5px;
+}
+
+
+
+
+
+
+
+/* ----------------------------------------------- select的样式*/
+.selectStyle {
+	font-size: 30px;
+}
+
+
+.imgStyle {
+	border:3px solid white;
+	-webkit-box-shadow: 1px 1px 2px rgb(127,194,237), -1px -1px 2px rgb(127,194,237);
+	-moz-box-shadow: 1px 1px 2px rgb(127,194,237), -1px -1px 2px rgb(127,194,237);
+	box-shadow: 1px 1px 2px rgb(127,194,237), -1px -1px 2px rgb(127,194,237);
+
+}
+
+/*
+**
+**         --------------------------    登录模块 ------------------------------------------------------------- 
+**
+*/
+
+/*----------------------------------------------------------------头部
+*/
+.login-head {
+	width: 100%;
+	height: 88px;
+	background-color: white;
+}
+
+.login-logo {
+	position: relative;
+	top: 22px;
+	left: 40px;
+	width: 149px;
+	height: 44px;
+	background-image: url("../image/logo.png");
+	background-size: 100% 100%;
+	cursor: pointer;
+}
+
+
+
+
+
+/*----------------------------------------------------------------登录部分
+*/
+.login-bg {
+	position: relative;
+	width: 100%;
+	height: 600px;
+	background-image: url("../image/loginbg.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.login-title {
+	width: 100%;
+	height: 20px;
+	font-size: 18px;
+	font-weight: 700;
+	margin-top: 30px;
+
+}
+
+
+.login {
+	position: absolute;
+	width: 350px;
+	height: 360px;
+	background-color: rgb(255,251,230);
+	top: 120px;
+	right: 80px;
+}
+
+.login-container {
+	position: relative;
+	width: 310px;
+	height: 100%;
+	margin-left: 20px;
+}
+
+.login-user {
+	position: relative;
+	width: 100%;
+	height: 44px;
+	overflow: hidden;
+	margin-top: 20px;
+}
+
+.login-user-icon {
+	position: absolute;
+	width: 44px;
+	height: 44px;
+	background-color: rgb(221,221,221);
+	top: 0px;
+	left: 0px;
+	z-index: 2;
+	text-align: center;
+	line-height: 55px;
+
+}
+
+.login-forget {
+	position: relative;
+	margin-top: 33px;
+	font-size: 13px;
+	cursor: pointer;
+
+}
+
+.login-forget-pwd:hover {
+	color: red;
+}
+
+
+
+
+
+/*----------------------------------------------------------------底部
+*/
+
+.foot {
+	width: 100%;
+	height: 40px;
+	background-color: white;
+	text-align: center;
+	line-height: 40px;
+	font-size: 12px;;
+}
+
+
+
+/*
+**
+**         --------------------------    公用部分的样式 ------------------------------------------------------------- 
+**
+*/
+
+
+
+
+
+/*-------------------------------------------------------------------------------- 头部
+*/
+.business-nav {
+	width: 100%;
+	height: 38px;
+	background-color: rgb(246,246,246);
+
+}
+
+.business-head-detail {
+	width: 1200px;
+	height: 100%;
+	margin: 0 auto;
+}
+
+.business-head-name {
+	line-height: 38px;
+	font-size: 14px;
+	color: rgb(149,139,139);
+}
+
+.business-head-exit {
+	line-height: 38px;
+	font-size: 14px;
+	color: rgb(149,139,139);
+	cursor: pointer;
+}
+
+/*-------------------------------------------------------------------------------- logo
+*/
+
+.business-logo {
+	position: relative;
+	width: 1200px;
+	height: 66px;
+	margin: 0 auto;
+}
+
+.business-logo-item {
+	position: absolute;
+	width: 149px;
+	height: 44px;
+	background-image: url("../image/logo.png");
+	background-size: 100% 100%;
+	margin-top: 11px;
+}
+
+
+
+/*-------------------------------------------------------------------------------- 导航
+*/
+.business-main-nav {
+	width: 1200px;
+	height: 50px;
+	position: relative;
+	background-color: rgb(253,58,5);
+	margin: 0 auto;
+}
+
+.business-main-nav-ul {
+	position: relative;
+}
+
+
+.business-main-nav-ul > li {
+	position: relative;
+	list-style: none;
+	float: left;
+	text-align: center;
+	width: 90px;
+	height: 50px;
+	line-height: 50px;
+	font-size: 16px;
+	cursor: pointer;
+	color: white;
+}
+
+.arrow {
+	position: absolute;
+	top: 34px;
+	left: 37px;
+	width: 0;
+	height: 0;
+	border: 8px solid transparent;
+	border-bottom-color: white;
+	display: none;
+}
+
+.arrow-show {
+	display: block;
+}
+
+
+/*-------------------------------------------------------------------------------- 主题部分
+*/
+.business-container {
+	position: relative;
+	width: 1200px;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+/*---------------------   左边的导航  ----------------------*/
+.business-left {
+	position: relative;
+	float: left;
+	/* width: 190px; */
+	/* height: 730px; */ /*  动态控制左边的高度   */
+	-webkit-box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	-moz-box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+}
+
+
+.business-left:hover {
+	-webkit-box-shadow: 1px 1px 2px rgb(127,194,237), -1px -1px 2px rgb(127,194,237);
+	-moz-box-shadow: 1px 1px 2px rgb(127,194,237), -1px -1px 2px rgb(127,194,237);
+	box-shadow: 1px 1px 2px rgb(127,194,237), -1px -1px 2px rgb(127,194,237);
+}
+
+
+
+.business-left-item {
+	position: relative;
+	width: 170px;
+	margin-left: 10px;
+}
+
+.business-left-ul {
+	position: relative;
+	width: 100%;
+}
+
+.business-left-ul-li {
+	position: relative;
+	width: 100%;
+	list-style: none;
+	float: left;
+	border: 1px solid transparent;
+	border-bottom-color: rgb(213,213,213);
+
+}
+
+.business-left-title {
+	width: 100%;
+	height: 40px;
+	font-size: 14px;
+	font-weight: 800;
+	line-height: 40px;
+}
+
+.business-left-subul {
+	position: relative;
+	width: 100%;
+}
+.business-left-subul > li {
+	margin: 0;
+	padding: 0;
+	width: 84px;
+	height: 24px;
+	float: left;
+	list-style: none;
+	line-height: 24px;
+	font-size: 12px;
+	color: rgb(188,188,188);
+	cursor: pointer;
+}
+
+.business-left-subul > li:hover {
+	text-decoration: underline;
+}
+
+
+
+.business-right {
+	position: relative;
+	width: 1000px;
+	margin-left: 10px;
+	float: right;
+}
+
+/* --------------------------------------------------------------------    重要新闻  面包屑导航----------*/
+.business-tip {
+	width: 100%;
+	height: 42px;
+	font-size: 14px;
+	padding-left: 20px;
+	line-height: 42px;
+	border: 1px dashed rgb(213,213,213);
+}
+
+/*   重要事件的链接    */
+.business-tip-link {
+	color: rgb(109,147,217);
+	cursor: pointer;
+
+}
+.business-tip-link:hover {
+	text-decoration: underline;
+}
+.business-tip-split {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+/*-------------------------------------------------------------------------------- 底部
+*/
+.business-footer {
+	position: relative;
+	width: 100%;
+    margin-top: 50px;
+}
+
+.businessfoot {
+	position: relative;
+	width: 1200px;
+	height: 3px;
+	margin: 0 auto;
+	background-color:  rgb(0,133,215);
+
+}
+
+/**/
+
+/*  行间距  */
+.row-space {
+	margin-top: 10px;
+}
+
+
+/*
+**
+**         --------------------------    首页的样式 ------------------------------------------------------------- 
+**
+*/
+
+
+
+
+
+
+/*--------------------------------------------------------------- 店铺的动态评分模块
+*/
+.business-shop-container {
+	position: relative;
+	width: 100%;
+	height: 130px;
+	-webkit-box-shadow: -1px -1px 2px #e6e6e6, 1px 1px 2px #e6e6e6;
+	-moz-box-shadow: -1px -1px 2px #e6e6e6, 1px 1px 2px #e6e6e6;
+	box-shadow: -1px -1px 2px #e6e6e6, 1px 1px 2px #e6e6e6;
+	margin-top: 15px;
+}
+
+.business-shop-container:hover {
+	-webkit-box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+	-moz-box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+	box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+}
+
+.business-shop-left {
+	position: relative;
+	width: 540px;
+	height: 100%;
+	float: left;
+}
+
+
+.business-shop-img {
+	position: relative;
+	width: 130px;
+	height: 100%;
+	float: left;
+}
+
+.business-shop-detail {
+	position: relative;
+	width: 408px;
+	height: 100%;
+	float: left;
+	border: 1px solid transparent;
+	border-right-color: #e6e6e6;
+}
+
+.business-shop-detail-name {
+	display: block;
+	font-size: 18px;
+	margin-top: 5px;
+}
+
+.business-shop-detail-sub {
+	display: block;
+	font-size: 12px;
+	font-weight: normal;
+	margin-top: 10px;
+}
+
+
+.business-shop-right {
+	position: relative;
+	width: 460px;
+	height: 100%;
+	float: left;
+	padding-left: 20px;
+}
+
+.business-shop-right-title {
+	position: relative;
+	margin-top: 20px;
+	font-size: 14px;
+	font-weight: 800;
+}
+
+/*           动态数据     */
+.business-shop-ul {
+	position: relative;
+	margin-top: 10px;
+}
+
+.business-shop-ul > li {
+	position: relative;
+	float: left;
+	width: 80px;
+	list-style: none;
+}
+
+.business-rank {
+	margin-top: 5px;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+
+/*--------------------------------------------------------------- 代办事项模块
+*/
+.business-todo {
+	position: relative;
+	float: left;
+	width: 490px;
+	-moz-box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	-webkit-box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+}
+
+.business-todo:hover {
+	-webkit-box-shadow: 1px 1px 2px rgb(127,194,237), -1px -1px 2px rgb(127,194,237);
+	-moz-box-shadow: 1px 1px 2px rgb(127,194,237), -1px -1px 2px rgb(127,194,237);
+	box-shadow: 1px 1px 2px rgb(127,194,237), -1px -1px 2px rgb(127,194,237);
+}
+
+
+.business-todo-title {
+	position: relative;
+	width: 100%;
+	height: 44px;
+	background-color: rgb(236,237,239);
+	line-height: 44px;
+	padding-left: 15px;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+
+.business-todo-ul {
+	position: relative;
+	width: 100%;
+}
+
+.business-todo-ul-li {
+	list-style: none;
+	width: 100%;
+	float: left;
+	border: 1px solid transparent;
+	border-bottom-color: rgb(213,213,213);
+	padding-bottom: 10px;
+}
+
+.business-todo-ullastli {
+	border-bottom-color: transparent;
+	margin-bottom: 0;
+}
+
+.business-todo-itemhead {
+	font-weight: 800;
+	padding-top: 15px;
+	padding-left: 15px;
+}
+
+
+.business-todo-itemul {
+	position: relative;
+	width: 100%;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.business-todo-itemul > li {
+	list-style: none;
+	float: left;
+	width: 50%;
+	height: 30px;
+	line-height: 30px;
+	font-size: 12px;
+	color: rgb(170,170,170);
+}
+
+/*
+**
+**         --------------------------    已卖宝贝模块的样式 ------------------------------------------------------------- 
+**
+*/
+
+
+
+/* ------------------------------------------   搜索相关的  ------------------------------*/
+
+/*     头部搜索条件  */
+.search-condition {
+	position: relative;
+	float: left;
+	width: 100%;
+}
+
+.search-condition-ul {
+	position: relative;
+	width: 100%;
+	padding: 15px 20px;
+}
+
+.search-condition-ul > li {
+	list-style: none;
+	position: relative;
+	width: 100%;
+	float: left;
+	height: 40px;
+	font-weight: normal;
+}
+
+.search-btn {
+	width: 100%;
+	position: relative;
+	float: left;
+	margin: 10px auto;
+	padding-left: 90px;
+}
+
+.searchbtn {
+	width: 86px;
+	height: 26px;
+	background-color: rgb(255,29,0);
+	color: white;
+	line-height: 26px;
+	border-radius: 5px;
+	text-align: center;
+	cursor: pointer;
+}
+
+
+/*  底部按钮*/
+.business-order-searchShow {
+	position: relative;
+	height: 40px;
+	width: 100%;
+	line-height: 40px;
+	text-align: center;
+	color: rgb(189,189,189);
+	float: left;
+
+	border: 1px solid transparent;
+	border-bottom-color: rgb(246,246,246);
+}
+
+.searchShow {
+	cursor: pointer;
+}
+
+
+ 
+/*---------------------------------------     头部各种状态    -------------------------------------------------*/
+.search-different {
+	position: relative;
+	width: 100%;
+	float: left;
+	margin-top: 20px;
+}
+
+.search-different-ul {
+	position: relative;
+	width: 100%;
+}
+
+.search-different-ul > li {
+	position: relative;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	float: left;
+	list-style: none;
+	padding-left: 25px;
+	padding-right: 25px;
+	color: black;
+	border: 1px solid transparent;
+	border-right-color: #e6e6e6;
+	cursor: pointer;
+}
+
+.search-different-ul > li:hover {
+	color: rgb(255,104,31);
+}
+
+
+.search-different-color {
+	position: relative;
+	float: left;
+	width: 100%;
+	height: 2px;
+	margin-top: 15px;
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+
+/*      变化的颜色  255,104,31
+*/
+
+
+.search-color-item0 {
+	position: relative;
+	float: left;
+	width: 105px;
+	height: 2px;
+	background-color: rgb(255,104,31);
+}
+
+.search-color-item1 {
+	position: relative;
+	float: left;
+	width: 95px;
+	height: 2px;
+	background-color: rgb(232,232,232);
+}
+
+.search-color-item2 {
+	position: relative;
+	float: left;
+	width: 95px;
+	height: 2px;
+	background-color: rgb(232,232,232);
+}
+
+.search-color-item3 {
+	position: relative;
+	float: left;
+	width: 90px;
+	height: 2px;
+	background-color: rgb(232,232,232);
+}
+
+.search-color-item4 {
+	position: relative;
+	float: left;
+	width: 95px;
+	height: 2px;
+	background-color: rgb(232,232,232);
+}
+
+.search-color-item5 {
+	position: relative;
+	float: left;
+	width: 125px;
+	height: 2px;
+	background-color: rgb(232,232,232);
+}
+
+.search-color-item6 {
+	position: relative;
+	float: left;
+	width: 105px;
+	height: 2px;
+	background-color: rgb(232,232,232);
+}
+
+.search-color-item7 {
+	position: relative;
+	float: left;
+	width: 393px;
+	height: 2px;
+	background-color: rgb(232,232,232);
+}
+
+
+
+
+
+/* ---------------------------------------------------------------------------- 动态数据部分*/
+.search-items {
+	width: 100%;
+	position: relative;
+	float: left;
+}
+
+.search-items-head {
+	position: relative;
+	width: 100%;
+	height: 36px;
+	background-color: rgb(249,249,249);
+	float: left;
+	margin-top: 20px;
+	border: 1px solid #e6e6e6;
+}
+
+.search-items-headul {
+	position: relative;
+	float: left;
+	width: 100%;
+}
+.search-items-headul > li {
+	list-style: none;
+	position: relative;
+	float: left;
+	height: 34px;
+	line-height: 34px;
+	text-align: center;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+/*    订单的数据  */
+.search-items-data {
+	position: relative;
+	width: 100%;
+	height: 320px;
+	float: left;
+
+}
+.search-items-data > li {
+	position: relative;
+	float: left;
+	list-style: none;
+	width: 100%;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	font-size: 14px;
+	font-weight: normal;
+
+	border: 1px solid rgb(246,246,246);
+	border-top-color: transparent;
+}
+
+
+/*   上下翻页的按钮   */
+.search-items-btn {
+	position: relative;
+	width: 100%;
+	height: 40px;
+	float: left;
+	margin-top: 20px;
+}
+
+.page {
+	position: relative;
+	width: 64px;
+	height: 24px;
+	float: left;
+	border: 1px solid rgb(200,200,200);
+	border-radius: 5px;
+	line-height: 24px;
+	text-align: center;
+	font-size: 13px;
+	cursor: pointer;
+}
+
+.page:hover {
+	border-color: red;
+}
+
+
+/*
+**
+**         --------------------------    用户数据模块的样式 ------------------------------------------------------------- 
+**
+*/
+.userdata-chart {
+	position: relative;
+	float: left;
+	width: 100%;
+	height: 500px;
+	margin-top: 30px;
+	
+	-moz-box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	-webkit-box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+
+	padding: 10px 10px;
+
+}
+
+.userdata-chart:hover {
+	-webkit-box-shadow: 1px 1px 2px rgb(127,194,237), -1px -1px 2px rgb(127,194,237);
+	-moz-box-shadow: 1px 1px 2px rgb(127,194,237), -1px -1px 2px rgb(127,194,237);
+	box-shadow: 1px 1px 2px rgb(127,194,237), -1px -1px 2px rgb(127,194,237);
+}
+
+#userdatachart {
+	width: 980px;
+	height: 480px;
+
+}
+
+
+.userdataChooseCity {
+	position: relative;
+	float: left;
+	width: 250px;
+	margin-top: 20px;
+}
+
+.userdataChooseCitySub {
+	position: relative;
+	float: left;
+	width: 250px;
+	margin-top: 20px;
+}
+
+/*
+**
+**         --------------------------    单品数据模块的样式 -------------------------------------------------------------
+**
+*/
+
+.gooddata-chart {
+	position: relative;
+	float: left;
+	width: 100%;
+	height: 500px;
+	margin-top: 30px;
+
+	-moz-box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	-webkit-box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+
+	padding: 10px 10px;
+}
+
+.gooddata-chart:hover {
+	-webkit-box-shadow: 1px 1px 2px rgb(127,194,237), -1px -1px 2px rgb(127,194,237);
+	-moz-box-shadow: 1px 1px 2px rgb(127,194,237), -1px -1px 2px rgb(127,194,237);
+	box-shadow: 1px 1px 2px rgb(127,194,237), -1px -1px 2px rgb(127,194,237);
+}
+
+
+.goodDataChoose {
+	position: relative;
+	float: left;
+	width: 200px;
+	margin: 10px auto;
+}
+
+
+.goodDataChooseTime {
+	position: relative;
+	float: left;
+	width: 100%;
+	margin: 10px auto;
+}
+
+.queryGoodData {
+	position: relative;
+	float: left;
+	width: 100%;
+}
+
+
+/*------------------------------------------  商户的基本信息   ---------------------------------------------*/
+.shopinfo-container {
+	position: relative;
+	width: 100%;
+	margin-top: 20px;
+	-webkit-box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	-moz-box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	padding-left: 20px;
+	padding-right: 20px;
+    padding-bottom: 20px;
+}
+.shopinfo-container:hover {
+	-webkit-box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+	-moz-box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+	box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+}
+
+.shopinfo-logoitem {
+	position: relative;
+	width: 102px;
+	height: 102px;
+	margin-left: 2px;
+	float: left;
+	border: 1px solid #e6e6e6;
+}
+
+.shopinfo-logobtn {
+	position: relative;
+	float: left;
+	width: 100%;
+	padding-left: 90px;
+	padding-top: 10px;
+}
+
+.shopinfo-pwd {
+	position: relative;
+	width: 100%;
+	float: left;
+	margin-top: 10px;
+}
+
+.shopinfo-tip {
+	position: relative;
+	width: 600px;
+	padding: 5px;
+	color: red;
+	border: 1px dashed #00bdef;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.shopinfo-title {
+	position: relative;
+	float: left;
+	width: 800px;
+	margin-bottom: 10px;
+}
+
+/*------------------------------------------  上架商品   ---------------------------------------------*/
+.goodonsale-container {
+	position: relative;
+	width: 100%;
+	float: left;
+	padding-left: 20px;
+	-moz-box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	-webkit-box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	margin-top: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+    padding-right: 20px;
+}
+
+.goodonsale-container:hover {
+	-webkit-box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+	-moz-box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+	box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+}
+
+.good-kindtitle {
+	position: relative;
+	float: left;
+	padding: 10px 10px;
+	color:white;
+	background-color: #00b7ee;
+}
+
+.saleset {
+	position: relative;
+	float: left;
+	width: 100%;
+	margin-top: 10px;
+
+}
+
+.saleset-item {
+	position: relative;
+	float: left;
+	width: 90%;
+	background-color: #e6e8ea;
+	padding:20px 20px;
+}
+
+.goodTitle {
+    font-size: 16px;
+    font-weight: 900;
+    text-indent: 2em;
+    margin-bottom: 0;
+}
+
+.goodLine {
+    position: relative;
+    width: 95%;
+    height: 2px;
+    background-color: rgb(213,213,213);
+    margin: 20px auto;
+}
+
+
+/*----------------------------------------------------------------------------- 正在出售中的商品  */
+.goodsale-container {
+	position: relative;
+	width: 100%;
+	float: left;
+	padding-left: 20px;
+	padding-right: 20px;
+	-moz-box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	-webkit-box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	margin-top: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+
+.goodsale-container:hover {
+	-webkit-box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+	-moz-box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+	box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+}
+
+.goodsale-title {
+	position: relative;
+	float: left;
+	width: 100%;
+	font-size: 20px;
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.goodsale-ul {
+	position: relative;
+	float: left;
+	width: 958px;
+	height: 38px;
+	border: 1px solid #e6e6e6;
+	background-color: rgb(249,249,249);
+}
+
+.goodsale-ul > li {
+	position: relative;
+	float: left;
+	line-height: 38px;
+	font-size: 14px;
+	text-align: center;
+	width: 230px;
+}
+
+.goodsale-ul-item {
+	position: relative;
+	float: left;
+	width: 960px;
+	height: 225px;
+	margin-top: -15px;
+}
+
+.goodsale-ul-item > li {
+	position: relative;
+	width: 958px;
+	height: 43px;
+	border: 1px solid #e6e6e6;
+	border-top-color: transparent;
+	text-align: center;
+	line-height: 43px;
+
+}
+
+.goodsaledashlinecon {
+	position: relative;
+	float: left;
+	width: 100%;
+}
+
+
+
+.goodsaledashline {
+	position: relative;
+	width: 90%;
+	border: 1px dashed transparent;
+	border-bottom-color: #e6e6e6;
+	margin: 10px auto;
+}
+
+.ok {
+	color: green;
+}
+
+.error {
+	color: red;
+}
+
+
+/* -----------------------------------------------   更新商品信息  */
+.goodupdate-container {
+	position: relative;
+	width: 100%;
+	float: left;
+	padding-left: 20px;
+	padding-right: 20px;
+	-moz-box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	-webkit-box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	margin-top: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.goodupdate-container:hover {
+	-webkit-box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+	-moz-box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+	box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+}
+
+.goodupdate-ul-item {
+	position: relative;
+	float: left;
+	width: 960px;
+	height: 675px;
+	margin-top: -15px;
+}
+
+.goodupdate-ul-item > li {
+	position: relative;
+	width: 958px;
+	height: 43px;
+	border: 1px solid #e6e6e6;
+	border-top-color: transparent;
+	text-align: center;
+	line-height: 43px;
+
+}
+
+
+
+/* ----------------------------------------------------------商品库存  */
+.goodstore-ul-item {
+	position: relative;
+	float: left;
+	width: 960px;
+	height: 550px;
+	margin-top: -15px;
+}
+
+
+.goodstore-ul-item > li {
+	position: relative;
+	width: 958px;
+	height: 53px;
+	border: 1px solid #e6e6e6;
+	border-top-color: transparent;
+	text-align: center;
+
+}
+
+
+
+
+/* ----------------------------------------------------------- 发货模块 */
+.delivergood-container {
+	position: relative;
+	width: 100%;
+	float: left;
+	padding-left: 20px;
+	padding-right: 20px;
+	-moz-box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	-webkit-box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	margin-top: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.delivergood-container:hover {
+	-webkit-box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+	-moz-box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+	box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+}
+
+.delivergood-ul {
+	position: relative;
+	float: left;
+	width: 958px;
+	height: 38px;
+	border: 1px solid #e6e6e6;
+	background-color: rgb(249,249,249);
+}
+
+.delivergood-ul > li {
+	position: relative;
+	float: left;
+	width: 159px;
+	height: 100%;
+	line-height: 38px;
+	text-align: center;
+}
+
+
+.delivergood-ul-item {
+	position: relative;
+	float: left;
+	width: 960px;
+	height: 550px;
+	margin-top: -15px;
+}
+
+.delivergood-ul-item > li {
+	position: relative;
+	width: 958px;
+	height: 53px;
+	border: 1px solid #e6e6e6;
+	border-top-color: transparent;
+	text-align: center;
+}
+
+
+/* ----------------------------------------------------------- 发货模板模块 */
+
+.createdeliverytemplet {
+	position: relative;
+	float: left;
+	width: 100%;
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+
+.deliverytemplet-item {
+	position: relative;
+	width: 100%;
+	float: left;
+}
+
+
+
+.deliverytemplet-container {
+	position: relative;
+	width: 100%;
+	float: left;
+	padding-left: 20px;
+	padding-right: 20px;
+	-moz-box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	-webkit-box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	box-shadow: 1px 1px 2px #e6e6e6, -1px -1px 2px #e6e6e6;
+	margin-top: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+
+.deliverytemplet-container:hover {
+	-webkit-box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+	-moz-box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+	box-shadow: -1px -1px 2px rgb(127,194,237), 1px 1px 2px rgb(127,194,237);
+}
+
+.createdeliverytempletcon {
+	position: relative;
+	width: 100%;
+	float: left;
+	text-align: left;
+	border: 1px dashed #e6e6e6;
+	padding: 20px 40px;
+}
+
+.createdeliverytemplet-item {
+	position: relative;
+	width: 100%;
+	float: left;
+	margin: 10px auto;
+}
+
+.sendwaystyle {
+	position: relative;
+	float: left;
+	width: 100%;
+	margin: 5px auto;
+}
+
+.sendwayset {
+	position: relative;
+	float: left;
+	width: 100%;
+	padding: 10px;
+	border: 1px solid rgb(178,209,205);
+}
+
+.delivertempletline {
+	position: relative;
+	float: left;
+	width: 100%;
+	height: 1px;
+	background-color: rgb(246,246,246);
+}
+
+.delivertempletcondition {
+	position: relative;
+	float: left;
+	width: 100%;
+	margin-top: 20px;
+	
+}
+
+
+.delivertempletcondition-ul {
+	position: relative;
+	float: left;
+	width: 918px;
+	margin-top: 10px;
+	height: 40px;
+	font-size: 16px;
+	background-color: rgb(245,245,245);
+	border: 1px solid rgb(213,213,213);
+	display: none;
+
+}
+
+.delivertempletcondition-ul > li {
+	position: relative;
+	float: left;
+	width: 457px;
+	text-align: center;
+	line-height: 40px;
+
+}
+
+.deliverytempletCompletehead {
+	position: relative;
+	float: left;
+	width: 100%;
+	height: 40px;
+	background-color: rgb(232,242,255);
+	border: 1px solid rgb(213,213,213);
+}
+
+.deliverytempletCompletehead > span {
+	line-height: 40px;
+	margin-left: 20px;
+}
+
+.deliverytempletComplete-ul {
+	position: relative;
+	float: left;
+	width: 100%;
+	background-color: rgb(245,245,245);
+	border: 1px solid rgb(213,213,213);
+	border-top-color: transparent;
+
+}
+
+.deliverytempletComplete-ul > li {
+	position: relative;
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+	float: left;
+	border-left: 1px solid rgb(213,213,213);
+}
+
+.delivertempletComplete-item {
+	position: relative;
+	float: left;
+	width: 100%;
+	border-left: 1px solid rgb(213,213,213);
+	border-right: 1px solid rgb(213,213,213);
+	margin-top: -10px;
+}
+
+.delivertempletComplete-item > li {
+	width: 100%;
+	position: relative;
+	height: 60px;
+
+}
+
+.delivertempletComplete-div {
+	position: relative;
+	float: left;
+	height: 60px;
+	line-height: 60px;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	-o-text-overflow: ellipsis;
+	white-space: nowrap;
+	text-align: center;
+	border-left: 1px solid rgb(213,213,213);
+	border-bottom: 1px solid rgb(213,213,213);
+}
+
+.delivertempletComplete-divleft {
+	position: relative;
+	width: 80%;
+	float: left;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	-o-text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.delivertempletComplete-divright {
+	position: relative;
+	width: 20%;
+	float: right;
+}
+
+.sendwaysub {
+	position: relative;
+	width: 100%;
+	float: left;
+}
+
+
+
+
+/*表单的前边的label的样式*/
+.labelTitle {
+	line-height: 30px;
+	font-size: 16px;
+}
+
+.tipTitle {
+	line-height: 35px;
+	color: rgb(190,190,190);
+}
+
+
+/*表单左边的样式*/
+.inputlefttitle {
+	text-indent: 1em;
+	line-height: 35px;
+}
+
+
+.dangerTitle {
+	color: red;
+}
+
+.successTitle {
+	color: palegreen;
+}
+
+.blueTitle {
+	color: #00bdef;;
+}
+
+.readTitle {
+    color: green;
+}
+
+.tagStyle {
+	float: left;
+	height: 30px;
+	background: yellow;
+	margin:5px;
+	text-align: center;
+	padding: 20px;
+	line-height: 10px;
+}
+
+
+/*成功的头部返回信息*/
+.successHeadTitle {
+	position: relative;
+	width: 100%;
+	height: 50px;
+	background-color: rgb(239,250,230);
+	border: 1px solid rgb(173,226,183);
+	text-indent: 2em;
+	line-height: 50px;
+}
+
+
+
+/*------------------------------  发货成功的样式-----------------------------------*/
+.deliverSuccessItem {
+	position: relative;
+	width: 100%;
+    margin-top: 20px;
+	background-color: white;
+    border: 1px dashed rgb(213,213,213);
+    padding: 20px;
+}
+
+.deliverTitle {
+    font-size: 16px;
+    font-weight: 900;
+}
+.deliverSubTitle {
+    font-weight: 300;
+    text-indent: 4em;
+}
+.deliverSubitem {
+    margin-left: 1em;
+}
+.deliverLine {
+    position: relative;
+    width: 100%;
+    height: 1px;
+    background-color: rgb(207,225,239);
+    margin: 10px auto;
+}
+
+/*-----------------------------------------------------------------*/
+
+
+/*------------------------------   消息模块的样式  -----------------------------------*/
+.messageLine {
+    position: relative;
+    margin: 10px auto;
+    width: 50px;
+    height: 2px;
+    background-color: rgb(213,213,213);
+}
+
+.messagenav {
+    position: relative;
+    width: 90%;
+    height: 40px;
+    margin: 0 auto;
+    line-height: 40px;
+    border-bottom: 2px solid rgb(213,213,213);
+    color: rgb(213,213,213);
+}
+
+.messagenav > li {
+    position: relative;
+    width: 60px;
+    height: 40px;
+    float: left;
+    text-align: center;
+
+}
+
+.messageitem {
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.messageStyle > span {
+    margin-right: 50px;
+}
+
+.chooseNav {
+    color: black;
+}
+
+
+.brick {
+	width: 100px;
+	height: 200px;
+	background-color: red;
+}
+
+.tableSectionTitle {
+	font-size: 20px;
+	color: #006dcc;
+}
+
+.needDisplay {
+	background-color: #00bdef;
+}
+
+.commentItem {
+	position: relative;
+	width: 800px;
+	height: 120px;
+	padding-top: 5px;
+	margin-top: 20px;
+	border-bottom: 1px dashed rgb(213,213,213);
+}
+
+.commentItem .img {
+	position: relative;
+	width: 100px;
+	height: 100%;
+	float: left;
+	padding-left: 20px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.commentItem .content {
+	position: relative;
+	float: left;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 450px;
+	font-size: 14px;
+	text-indent: 2em;
+}
+
+.commentItem .rate {
+	position: relative;
+	float: right;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+
+}
+
+.commentItem .rate > div {
+	height: 35px;
+}
+
+
+.commentItem .rate .serviceRating  > div{
+	float: left;
+	width: 25px;
+	margin-left: 5px;
+}
+
+.commentItem .rate .serviceRating  > div:nth-child(1) {
+	width: 80px;
+	height: 22px;
+	line-height: 24px;
+}
+
+.commentItem .rate .speedRating  > div{
+	float: left;
+	width: 25px;
+	margin-left: 5px;
+}
+
+.commentItem .rate .speedRating  > div:nth-child(1) {
+	width: 80px;
+	height: 22px;
+	line-height: 24px;
+}
+
+.commentItem .rate .goodsRating  > div{
+	float: left;
+	width: 25px;
+	margin-left: 5px;
+}
+
+.commentItem .rate .goodsRating  > div:nth-child(1) {
+	width: 80px;
+	height: 22px;
+	line-height: 24px;
+}
+
+
+.deliveryButton {
+	margin: 10px 40px;
+	width: 100px;
+}
+
+
+
+/*-----------------------------------------------------------------*/

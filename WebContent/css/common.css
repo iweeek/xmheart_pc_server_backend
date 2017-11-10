@@ -1,0 +1,7 @@
+/*common*/
+.mr-0 {
+	margin-right: 0;
+}
+input:focus {
+	outline: none;
+}

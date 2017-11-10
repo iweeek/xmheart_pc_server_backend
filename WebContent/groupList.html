@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <link rel="stylesheet" type="text/css" href="./css/business.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/angular-growl.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/article-list.css">
+</head>
+
+<body>
+    <div class="page-article-list">
+        <ol class="breadcrumb">
+            <li><a href="#"></a>栏目管理</li>
+            <li class="active">一级栏目管理</li>
+        </ol>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="text-align: center;">栏目名称</th>
+                    <th style="text-align: center;">操作</th>
+                </tr>
+            </thead>
+            <tbody id="J_groups"></tbody>
+        </table>
+        <div class="ui-loading">
+            <img src="./img/progress_circle.gif" alt="loading">
+        </div>
+    </div>
+    <script id="J_groups_tmpl" type="x-tmpl-mustache">
+        {{#result}}
+        <tr>
+            <td>{{columnName}}</td>
+            <td>
+                <button class='btn btn-default edit-btn' data-id={{id}} data-name={{columnName}}>编辑</button>
+            </td>
+        </tr>
+        {{/result}}
+    </script>
+        
+    <script type="text/javascript" src="./js/third_party/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/sweetalert-dev.js"></script>
+    <script type="text/javascript" src="./js/third_party/mustache.min.js"></script>
+    <script type="text/javascript" src="./js/http-intercept.js"></script>  
+    <script type="text/javascript" src="./js/group-list.js"></script>
+</body>
+
+</html>

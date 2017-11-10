@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<link rel="stylesheet" type="text/css" href="./css/business.min.css">
+<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="./css/sweetalert.css">
+<link rel="stylesheet" type="text/css" href="./css/select2.min.css">
+<link rel="stylesheet" type="text/css" href="./css/article-list.css">
+</head>
+<body>
+    <div class="page-article-list">
+      <ol class="breadcrumb">
+          <li><a href="#"></a>栏目管理</li>
+          <li class="active">导航管理</li>
+      </ol>
+      <div class="row">
+          <div class="col-md-1" style="line-height: 34px;">一级栏目</div>
+          <div class="col-md-2">
+              <select class="form-control col-md-10" id="typeSelectInput">
+                  <option></option>
+              </select>
+          </div>
+          <div class="col-md-2">
+              <button class="btn btn-primary" id="columnSearch">搜索</button>
+          </div>
+      </div>
+      <table class="table table-bordered">
+          <thead>
+              <tr>
+                  <th style="text-align: center; width: 170px;">二级栏目</th>
+                  <th style="text-align: center; width: 170px;">文章标题</th>
+                  <th style="text-align: center; width: 170px;">配图</th>
+                  <th style="text-align: center; width: 150px;">发表时间</th>
+                  <th style="text-align: center; width: 80px;">操作</th>
+              </tr>
+          </thead>
+          <tbody id="secondTable"></tbody>
+      </table>
+    </div>
+    <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="postModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="exampleModalLabel">搜索文章标题</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-horizontal">
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">栏目名称</label>
+			    <div class="col-sm-10">
+			      <input type="email" class="form-control" disabled="disabled" id="secondColumnId" placeholder="院报">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">文章搜索</label>
+			    <div class="col-sm-10">
+			      <select class="form-control" id="postSelect">
+			      </select>
+			    </div>
+			  </div>
+			</div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" id="bindNavTitle">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script id="firstColumnTemplate" type="x-tmpl-mustache">
+      {{#data}}
+        <option value="{{id}}">{{columnName}}</option>
+      {{/data}}
+    </script>
+    <script id="secondColumnTd" type="x-tmpl-mustache">
+      {{#data}}
+        <tr>
+        	  <td style="vertical-align: middle;">{{childColumnName}}</td>
+          <td style="vertical-align: middle;">{{articleTitle}}</td>
+          <td style="vertical-align: middle; width: 100px;"><img src={{imgUrl}} height = "150px" width="150px"/></td>
+          <td style="vertical-align: middle; width: 100px;">{{publishTime}}</td>
+          <td style="vertical-align: middle;">
+            <!-- 影像厦心和电子院报不允许编辑 -->
+            {{#isDisplayed}}
+            <button class="btn btn-default post-btn-edit" data-nav-id={{id}} data-column-id={{columnId}}
+            data-column-name={{childColumnName}} style="margin-bottom: 5px;" data-title={{articleTitle}}>编辑</button>
+            {{/isDisplayed}} 
+          </td>
+        </tr>
+      {{/data}}
+    </script>
+    <script type="text/javascript" src="./js/third_party/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/mustache.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/sweetalert-dev.js"></script>
+    <script type="text/javascript" src="./js/third_party/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/select2.min.js"></script>
+    <script type="text/javascript" src="./js/i18n/select2.zh-CN.js"></script>
+    <script type="text/javascript" src="./js/http-intercept.js"></script>
+    <script type="text/javascript" src="./js/nav-list.js"></script>
+    <!-- <script type="text/javascript">XPW.NavEdit()</script> -->
+</body>
+</html>
