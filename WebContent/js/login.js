@@ -36,13 +36,19 @@ $(function () {
 
             $.post('/tokens', params)
             .success(function(res) {
-                document.cookie = "user_id=" + res.obj1.id;
-                document.cookie = "user_type=" + res.obj1.userType;
-                document.cookie = "xmheart_token=" + res.obj2;
-                var url = 'http://' + window.location.host + '/index.html'
-                window.location.replace(url);
+                if (!res) {
+                    swal('验证码错误~'); 
+                } else {
+                    document.cookie = "user_id=" + res.obj1.id;
+                    document.cookie = "user_type=" + res.obj1.userType;
+                    document.cookie = "xmheart_token=" + res.obj2;
+                    var url = 'http://' + window.location.host + '/index.html'
+                    window.location.replace(url);
+                }
             })
-            .error(function() { swal('账号或密码错误，登录失败~'); })
+            .error(function() {
+                swal('账号或密码错误，登录失败~'); 
+            })
 
         },
         
@@ -59,30 +65,15 @@ $(function () {
             $.post('/verifyCaptcha', params)
             .success(function(res) {
                 if (res) {
+                    $(this).attr('disabled', 'disabled');
                     $("#captchaChecked").show();
                 } else {
                     $("#captchaChecked").hide();
                 }
             })
-            
-//            ajaxRequest("/", {},  
-//                function callback(result) {  
-//                    if(result.code == "40001"){  
-//                        if(result.data==true){  
-//                            
-//                            captchaChecked = true;  
-//                        }else{  
-//                           
-//                            captchaChecked = false;  
-//                        }  
-//                    }else{  
-//                        alert(result.message);  
-//                    }  
-//                });  
-//                  
-                if(event.keyCode==13){  
-                    ctrl.login();
-                }  
+            if(event.keyCode==13){  
+                ctrl.login();
+            }  
         }, 
         refreshCaptcha: function () {  
             $('#captchaImg').attr('src', '/captcha?' + Math.random());  
