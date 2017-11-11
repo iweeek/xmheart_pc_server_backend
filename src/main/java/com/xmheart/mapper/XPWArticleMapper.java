@@ -2,6 +2,8 @@ package com.xmheart.mapper;
 
 import com.xmheart.model.XPWArticle;
 import com.xmheart.model.XPWArticleExample;
+import com.xmheart.model.XPWVideo;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -136,4 +138,9 @@ public interface XPWArticleMapper {
             "order by is_pinned desc, pin_order asc, publish_time desc"}) 
     @ResultMap("com.xmheart.mapper.XPWArticleMapper.BaseResultMap")
     List<XPWArticle> selectArticleByTitle(@Param("keywords") String keywords);
+    
+    
+    @Select("SELECT * FROM xpw_article where is_published = 1 and column_name = #{columnName} ORDER BY publish_time desc")
+    List<XPWArticle> selectLastestColumn(@Param("columnName") String columnName);
+    
 }

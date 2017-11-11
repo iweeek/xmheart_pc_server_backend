@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.xmheart.model.XPWArticle;
+import com.xmheart.model.XPWVideo;
 
 
 /**
@@ -24,6 +25,8 @@ public interface ArticleService {
     List<XPWArticle> index(Long columnId);
 
     List<XPWArticle> index(List<Long> columnIds);
+    
+    List<XPWArticle> indexLastestColumn(String column);
     
     XPWArticle read(Long id);
     

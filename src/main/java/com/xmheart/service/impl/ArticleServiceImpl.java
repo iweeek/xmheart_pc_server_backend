@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.xmheart.mapper.XPWArticleMapper;
 import com.xmheart.model.XPWArticle;
 import com.xmheart.model.XPWArticleExample;
+import com.xmheart.model.XPWVideo;
 import com.xmheart.service.ArticleService;
 
 @Service
@@ -156,5 +157,11 @@ public class ArticleServiceImpl implements ArticleService {
         } else {
             return 0;
         }
+    }
+
+    @Override
+    public List<XPWArticle> indexLastestColumn(String column) {
+        List<XPWArticle> list = articleMapper.selectLastestColumn(column);
+        return list;
     }
 }
