@@ -1,7 +1,9 @@
 package com.xmheart.service.impl;
 
+import java.awt.image.BufferedImage;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,6 +18,7 @@ import com.xmheart.mapper.XPWUserMapper;
 import com.xmheart.model.XPWUser;
 import com.xmheart.model.XPWUserExample;
 import com.xmheart.service.TokenService;
+import com.xmheart.util.CaptchaUtil;
 import com.xmheart.util.MessageDigestUtil;
 import com.xmheart.util.ResponseBody;
 
@@ -84,5 +87,4 @@ public class TokenServiceImpl implements TokenService {
         
         return 0;
     }
-	
 }

@@ -39,15 +39,63 @@ $(function () {
                 document.cookie = "user_id=" + res.obj1.id;
                 document.cookie = "user_type=" + res.obj1.userType;
                 document.cookie = "xmheart_token=" + res.obj2;
-                var url = 'http://' + window.location.host + '/manager.html'
+                var url = 'http://' + window.location.host + '/index.html'
                 window.location.replace(url);
             })
             .error(function() { swal('账号或密码错误，登录失败~'); })
 
+        },
+        
+        checkCaptchaInput: function (){  
+            var captchaText =$(this).val(); 
+            if(captchaText.length <=3 ){ //验证码一般大于三位  
+                $("#captchaChecked").hide();  
+                return;  
+            }  
+            var params = {
+                captcha : captchaText
+            }
+            
+            $.post('/verifyCaptcha', params)
+            .success(function(res) {
+                if (res) {
+                    $("#captchaChecked").show();
+                } else {
+                    $("#captchaChecked").hide();
+                }
+            })
+            
+//            ajaxRequest("/", {},  
+//                function callback(result) {  
+//                    if(result.code == "40001"){  
+//                        if(result.data==true){  
+//                            
+//                            captchaChecked = true;  
+//                        }else{  
+//                           
+//                            captchaChecked = false;  
+//                        }  
+//                    }else{  
+//                        alert(result.message);  
+//                    }  
+//                });  
+//                  
+                if(event.keyCode==13){  
+                    ctrl.login();
+                }  
+        }, 
+        refreshCaptcha: function () {  
+            $('#captchaImg').attr('src', '/captcha?' + Math.random());  
         }
     }
-
+    
     $('#login').on('click', function () {
         ctrl.login();
     });
+    
+    ctrl.refreshCaptcha();  
+      
+    $("#captcha").on("keyup", ctrl.checkCaptchaInput);  
+    $("#captchaImg").on("click", ctrl.refreshCaptcha);  
+    
 });

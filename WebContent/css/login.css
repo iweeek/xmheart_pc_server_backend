@@ -65,6 +65,7 @@
     width: 92%;
     text-align: center;
     margin-bottom: 5px;
+    margin-top: 20px;
 }
 .login-container .btn-primary {
     background: #20a0ff;
@@ -89,4 +90,18 @@
 }
 .modify-password-panel input{
     width: 70%;
+}
+.login-container input.captcha {
+    width: 77%;
+}
+.login-container .captcha_img {
+    margin-left: 10px;
+    height: 50px;
+    width: 370px;
+    background-color: #fff;
+    background-image: none;
+    border-radius: 4px;
+    border: 1px solid #bfcbd9;
+    padding: 1px;
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
 }

@@ -1,5 +1,7 @@
 package com.xmheart.service;
 
+import java.awt.image.BufferedImage;
+
 import com.xmheart.util.ResponseBody;
 
 /**
@@ -22,5 +24,4 @@ public interface TokenService {
 	@SuppressWarnings("rawtypes")
 	int create(String username, String password, String salt, int expiredHour, ResponseBody body);
 	
-
 }

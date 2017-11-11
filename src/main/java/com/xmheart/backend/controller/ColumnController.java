@@ -36,7 +36,6 @@ public class ColumnController {
         } else {
             list = ColumnService.getColumnsByParentId(parentColumnId);
         }
-        
         return ResponseEntity.status(HttpServletResponse.SC_OK).body(list);
     }
     

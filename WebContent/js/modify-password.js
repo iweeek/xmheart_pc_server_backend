@@ -28,7 +28,7 @@ $(function () {
             $.post('/users/' + getCookieValue('user_id'), params)
             .success(function(res) {
                 swal('密码修改成功~');
-                var url = 'http://' + window.location.host + '/manager.html'
+                var url = 'http://' + window.location.host + '/index.html'
                 window.location.replace(url);
             })
             .error(function(res) { 
