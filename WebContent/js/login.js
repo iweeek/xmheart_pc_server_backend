@@ -51,7 +51,7 @@ $(function () {
             })
 
         },
-        
+        /*
         checkCaptchaInput: function (){  
             var captchaText =$(this).val(); 
             if(captchaText.length <=3 ){ //验证码一般大于三位  
@@ -78,15 +78,16 @@ $(function () {
         refreshCaptcha: function () {  
             $('#captchaImg').attr('src', '/captcha?' + Math.random());  
         }
+        */
     }
     
     $('#login').on('click', function () {
         ctrl.login();
     });
-    
+    /*
     ctrl.refreshCaptcha();  
       
     $("#captcha").on("keyup", ctrl.checkCaptchaInput);  
     $("#captchaImg").on("click", ctrl.refreshCaptcha);  
-    
+    */
 });

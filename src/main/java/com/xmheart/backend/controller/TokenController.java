@@ -63,23 +63,24 @@ public class TokenController {
             @ApiParam("密码") @RequestParam String password, @ApiParam("盐值") @RequestParam String salt,
             @ApiParam("有效时间(单位:小时)，不填则默认为1") @RequestParam(required = false, defaultValue = "1") Integer expiredHour,
             HttpServletRequest request) {
-        XPWCaptcha captcha = new XPWCaptcha();
-        Boolean isPassed = captchaService.verifyCaptchaIsPassed(request, captcha);
-        if (isPassed) {
+//        XPWCaptcha captcha = new XPWCaptcha();
+//        Boolean isPassed = captchaService.verifyCaptchaIsPassed(request, captcha);
+//        if (isPassed) {
             ResponseBody body = new ResponseBody();
             int status = tokenService.create(username, password, salt, expiredHour, body);
             if (status == 0) {
                 // 删除本次的验证码
-                if (captcha != null) {
-                    captchaMapper.deleteByPrimaryKey(captcha.getId());
-                }
+//                if (captcha != null) {
+//                    captchaMapper.deleteByPrimaryKey(captcha.getId());
+//                }
                 return ResponseEntity.status(HttpServletResponse.SC_OK).body(body);
             } else {
-                return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(isPassed);
+//                return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(isPassed);
+                return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);
             }
-        } else {
-            return ResponseEntity.status(HttpServletResponse.SC_OK).body(isPassed);
-        }
+//        } else {
+//            return ResponseEntity.status(HttpServletResponse.SC_OK).body(isPassed);
+//        }
     }
 
     @SuppressWarnings("rawtypes")
