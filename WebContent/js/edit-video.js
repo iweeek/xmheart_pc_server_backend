@@ -155,8 +155,8 @@ exports.XPW.videoEdit = (function() {
 					confirmButtonColor : "#8cd4f5",
 					confirmButtonText : "确定",
 					closeOnConfirm : true
-					}).then(function () {
-					 
+					}, function () {
+					    location.href = '/video_list.html';
 					});
 			}).error(function() {
 				$this.removeAttr('disabled');

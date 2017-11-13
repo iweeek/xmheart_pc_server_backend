@@ -156,7 +156,7 @@ exports.XPW.OnlineVideoEdit = (function() {
                     confirmButtonText : "确定",
                     closeOnConfirm : true
                 }, function() {
-//                    location.reload(true);
+                    location.href = '/online_video_list.html';
                 });
 			}).error(function() {
 				$this.removeAttr('disabled');
