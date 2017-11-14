@@ -156,9 +156,10 @@ public class TeacherController {
             @ApiParam("职务，可选") @RequestParam(required = false) String duty,
             @ApiParam("职称，可选") @RequestParam(required = false) String professionalTitle,
             @ApiParam("介绍，可选") @RequestParam(required = false) String intro,
-            @ApiParam("医生头像，可选") @RequestParam(required = false) String imageUrl,
-            @ApiParam("是否可以展示，可选") @RequestParam(required = false) Boolean isDisplayed,
-            @ApiParam("医生的顺序，可选") @RequestParam(required = false) Integer docOrder) {
+            @ApiParam("医生头像，可选") @RequestParam(required = false) String imageUrl
+//            @ApiParam("是否可以展示，可选") @RequestParam(required = false) Boolean isDisplayed,
+//            @ApiParam("医生的顺序，可选") @RequestParam(required = false) Integer docOrder
+            ) {
         
         XPWTeacher doctor = new XPWTeacher();
         
@@ -202,24 +203,13 @@ public class TeacherController {
         }
         
         
-        if (isDisplayed != null) {
-            doctor.setIsDisplayed(isDisplayed);
-        } else {
-            doctor.setIsDisplayed(false);
-        }
-        
-        if (isDisplayed != null) {
-            doctor.setIsDisplayed(isDisplayed);
-            if (isDisplayed) {
-                docOrder = teacherTeamService.getMaxOrder();
-                doctor.setDocOrder((docOrder + 1));
-                
-            } else {
-                doctor.setDocOrder(0);
-            }
-        } else {
-            doctor.setIsDisplayed(false);
-        }
+//        if (isDisplayed != null) {
+            doctor.setIsDisplayed(true);
+//        } else {
+//            doctor.setIsDisplayed(false);
+//        }
+        int docOrder = teacherTeamService.getMaxOrder();
+        doctor.setDocOrder((docOrder + 1));
         
         int ret = teacherTeamService.createTeacher(doctor);
         if (ret > 0) {

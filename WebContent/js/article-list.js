@@ -91,7 +91,8 @@ $(function() {
                 var optionString = '';
                 for (var i in data) {
                     var jsonObj = data[i];
-                    if (jsonObj.columnName == "电子院报" || jsonObj.columnName == "影像厦心") {
+                    if (jsonObj.columnName == "电子院报" || jsonObj.columnName == "影像厦心" 
+                        || jsonObj.columnName == "导师团队") {
                     		continue;
                     }
                     	optionString += "<option value=\"" + jsonObj.id + "\" >" + jsonObj.columnName + "</option>";
