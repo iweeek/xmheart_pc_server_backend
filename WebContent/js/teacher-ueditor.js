@@ -23,6 +23,7 @@ exports.XPW.DoctorUeditor = (function() {
 	  $('#doctorName').val(data.name);
       $('#doctorProfessiona').val(data.professionalTitle);
       $('#doctorDuty').val(data.duty);
+      $('#doctorAppointmentAddress').val(data.appointmentUrl);
       $('#typeSelectInput').val(data.deptId);
       deptId = data.deptId;
       $('#grade').val(data.grade);
@@ -74,6 +75,7 @@ exports.XPW.DoctorUeditor = (function() {
 		  $this.attr('disabled','disabled');
 		  var name = $('#doctorName').val();
 		  var deptId = $('#typeSelectInput').val();
+		  var appointmentUrl = $('#doctorAppointmentAddress').val();
 		  var duty = $('#doctorDuty').val();
 		  var professionalTitle = $('#doctorProfessiona').val();
 		  var grade = $('#grade').val()
@@ -100,8 +102,8 @@ exports.XPW.DoctorUeditor = (function() {
 			  $this.removeAttr('disabled');
 			  return false;
 		  }
-		  var upateParms = {id: id, name: name, imageUrl:imageUrl, deptId: deptId, duty: duty, professionalTitle: professionalTitle, grade: grade, intro: intro, isDisplayed: isDisplayed};
-		  var newParms = {name: name, deptId: deptId, imageUrl:imageUrl, duty: duty, professionalTitle: professionalTitle, grade: grade, intro: intro, isDisplayed: isDisplayed};
+		  var upateParms = {id: id, name: name, imageUrl:imageUrl, deptId: deptId, duty: duty, professionalTitle: professionalTitle, grade: grade, intro: intro, isDisplayed: isDisplayed,  appointmentUrl: appointmentUrl};
+		  var newParms = {name: name, deptId: deptId, imageUrl:imageUrl, duty: duty, professionalTitle: professionalTitle, grade: grade, intro: intro, isDisplayed: isDisplayed,  appointmentUrl: appointmentUrl};
 		  var parms = id ? upateParms : newParms;
 		  $.ajax({
 		  	  	url: url,

@@ -103,7 +103,8 @@ public class TeacherController {
             @ApiParam("职务，可选") @RequestParam(required = false) String duty,
             @ApiParam("职称，可选") @RequestParam(required = false) String professionalTitle,
             @ApiParam("介绍，可选") @RequestParam(required = false) String intro,
-            @ApiParam("是否可以展示，可选") @RequestParam(required = false) Boolean isDisplayed) {
+            @ApiParam("是否可以展示，可选") @RequestParam(required = false) Boolean isDisplayed,
+            @ApiParam("预约地址，可选") @RequestParam(required = false) String appointmentUrl) {
         
         XPWTeacher teacher;
         teacher = teacherTeamService.getTeacherById(id);
@@ -141,6 +142,10 @@ public class TeacherController {
             teacher.setIsDisplayed(isDisplayed);
         }
         
+        if (appointmentUrl != null) {
+            teacher.setAppointmentUrl(appointmentUrl);
+        }
+        
         int ret = teacherTeamService.updateTeacher(teacher);
         if (ret == 0) {
             return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);
@@ -156,9 +161,10 @@ public class TeacherController {
             @ApiParam("职务，可选") @RequestParam(required = false) String duty,
             @ApiParam("职称，可选") @RequestParam(required = false) String professionalTitle,
             @ApiParam("介绍，可选") @RequestParam(required = false) String intro,
-            @ApiParam("医生头像，可选") @RequestParam(required = false) String imageUrl
+            @ApiParam("医生头像，可选") @RequestParam(required = false) String imageUrl,
 //            @ApiParam("是否可以展示，可选") @RequestParam(required = false) Boolean isDisplayed,
-//            @ApiParam("医生的顺序，可选") @RequestParam(required = false) Integer docOrder
+//            @ApiParam("医生的顺序，可选") @RequestParam(required = false) Integer docOrder,
+            @ApiParam("预约地址，可选") @RequestParam(required = false) String appointmentUrl
             ) {
         
         XPWTeacher doctor = new XPWTeacher();
@@ -208,6 +214,12 @@ public class TeacherController {
 //        } else {
 //            doctor.setIsDisplayed(false);
 //        }
+            
+        if (appointmentUrl != null) {
+            doctor.setAppointmentUrl(appointmentUrl);
+        } else {
+            doctor.setAppointmentUrl("");
+        }
         int docOrder = teacherTeamService.getMaxOrder();
         doctor.setDocOrder((docOrder + 1));
         
