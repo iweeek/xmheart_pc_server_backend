@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +22,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageHelper;
+import com.xmheart.mapper.XPWPrivMapper;
 import com.xmheart.model.XPWArticle;
 import com.xmheart.model.XPWColumn;
+import com.xmheart.model.XPWPriv;
+import com.xmheart.model.XPWPrivExample;
+import com.xmheart.model.XPWRole;
+import com.xmheart.model.XPWUser;
 import com.xmheart.service.ArticleService;
 import com.xmheart.service.ColumnService;
+import com.xmheart.service.RoleService;
 import com.xmheart.util.FileUtil;
 import com.xmheart.util.PathUtil;
 
@@ -41,26 +48,67 @@ public class ArticleController {
 	
     @Autowired
     private ColumnService columnService;
+    
+    @Autowired
+    RoleService roleService;
+    
+    @Autowired
+    XPWPrivMapper privMapper;
 	
 	@ApiOperation(value = "获取文章", notes = "获取文章")
 	@RequestMapping(value = { "/articles" }, method = RequestMethod.GET)
 	public ResponseEntity<?> index(@ApiParam("开始页号") @RequestParam(required = false, defaultValue = "1") Integer pageNo,
 			@ApiParam("每页的数目") @RequestParam(required = false, defaultValue = "10") Integer pageSize,
-			@ApiParam("栏目Id") @RequestParam(required = false) Long columnId) {
+			@ApiParam("栏目Id") @RequestParam(required = false) Long columnId, HttpSession httpSession) {
 		List<XPWArticle> list = null;
 		List<Long> allColumns = null;
+		List<XPWPriv> privs = null;
+		List<Long> filterColumns = new ArrayList();
+		List<Long> filterAllColumns = new ArrayList();
 		allColumns = getChildColumns(allColumns, columnId);
 		
-		PageHelper.startPage(pageNo, pageSize);
-
-		if (columnId == null) {
-			list = articleService.index();
-		} else {
-			list = (articleService.index(allColumns));
-		}
+		
+		XPWUser user = (XPWUser) httpSession.getAttribute("user");
+		XPWRole role = roleService.read(user.getRoleId());
+		String privIds = role.getPrivIds();
+        XPWPrivExample example = new XPWPrivExample();
+        if (privIds != null) {
+            String[] split = privIds.split(",");
+          
+            StringBuilder sb = new StringBuilder();
+            for (String item : split) {
+                long pId= Long.parseLong(item);
+                example.or().andIdEqualTo(pId);
+            }
+            privs = privMapper.selectByExample(example);
+            
+        }
+        
+        for (int i = 0; i< privs.size(); i++) {
+            getChildColumns(filterAllColumns, privs.get(i).getColumnId());
+        }
+        
+        if (columnId == null || columnId == 0) {
+            PageHelper.startPage(pageNo, pageSize);
+            list = articleService.index(filterAllColumns);
+        } else {
+            if (filterAllColumns.contains(columnId)) {
+                filterColumns = getChildColumns(filterColumns, columnId);
+                PageHelper.startPage(pageNo, pageSize);
+                list = (articleService.index(filterColumns));
+            } else {
+                return ResponseEntity.status(HttpServletResponse.SC_FORBIDDEN).body(null);
+            }
+        }
 		return ResponseEntity.ok(list);
 	}
 
+	/**
+	 * 得到所有的这一栏目下的子栏目ID，包括父栏目
+	 * @param list
+	 * @param columnId
+	 * @return
+	 */
 	public List<Long> getChildColumns(List<Long> list, Long columnId) {
 		if (list == null) {
 			list = new ArrayList<Long>();
@@ -318,6 +366,4 @@ public class ArticleController {
             return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);
         }
     }
-
-
 }

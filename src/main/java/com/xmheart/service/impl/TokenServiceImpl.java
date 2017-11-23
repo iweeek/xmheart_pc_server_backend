@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
@@ -53,7 +54,7 @@ public class TokenServiceImpl implements TokenService {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public int create(String username, String password, String salt, int expiredHour, ResponseBody body) {
+    public int create(String username, String password, String salt, int expiredHour, ResponseBody body, HttpSession httpSession) {
         XPWUser user;
         XPWUserExample example = new XPWUserExample();
         example.createCriteria().andUsernameEqualTo(username);
@@ -77,6 +78,7 @@ public class TokenServiceImpl implements TokenService {
 //            roles[i] = user.getRoles().get(i).getName();
 //        }
         user.setPassword("");
+        httpSession.setAttribute("user", user);
         body.obj1 = user;
         body.obj2 = Jwts.builder()
                 .setSubject(String.valueOf(userId))

@@ -12,6 +12,7 @@ $(function() {
 				pageNo : pageNo,
 				pageSize : pageSize
 			}, function(data) {
+			    console.log(data);
 				if (data.length < ctrl.pageSize) {
 					ctrl.noNextPage = true;
 				}

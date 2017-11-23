@@ -28,7 +28,28 @@ $(function () {
 //	        	alert("An error occured: " + xhr.status + " " + xhr.statusText);
 //	    	},
         beforeSend:function(xhr){
-        	xhr.setRequestHeader("Authorization", getCookieValue('xmheart_token'));  
+        	    xhr.setRequestHeader("Authorization", getCookieValue('xmheart_token'));  
+        },
+        error: function(jqXHR, textStatus, errorMsg){ // 出错时默认的处理函数
+            // jqXHR 是经过jQuery封装的XMLHttpRequest对象
+            // textStatus 可能为： null、"timeout"、"error"、"abort"或"parsererror"
+            // errorMsg 可能为： "Not Found"、"Internal Server Error"等
+
+            // 提示形如：发送AJAX请求到"/index.html"时出错[404]：Not Found
+//            console.log(textStatus); // error
+            if (jqXHR.status == 403) {
+                swal({
+                    title: "对不起，您没有该栏目的访问权限。",
+//                    text: "返回上一页？",
+                    type: "error",
+//                    showCancelButton: true,
+                    confirmButtonColor: "#8cd4f5",
+                    confirmButtonText: "确定",
+//                    cancelButtonText: "留在本页",
+                    closeOnConfirm: false
+                    })
+                }
+//            alert( '发送AJAX请求到"' + this.url + '"时出错[' + jqXHR.status + ']：' + errorMsg );        
         }
     });
 

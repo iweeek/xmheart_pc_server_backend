@@ -36,12 +36,18 @@
 	       <input id="cancel" type="button" name="cancel" value="取消">
 	   </div>
 	</div>	   
- 
+
 </body>
 <script id="roleCheckbox" type="x-tmpl-mustache">
 	{{#data}}
         <label class="checkbox-inline user-limit">
-			  <input type="checkbox"  value="{{id}}"> {{columnName}}
+            {{#person}}
+                <input type="checkbox" checked value="{{id}}"> {{name}}
+            {{/person}}
+            {{^person}}
+                <input type="checkbox"  value="{{id}}"> {{name}}
+            {{/person}} 
+			  
 		</label>
 	{{/data}}
 </script>

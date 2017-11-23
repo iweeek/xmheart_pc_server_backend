@@ -23,8 +23,9 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                	    <th style="text-align: center;">角色ID</th>
+                	    <!-- <th style="text-align: center;">角色ID</th> -->
                     <th style="text-align: center;">角色名字</th>
+                    <!-- <th style="text-align: center;">权限</th> -->
                     <th style="text-align: center;">操作</th>
                 </tr>
             </thead>
@@ -52,7 +53,6 @@
     <script id="J_articles_tmpl" type="x-tmpl-mustache">
         {{#result}}
         <tr>
-            <td>{{id}}</td>
             <td>{{name}}</td>
             <td>
                 <button class='btn btn-default edit-btn' data-id={{id}}>编辑</button>

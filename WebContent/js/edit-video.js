@@ -48,11 +48,14 @@ exports.XPW.videoEdit = (function() {
 				$(this).jPlayer("setMedia", {
 					title: "Big Buck Bunny",
 					m4v: videoSrc,
+					flv: videoSrc,
 					poster: imgUrl
 				});
 			},
 			swfPath: "./third_party/jquery.jplayer.swf",
-			supplied: "m4v",
+			supplied: "flv, m4v",
+			solution: 'html, flash',
+//			solution: "flash, html",
 			size: {
 				width: "640px",
 				height: "360px",

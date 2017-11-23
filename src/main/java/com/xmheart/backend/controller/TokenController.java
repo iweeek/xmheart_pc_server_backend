@@ -1,24 +1,31 @@
 package com.xmheart.backend.controller;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.xmheart.mapper.XPWCaptchaMapper;
 import com.xmheart.model.XPWCaptcha;
 import com.xmheart.service.CaptchaService;
 import com.xmheart.service.TokenService;
+import com.xmheart.util.FileUtil;
+import com.xmheart.util.PathUtil;
 import com.xmheart.util.ResponseBody;
 
 import io.swagger.annotations.Api;
@@ -62,25 +69,25 @@ public class TokenController {
     public ResponseEntity<?> create(@ApiParam("用户名") @RequestParam String username,
             @ApiParam("密码") @RequestParam String password, @ApiParam("盐值") @RequestParam String salt,
             @ApiParam("有效时间(单位:小时)，不填则默认为1") @RequestParam(required = false, defaultValue = "1") Integer expiredHour,
-            HttpServletRequest request) {
-//        XPWCaptcha captcha = new XPWCaptcha();
-//        Boolean isPassed = captchaService.verifyCaptchaIsPassed(request, captcha);
-//        if (isPassed) {
+            HttpServletRequest request, HttpSession httpSession) {
+        XPWCaptcha captcha = new XPWCaptcha();
+        Boolean isPassed = captchaService.verifyCaptchaIsPassed(request, captcha);
+        if (isPassed) {
             ResponseBody body = new ResponseBody();
-            int status = tokenService.create(username, password, salt, expiredHour, body);
+            int status = tokenService.create(username, password, salt, expiredHour, body, httpSession);
             if (status == 0) {
                 // 删除本次的验证码
-//                if (captcha != null) {
-//                    captchaMapper.deleteByPrimaryKey(captcha.getId());
-//                }
+                if (captcha != null) {
+                    captchaMapper.deleteByPrimaryKey(captcha.getId());
+                }
                 return ResponseEntity.status(HttpServletResponse.SC_OK).body(body);
             } else {
 //                return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(isPassed);
                 return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);
             }
-//        } else {
-//            return ResponseEntity.status(HttpServletResponse.SC_OK).body(isPassed);
-//        }
+        } else {
+            return ResponseEntity.status(HttpServletResponse.SC_OK).body(isPassed);
+        }
     }
 
     @SuppressWarnings("rawtypes")
@@ -104,6 +111,22 @@ public class TokenController {
         }
     }
 
+//    @RequestMapping(value = { "/captcha" }, method = RequestMethod.GET)
+//    public ResponseEntity<?> uploadCaptcha(HttpServletResponse response) {
+//        String captchaPath = "";
+//        String captchaUrl = "";
+//        try {
+//            BufferedImage image = captchaService.genCaptcha(response);
+//            captchaPath = FileUtil.saveCaptcha(PathUtil.CAPTCHA_STORAGE_PATH, image);
+//            captchaUrl = PathUtil.getInstance().ORIGIN + File.separator + PathUtil.CAPTCHA_FOLDER_PATH + captchaPath;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//        return ResponseEntity.status(HttpServletResponse.SC_CREATED).body(captchaUrl);
+//    }
+    
+    
     /**
      * 检查验证码是否正确
      * 

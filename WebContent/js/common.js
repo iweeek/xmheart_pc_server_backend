@@ -256,17 +256,19 @@ $(function(){
   }
 //  前台视频播放
   var videoUrl = $('#H2Title').data('src');
+  var imgUrl = $('#H2Title').data('img');
   if (videoUrl) {
 	  $("#jquery_jplayer_1").jPlayer({
 			ready: function () {
 				$(this).jPlayer("setMedia", {
 					title: "Big Buck Bunny",
 					m4v: videoUrl,
-					poster: "http://www.jplayer.org/video/poster/Big_Buck_Bunny_Trailer_480x270.png"
+                    flv: videoUrl,
+                    poster: imgUrl
 				});
 			},
 			swfPath: "./third_party/jquery.jplayer.swf",
-			supplied: "m4v",
+			supplied: "m4v, flv",
 			size: {
 				width: "100%",
 				height: "460px",

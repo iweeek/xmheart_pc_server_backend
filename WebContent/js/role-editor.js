@@ -59,6 +59,7 @@ exports.XPW.RoleUeditor = (function() {
 		  $('.user-limit input:checked').each(function(){
 			  privIds.push(parseInt($(this).val()));//向数组中添加元素
 		  });
+		  console.log(privIds);
 		  if (!name) {
 			  swal("名称不能为空");
 			  $this.removeAttr('disabled');
@@ -69,8 +70,8 @@ exports.XPW.RoleUeditor = (function() {
 			  $this.removeAttr('disabled');
 			  return false;
 		  }
-		  var upateParms = {id: id, name: name, privIds: privIds};
-		  var newParms = {name: name, privIds: privIds };
+		  var upateParms = {id: id, name: name, "privIds[]": privIds};
+		  var newParms = {name: name, "privIds[]": privIds };
 		  var parms = id ? upateParms : newParms;
 		  $.ajax({
 		  	  	url: url,
