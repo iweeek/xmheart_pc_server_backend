@@ -56,5 +56,13 @@ public class RoleServiceImpl implements RoleService{
         List<XPWPriv> list = privMapper.selectWithColumnNameByExample();
 		return list;
 	}
+	
+
+    @Override
+    public List<XPWPriv> indexPriv(Integer userId) {
+        
+        List<XPWPriv> list = privMapper.selectWithColumnNameByExample();
+        return list;
+    }
 
 }

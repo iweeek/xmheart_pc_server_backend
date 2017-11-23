@@ -41,13 +41,7 @@
 <script id="roleCheckbox" type="x-tmpl-mustache">
 	{{#data}}
         <label class="checkbox-inline user-limit">
-            {{#person}}
-                <input type="checkbox" checked value="{{id}}"> {{name}}
-            {{/person}}
-            {{^person}}
-                <input type="checkbox"  value="{{id}}"> {{name}}
-            {{/person}} 
-			  
+            <input type="checkbox"  value="{{id}}"> {{name}}
 		</label>
 	{{/data}}
 </script>

@@ -16,8 +16,10 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 import com.github.pagehelper.PageHelper;
+import com.xmheart.model.XPWPriv;
 import com.xmheart.model.XPWUser;
 import com.xmheart.model.XPWUserRole;
+import com.xmheart.service.RoleService;
 import com.xmheart.service.UserRoleService;
 import com.xmheart.service.UserService;
 import com.xmheart.util.ResponseBody;
@@ -45,6 +47,10 @@ public class UserController {
 
 	@Autowired
 	UserRoleService userRoleService;
+
+    @Autowired
+    RoleService roleService;
+    
 
 	@ApiOperation(value = "用户列表", notes = "用户列表")
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
@@ -131,5 +137,17 @@ public class UserController {
 			return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);
 		}
 	}
+	
+    @ApiOperation(value = "获取当前用户所有权限列表", notes = "获取当前用户所有权限列表")
+    @RequestMapping(value = { "/users/privs/{id}" }, method = RequestMethod.GET)
+    public ResponseEntity<?> indexPrivs() {
+        List<XPWPriv> list = roleService.indexPriv();
+
+        if (list != null) {
+            return ResponseEntity.ok(list);
+        } else {
+            return ResponseEntity.status(HttpServletResponse.SC_FORBIDDEN).body(null);
+        }
+    }
 
 }

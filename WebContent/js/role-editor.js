@@ -19,6 +19,7 @@ exports.XPW.RoleUeditor = (function() {
 	  $('#roleName').val(data.name);
   }
   
+  // 所有的权限
   RoleUeditor.getPrivs = function() {
 	  $.ajax({
 	  	  	url: '/privs',
@@ -28,11 +29,13 @@ exports.XPW.RoleUeditor = (function() {
 	     .done(function(data) {
 	    	 	var firstColumnTemplate = $('#roleCheckbox').html();
 	    	    Mustache.parse(firstColumnTemplate);   
+	    	    console.log(data);
 	    	    var rendered = Mustache.render(firstColumnTemplate, {data: data});
 	    	    $('#roleBoxWrapper').html(rendered);
 	     })
   }
   
+  // 当前角色
   RoleUeditor.getRoleInfo = function () {
     var id = RoleUeditor._getUrlParam('roleId');
     if (id) {
@@ -43,6 +46,11 @@ exports.XPW.RoleUeditor = (function() {
 	        data: {id: id}
 	      })
 	     .done(function(data) {
+	         var d = data.privIds.split(",");
+	         for (var i = 0; i < data.privIds.length; i++) {
+	             $('.checkbox-inline user-limit [value=]' + id).attr('checked', true)
+	         }
+	         console.log(data);
 	    	 	RoleUeditor.fillData(data);
 	     })
      }

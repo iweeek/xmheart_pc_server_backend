@@ -18,4 +18,6 @@ public interface RoleService {
     public List<XPWRole> index();
     
     public List<XPWPriv> indexPriv();
+
+    List<XPWPriv> indexPriv(Integer userId);
 }
