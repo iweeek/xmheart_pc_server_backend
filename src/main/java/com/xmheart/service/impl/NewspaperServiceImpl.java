@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.xmheart.mapper.XPWElecNewspaperMapper;
 import com.xmheart.model.XPWElecNewspaper;
+import com.xmheart.model.XPWElecNewspaperExample;
 import com.xmheart.service.NewspaperService;
 
 @Service
@@ -29,7 +30,9 @@ public class NewspaperServiceImpl implements NewspaperService {
 
     @Override
     public List<XPWElecNewspaper> index() {
-        List<XPWElecNewspaper> list = newspaperMapper.selectByExample(null);
+        XPWElecNewspaperExample example = new XPWElecNewspaperExample();
+        example.setOrderByClause("years desc, times desc");
+        List<XPWElecNewspaper> list = newspaperMapper.selectByExample(example);
         return list;
     }
     
