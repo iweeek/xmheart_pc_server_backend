@@ -6,7 +6,7 @@ exports.XPW.RoleUeditor = (function() {
   	RoleUeditor.getRoleInfo()
   	RoleUeditor.postRoleInfo()
 	RoleUeditor.cancel();
-  	RoleUeditor.getPrivs();
+  	
   }
 
   RoleUeditor._getUrlParam = function (name) {
@@ -19,6 +19,7 @@ exports.XPW.RoleUeditor = (function() {
 	  $('#roleName').val(data.name);
   }
   
+  RoleUeditor.role;
   // 所有的权限
   RoleUeditor.getPrivs = function() {
 	  $.ajax({
@@ -32,6 +33,18 @@ exports.XPW.RoleUeditor = (function() {
 	    	    console.log(data);
 	    	    var rendered = Mustache.render(firstColumnTemplate, {data: data});
 	    	    $('#roleBoxWrapper').html(rendered);
+	    	    console.log(RoleUeditor.role);
+	    	    var d = RoleUeditor.role.privIds.split(",");
+            for (var i = 0; i < RoleUeditor.role.privIds.length; i++) {
+                 // 以下都可以用
+//	               $('label').find('input[value=' + d[i] + ']').attr('checked', true)
+                 $('label').find('input[value=' + d[i] + ']:checkbox').attr('checked', true);
+//	               $('.user-limit input[value='+d[i]+']').each(function() {
+//	                   if ($(this).val() == d[i]) {
+//	                       $(this).attr('checked', true);
+//	                   }
+//	               });
+             }
 	    })
   }
   
@@ -46,19 +59,11 @@ exports.XPW.RoleUeditor = (function() {
 	        data: {id: id}
 	      })
 	     .done(function(data) {
-	         var d = data.privIds.split(",");
-	         for (var i = 0; i < data.privIds.length; i++) {
-	             $('label').find('input[value=' + d[i] + ']').attr('checked', true)
-	             // 以下都可以用
-//	             $('label').find('input[value=' + d[i] + ']:checkbox').attr('checked', true);
-//	             $('.user-limit input[value='+d[i]+']').each(function() {
-//	                 if ($(this).val() == d[i]) {
-//	                     $(this).attr('checked', true);
-//	                 }
-//	             });
-	         }
+	         RoleUeditor.role = data;
 	         console.log(data);
 	    	 	 RoleUeditor.fillData(data);
+	    	 	 // 为了保证在获取完role之后，渲染
+	    	 	RoleUeditor.getPrivs();
 	     })
      }
   }
