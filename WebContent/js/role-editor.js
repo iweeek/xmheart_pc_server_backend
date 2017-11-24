@@ -32,7 +32,7 @@ exports.XPW.RoleUeditor = (function() {
 	    	    console.log(data);
 	    	    var rendered = Mustache.render(firstColumnTemplate, {data: data});
 	    	    $('#roleBoxWrapper').html(rendered);
-	     })
+	    })
   }
   
   // 当前角色
@@ -48,10 +48,17 @@ exports.XPW.RoleUeditor = (function() {
 	     .done(function(data) {
 	         var d = data.privIds.split(",");
 	         for (var i = 0; i < data.privIds.length; i++) {
-	             $('.checkbox-inline user-limit [value=]' + id).attr('checked', true)
+	             $('label').find('input[value=' + d[i] + ']').attr('checked', true)
+	             // 以下都可以用
+//	             $('label').find('input[value=' + d[i] + ']:checkbox').attr('checked', true);
+//	             $('.user-limit input[value='+d[i]+']').each(function() {
+//	                 if ($(this).val() == d[i]) {
+//	                     $(this).attr('checked', true);
+//	                 }
+//	             });
 	         }
 	         console.log(data);
-	    	 	RoleUeditor.fillData(data);
+	    	 	 RoleUeditor.fillData(data);
 	     })
      }
   }
