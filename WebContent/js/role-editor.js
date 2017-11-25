@@ -6,7 +6,7 @@ exports.XPW.RoleUeditor = (function() {
   	RoleUeditor.getRoleInfo()
   	RoleUeditor.postRoleInfo()
 	RoleUeditor.cancel();
-  	
+  	RoleUeditor.getPrivs();
   }
 
   RoleUeditor._getUrlParam = function (name) {

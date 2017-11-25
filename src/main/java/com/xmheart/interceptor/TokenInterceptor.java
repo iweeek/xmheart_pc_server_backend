@@ -116,10 +116,15 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 		                    break;
 		                }
 		            }
+		            // 图片和视频
 		            if (request.getRequestURI().contains("images_storage") ||
 		                    request.getRequestURI().contains("videos_storage")) {
 		                isGranted = true;
 		            }
+		            // column需要单独放开
+		            if (request.getRequestURI().contains("column")) {
+                        isGranted = true;
+                    }
 		            if (!isGranted) {
 		                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 		                return false;
