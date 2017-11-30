@@ -34,6 +34,7 @@ exports.XPW.OnlineVideoEdit = (function() {
 	  OnlineVideoEdit.update();
 	  OnlineVideoEdit.cancel();
 	  OnlineVideoEdit.uploadImg();
+	  OnlineVideoEdit.initDate();
 //	  xtIndexEdit.getData();
 //	  xtIndexEdit.pageId = 0;
 //	  xtIndexEdit.postData();
@@ -130,6 +131,7 @@ exports.XPW.OnlineVideoEdit = (function() {
 	    $('#publish').on('click', function(){
 		    var $this = $(this);
 		    	var imgUrl = $('.upload-img').attr('src');
+		    	var publishTime = $('[data-toggle="datepicker"]').datepicker('getDate').getTime();
 //		    console.log(title.val());
 //		    console.log(brief.val());
 //		    console.log(videoUrl);
@@ -138,7 +140,8 @@ exports.XPW.OnlineVideoEdit = (function() {
 				brief : brief.val(),
 				isPublished : true,
 				imgUrl : imgUrl,
-				videoUrl : videoUrl
+				videoUrl : videoUrl,
+				publishTime: publishTime
 			};
 	
 			if (!OnlineVideoEdit.valid(params, 'publish')) {
@@ -171,12 +174,14 @@ exports.XPW.OnlineVideoEdit = (function() {
 	    $('#update').on('click', function(){
 		    var $this = $(this);
 		    var imgUrl = $('.upload-img').attr('src');
+		    var publishTime = $('[data-toggle="datepicker"]').datepicker('getDate').getTime();
 			var params = {
 				title : title.val(),
 				brief : brief.val(),
 				isPublished : true,
 				imgUrl : imgUrl,
-				videoUrl : videoUrl
+				videoUrl : videoUrl,
+				publishTime: publishTime
 			};
 	
 			if (!OnlineVideoEdit.valid(params, 'update')) {
@@ -222,6 +227,7 @@ exports.XPW.OnlineVideoEdit = (function() {
             $('#add-video-url').show();
             $('#addImgBtn').hide();
             $('#addVideoBtn').hide();
+            $('#articleDate').datepicker('setDate', new Date(res.publishTime));
         });
     }
 		
@@ -232,6 +238,13 @@ exports.XPW.OnlineVideoEdit = (function() {
         }
         $('.add-video-file').hide();
         $('.add-video-submit').hide();
+    }
+    
+    OnlineVideoEdit.initDate = function() {
+        $('[data-toggle="datepicker"]').datepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd'
+         });
     }
   
     OnlineVideoEdit.uploadImg = function () {

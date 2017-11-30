@@ -100,11 +100,12 @@ public class OnlineVideoController {
         }
         
         if (publishTime != null) {
-            video.setPublishTime(new Date(publishTime));
+            long milliSeconds= Long.parseLong(publishTime);
+            video.setPublishTime(new Date(milliSeconds));
         } else {
             video.setPublishTime(new Date());
         }
-       
+        
         video.setUrl("");
 
         int ret = onlineVideoService.create(video);
@@ -124,6 +125,7 @@ public class OnlineVideoController {
             @ApiParam("视频缩略图的地址") @RequestParam(required = false) String imgUrl,
             @ApiParam("视频地址") @RequestParam(required = false) String videoUrl,
             @ApiParam("视频描述") @RequestParam(required = false) String brief,
+            @ApiParam("发表时间，可选") @RequestParam(required = false) String publishTime,
             @ApiParam("是否置顶") @RequestParam(required = false) Boolean isPinned,
             @ApiParam("图片地址") @RequestParam(required = false) Boolean isPublished) {
         XPWOnlineVideo video = new XPWOnlineVideo();
@@ -150,6 +152,11 @@ public class OnlineVideoController {
         
         if (isPublished != null) {
             video.setIsPublished(isPublished);
+        }
+        
+        if (publishTime != null) {
+            long milliSeconds= Long.parseLong(publishTime);
+            video.setPublishTime(new Date(milliSeconds));
         }
 
         int ret = onlineVideoService.update(video);

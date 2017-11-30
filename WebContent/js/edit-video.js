@@ -34,6 +34,7 @@ exports.XPW.videoEdit = (function() {
 	  videoEdit.update();
 	  videoEdit.cancel();
 	  videoEdit.uploadImg();
+	  videoEdit.initDate();
 //	  xtIndexEdit.getData();
 //	  xtIndexEdit.pageId = 0;
 //	  xtIndexEdit.postData();
@@ -133,6 +134,7 @@ exports.XPW.videoEdit = (function() {
 	    $('#publish').on('click', function(){
 		    var $this = $(this);
 		    	var imgUrl = $('.upload-img').attr('src');
+		    	var publishTime = $('[data-toggle="datepicker"]').datepicker('getDate').getTime();
 //		    console.log(title.val());
 //		    console.log(brief.val());
 //		    console.log(videoUrl);
@@ -141,7 +143,8 @@ exports.XPW.videoEdit = (function() {
 				brief : brief.val(),
 				isPublished : true,
 				imgUrl : imgUrl,
-				videoUrl : videoUrl
+				videoUrl : videoUrl,
+				publishTime: publishTime
 			};
 	
 			if (!videoEdit.valid(params, 'publish')) {
@@ -174,12 +177,14 @@ exports.XPW.videoEdit = (function() {
 	    $('#update').on('click', function(){
 		    var $this = $(this);
 		    var imgUrl = $('.upload-img').attr('src');
+		    var publishTime = $('[data-toggle="datepicker"]').datepicker('getDate').getTime();
 			var params = {
 				title : title.val(),
 				brief : brief.val(),
 				isPublished : true,
 				imgUrl : imgUrl,
-				videoUrl : videoUrl
+				videoUrl : videoUrl,
+				publishTime: publishTime
 			};
 	
 			if (!videoEdit.valid(params, 'update')) {
@@ -225,6 +230,7 @@ exports.XPW.videoEdit = (function() {
             $('#add-video-url').show();
             $('#addImgBtn').hide();
             $('#addVideoBtn').hide();
+            $('#articleDate').datepicker('setDate', new Date(res.publishTime));
         });
     }
 		
@@ -235,6 +241,13 @@ exports.XPW.videoEdit = (function() {
         }
         $('.add-video-file').hide();
         $('.add-video-submit').hide();
+    }
+    
+    videoEdit.initDate = function() {
+        $('[data-toggle="datepicker"]').datepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd'
+         });
     }
   
     videoEdit.uploadImg = function () {
@@ -267,59 +280,6 @@ exports.XPW.videoEdit = (function() {
 			$(this).siblings('.upload-form').find('.add-img-file').trigger('click');
 		})
     }
-    
-//  xtIndexEdit.getData = function () {
-//	  $.get('/xtIndexPage',function(data){
-//		  IndexEdit.pageId = data.id;
-//		  if(data.bannerImage1Url) {
-//			  $('.add-img-list').eq(0).find('.add-image-url img').attr('src', data.bannerImage1Url);
-//			  $('.add-img-list').eq(0).find('.add-image-button').hide();
-//			  $('.add-img-list').eq(0).find('.add-image-url').show();
-//		  }
-//		  if (data.bannerImage1ActionUrl) {
-//			  $('.add-img-list').eq(0).find('.add-img-link input').val(data.bannerImage1ActionUrl);
-//		  }
-//		  if(data.bannerImage2Url) {
-//			  $('.add-img-list').eq(1).find('.add-image-url img').attr('src', data.bannerImage1Url);
-//			  $('.add-img-list').eq(1).find('.add-image-button').hide();
-//			  $('.add-img-list').eq(1).find('.add-image-url').show();
-//		  }
-//		  if (data.bannerImage2ActionUrl) {
-//			  $('.add-img-list').eq(1).find('.add-img-link input').val(data.bannerImage1ActionUrl);
-//		  }
-//		  if(data.bannerImage3Url) {
-//			  $('.add-img-list').eq(2).find('.add-image-url img').attr('src', data.bannerImage1Url);
-//			  $('.add-img-list').eq(2).find('.add-image-button').hide();
-//			  $('.add-img-list').eq(2).find('.add-image-url').show();
-//		  }
-//		  if (data.bannerImage3ActionUrl) {
-//			  $('.add-img-list').eq(2).find('.add-img-link input').val(data.bannerImage1ActionUrl);
-//		  }
-//	  });
-//  }
-//  xtIndexEdit.postData = function () {
-//	  $('.search-button').on('click', function(){
-//		  var parms = {
-//		    bannerImage1Url: $('.add-img-list').eq(0).find('.add-image-url img').attr('src'),
-//			bannerImage1ActionUrl: $('.add-img-list').eq(0).find('.add-img-link input').val(),
-//			bannerImage2Url: $('.add-img-list').eq(1).find('.add-image-url img').attr('src'),
-//			bannerImage2ActionUrl: $('.add-img-list').eq(1).find('.add-img-link input').val(),
-//			bannerImage3Url: $('.add-img-list').eq(2).find('.add-image-url img').attr('src'),
-//			bannerImage3ActionUrl: $('.add-img-list').eq(2).find('.add-img-link input').val()
-//		  };
-//		  var url = 'xtIndexPage/'+ xtIndexEdit.pageId;
-//		  $.ajax({
-//			  url: url,
-//		      type: 'put',
-//		      dataType: 'json',
-//		      data: parms
-//		    })
-//		   .done(function(data) {
-//			   swal('更新成功');
-//		   })
-//	  });
-//  }
-
   return videoEdit;
 })();
 

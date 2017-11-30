@@ -99,9 +99,10 @@ public class VideoController {
         } else {
         		video.setIsPublished(false);
         }
-        
+      
         if (publishTime != null) {
-            video.setPublishTime(new Date(publishTime));
+            long milliSeconds= Long.parseLong(publishTime);
+            video.setPublishTime(new Date(milliSeconds));
         } else {
             video.setPublishTime(new Date());
         }
@@ -125,6 +126,7 @@ public class VideoController {
             @ApiParam("视频缩略图的地址") @RequestParam(required = false) String imgUrl,
             @ApiParam("视频地址") @RequestParam(required = false) String videoUrl,
             @ApiParam("视频描述") @RequestParam(required = false) String brief,
+            @ApiParam("文章发表时间，可选") @RequestParam(required = false) String publishTime,
             @ApiParam("是否置顶") @RequestParam(required = false) Boolean isPinned,
             @ApiParam("图片地址") @RequestParam(required = false) Boolean isPublished) {
         XPWVideo video = new XPWVideo();
@@ -151,6 +153,11 @@ public class VideoController {
         
         if (isPublished != null) {
             video.setIsPublished(isPublished);
+        }
+        
+        if (publishTime != null) {
+            long milliSeconds= Long.parseLong(publishTime);
+            video.setPublishTime(new Date(milliSeconds));
         }
 
         int ret = videoService.update(video);

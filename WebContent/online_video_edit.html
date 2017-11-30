@@ -10,7 +10,8 @@
 <link rel="stylesheet" type="text/css" href="./css/sweetalert.css">
 <link rel="stylesheet" type="text/css" href="./css/jplayer.blue.monday.min.css">
 <link rel="stylesheet" type="text/css" href="./css/video-edit.css">
-
+<link rel="stylesheet" type="text/css" href="./css/datepicker.min.css">
+<link rel="stylesheet" type="text/css" href="./css/bootstrap-datetimepicker.min.css">
 </head>
 <body>
     <!--   主题部分  -->
@@ -28,6 +29,10 @@
                  <div class="article-title-wrapper">
                      <span class="select-title required">视频简介：</span>
                      <input type="text" class="article-title" id="brief">
+                 </div>
+                 <div class="article-title-wrapper">
+                     <span class="select-title">文章发布时间：</span>
+                     <input type="text" class="date-input" id="articleDate" value="" data-toggle="datepicker">
                  </div>
              </div>
              <div class="row add-list-main">
@@ -130,6 +135,10 @@
     <script type="text/javascript" src="./js/third_party/jquery.form.min.js"></script>
     <script type="text/javascript" src="./js/third_party/jquery.jplayer.min.js"></script>
     <script type="text/javascript" src="./js/third_party/jplayer.playlist.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/datepicker.min.js"></script>
+    <script type="text/javascript" src="./js/i18n/datepicker.zh-CN.js"></script>
 	<script type="text/javascript" src="./js/http-intercept.js"></script>
     <script type="text/javascript" src="./js/edit-online-video.js"></script>
     <!-- <script type="text/javascript">XPW.videoEdit()</script> -->
