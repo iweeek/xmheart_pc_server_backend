@@ -236,4 +236,13 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+    <resultMap id="userWithRoleMap" type="com.xmheart.model.XPWUser">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="user_type" jdbcType="TINYINT" property="userType" />
+    <result column="role_id" jdbcType="BIGINT" property="roleId" />
+    <result column="role_name" jdbcType="BIGINT" property="roleName" />
+  </resultMap>
 </mapper>

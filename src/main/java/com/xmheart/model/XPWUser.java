@@ -124,5 +124,15 @@ public class XPWUser {
                 + ", roleId=" + roleId + "]";
     }
     
+    private String roleName;
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
     
 }

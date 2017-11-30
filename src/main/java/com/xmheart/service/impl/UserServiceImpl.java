@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<XPWUser> index() {
-        List<XPWUser> list = userMapper.selectByExample(null);
+        List<XPWUser> list = userMapper.index();
         return list;
     }
 
