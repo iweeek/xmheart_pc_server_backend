@@ -224,6 +224,8 @@ public class DoctorController {
             doctor.setAppointmentUrl("");
         }
         
+        doctor.setHisId(0);
+        
         int maxOrder = doctorAndDeptService.getMaxOrder();
         doctor.setDocOrder(maxOrder + 1);
         

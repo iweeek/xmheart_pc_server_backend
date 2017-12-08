@@ -135,7 +135,8 @@ public class TokenController {
      * @return
      */
     @RequestMapping(value = "/verifyCaptcha", method = RequestMethod.POST)
-    public ResponseEntity<?> verifyCaptcha(HttpServletRequest request, @ApiParam("验证码") @RequestParam String captcha) {        Cookie[] cookies = request.getCookies();
+    public ResponseEntity<?> verifyCaptcha(HttpServletRequest request, @ApiParam("验证码") @RequestParam String captcha) {        
+        Cookie[] cookies = request.getCookies();
         Boolean verifyCaptcha = captchaService.verifyCaptcha(request, captcha);
         return ResponseEntity.status(HttpServletResponse.SC_OK).body(verifyCaptcha);
     }

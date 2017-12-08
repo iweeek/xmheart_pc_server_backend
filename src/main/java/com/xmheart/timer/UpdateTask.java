@@ -228,23 +228,71 @@ public class UpdateTask {
     @RequestMapping(value = { "/updateTask" }, method = RequestMethod.POST)
     public ResponseEntity<?> jobs()   {  
         
-        // 研究生教育
-        List<XPWNav> graduateNavs = columnService.getNavsByChildColumnIdOrderByPublishTime(50);
-        List<XPWArticle> lastestGraduates = articleService.indexLastestColumn("研究生教育");
-        if (lastestGraduates.size() > graduateNavs.size()) {
-            lastestGraduates = lastestGraduates.subList(0, graduateNavs.size());
+        // 护理概况
+        List<XPWNav> careNavs = columnService.getNavsByChildColumnIdOrderByPublishTime(43);
+        List<XPWArticle> lastestCare = articleService.indexLastestColumn("护理概况");
+        if (lastestCare.size() > careNavs.size()) {
+            lastestCare = lastestCare.subList(0, careNavs.size());
         }
         
-        for (int i = 0; i < lastestGraduates.size(); i++) {
-            XPWNav xpwNav = graduateNavs.get(i);
-            xpwNav.setArticleTitle(lastestGraduates.get(i).getTitle());
-            xpwNav.setUrl(lastestGraduates.get(i).getUrl());
-            xpwNav.setImgUrl(lastestGraduates.get(i).getImgUrl());
-            xpwNav.setPublishTime(lastestGraduates.get(i).getPublishTime());
+        for (int i = 0; i < lastestCare.size(); i++) {
+            XPWNav xpwNav = careNavs.get(i);
+            xpwNav.setArticleTitle(lastestCare.get(i).getTitle());
+            xpwNav.setUrl(lastestCare.get(i).getUrl());
+            xpwNav.setImgUrl(lastestCare.get(i).getImgUrl());
+            xpwNav.setPublishTime(lastestCare.get(i).getPublishTime());
+            columnService.updateNav(xpwNav);
+        }
+        
+        // 护理新闻
+        List<XPWNav> careNewsNavs = columnService.getNavsByChildColumnIdOrderByPublishTime(44);
+        List<XPWArticle> lastestCareNews = articleService.indexLastestColumn("护理新闻");
+        if (lastestCareNews.size() > careNewsNavs.size()) {
+            lastestCareNews = lastestCareNews.subList(0, careNewsNavs.size());
+        }
+        
+        for (int i = 0; i < lastestCareNews.size(); i++) {
+            XPWNav xpwNav = careNewsNavs.get(i);
+            xpwNav.setArticleTitle(lastestCareNews.get(i).getTitle());
+            xpwNav.setUrl(lastestCareNews.get(i).getUrl());
+            xpwNav.setImgUrl(lastestCareNews.get(i).getImgUrl());
+            xpwNav.setPublishTime(lastestCareNews.get(i).getPublishTime());
+            columnService.updateNav(xpwNav);
+        }
+        
+        // 天使风采
+        List<XPWNav> angleNavs = columnService.getNavsByChildColumnIdOrderByPublishTime(45);
+        List<XPWArticle> lastestAngle = articleService.indexLastestColumn("天使风采");
+        if (lastestAngle.size() > angleNavs.size()) {
+            lastestAngle = lastestAngle.subList(0, angleNavs.size());
+        }
+        
+        for (int i = 0; i < lastestAngle.size(); i++) {
+            XPWNav xpwNav = angleNavs.get(i);
+            xpwNav.setArticleTitle(lastestAngle.get(i).getTitle());
+            xpwNav.setUrl(lastestAngle.get(i).getUrl());
+            xpwNav.setImgUrl(lastestAngle.get(i).getImgUrl());
+            xpwNav.setPublishTime(lastestAngle.get(i).getPublishTime());
+            columnService.updateNav(xpwNav);
+        }
+        
+        // 护理宣教
+        List<XPWNav> angleNewsNavs = columnService.getNavsByChildColumnIdOrderByPublishTime(46);
+        List<XPWArticle> lastestAngleNews = articleService.indexLastestColumn("护理宣教");
+        if (lastestAngleNews.size() > angleNewsNavs.size()) {
+            lastestAngleNews = lastestAngleNews.subList(0, angleNewsNavs.size());
+        }
+        
+        for (int i = 0; i < lastestAngleNews.size(); i++) {
+            XPWNav xpwNav = angleNewsNavs.get(i);
+            xpwNav.setArticleTitle(lastestAngleNews.get(i).getTitle());
+            xpwNav.setUrl(lastestAngleNews.get(i).getUrl());
+            xpwNav.setImgUrl(lastestAngleNews.get(i).getImgUrl());
+            xpwNav.setPublishTime(lastestAngleNews.get(i).getPublishTime());
             columnService.updateNav(xpwNav);
         }
         
         job();
-        return ResponseEntity.ok(graduateNavs);
+        return ResponseEntity.ok(angleNewsNavs);
     }
 }
