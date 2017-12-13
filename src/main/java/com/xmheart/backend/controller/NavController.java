@@ -42,6 +42,9 @@ public class NavController {
         
         List<XPWNav> list;
         list = ColumnService.getNavsByColumnId(columnId);
+        if (columnId == 5 || columnId == 14 || columnId == 15 || columnId == 16) {
+            list = list.subList(0, 1);
+        }
         
         return ResponseEntity.status(HttpServletResponse.SC_OK).body(list);
     }
