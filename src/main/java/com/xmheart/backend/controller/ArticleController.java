@@ -113,16 +113,21 @@ public class ArticleController {
 		if (list == null) {
 			list = new ArrayList<Long>();
 		}
+		if (!list.contains(columnId)) {
+		    list.add(columnId);
+		}
 		List<XPWColumn> columns = columnService.getColumnsByParentId(columnId);
 		if (columns.size() == 0) {
-			list.add(columnId);
+		    if (!list.contains(columnId)) {
+		        list.add(columnId);
+		    }
 			return list;
 		} else {
 			for (XPWColumn item : columns) {
 				getChildColumns(list, item.getId());
 			}
 		}
-
+		System.out.println(list);
 		return list;
 	}
     

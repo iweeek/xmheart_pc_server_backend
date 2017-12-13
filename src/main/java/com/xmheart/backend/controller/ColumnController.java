@@ -1,8 +1,10 @@
 package com.xmheart.backend.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.xmheart.mapper.XPWPrivMapper;
 import com.xmheart.model.XPWColumn;
+import com.xmheart.model.XPWPriv;
+import com.xmheart.model.XPWPrivExample;
+import com.xmheart.model.XPWRole;
+import com.xmheart.model.XPWUser;
 import com.xmheart.service.ColumnService;
+import com.xmheart.service.RoleService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,15 +34,58 @@ public class ColumnController {
     @Autowired 
     private ColumnService ColumnService;
     
+    @Autowired
+    private ColumnService columnService;
+    
+    @Autowired
+    RoleService roleService;
+    
+    @Autowired
+    XPWPrivMapper privMapper;
+    
     @ApiOperation(value = "获取所有栏目", notes = "获取所有栏目")
     @RequestMapping(value = { "/columns" }, method = RequestMethod.GET)
-    public ResponseEntity<?> index(@ApiParam("父栏目的Id，父栏目Id为0的表示没有父栏目") @RequestParam(required = false) Long parentColumnId) {
+    public ResponseEntity<?> index(
+            @ApiParam("父栏目的Id，父栏目Id为0的表示没有父栏目") @RequestParam(required = false) Long parentColumnId, 
+            HttpSession httpSession) {
+        List<XPWPriv> privs = null;
+        XPWUser user = (XPWUser) httpSession.getAttribute("user");
         
-        List<XPWColumn> list;
+        List<XPWColumn> list = new ArrayList();
+        List<XPWColumn> temp = new ArrayList();
+        
         if (parentColumnId == null) {
             list = ColumnService.getColumns();
         } else {
-            list = ColumnService.getColumnsByParentId(parentColumnId);
+            if (parentColumnId == 0) {
+                temp = ColumnService.getColumnsByParentId(parentColumnId);
+                 // 过滤
+                  XPWRole role = roleService.read(user.getRoleId());
+                  String privIds = role.getPrivIds();
+                  XPWPrivExample example = new XPWPrivExample();
+                  if (privIds != null) {
+                      String[] split = privIds.split(",");
+                    
+                      for (String item : split) {
+                          long pId= Long.parseLong(item);
+                          if (pId <= 22 || pId == 30) {
+                              example.or().andIdEqualTo(pId);
+                          }
+                      }
+                      privs = privMapper.selectByExample(example);
+                  }
+                  
+                  for (XPWColumn col : temp) {
+                      for (XPWPriv p : privs) {
+                          if (col.getId() == p.getColumnId()) {
+                              list.add(col);
+                          }
+                      }
+                  }
+            } else {
+                list = ColumnService.getColumnsByParentId(parentColumnId);
+            }
+            
         }
         return ResponseEntity.status(HttpServletResponse.SC_OK).body(list);
     }
