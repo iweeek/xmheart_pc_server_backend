@@ -25,11 +25,13 @@ import com.github.pagehelper.PageHelper;
 import com.xmheart.mapper.XPWPrivMapper;
 import com.xmheart.model.XPWArticle;
 import com.xmheart.model.XPWColumn;
+import com.xmheart.model.XPWColumnEnglish;
 import com.xmheart.model.XPWPriv;
 import com.xmheart.model.XPWPrivExample;
 import com.xmheart.model.XPWRole;
 import com.xmheart.model.XPWUser;
 import com.xmheart.service.ArticleService;
+import com.xmheart.service.ColumnEnglishService;
 import com.xmheart.service.ColumnService;
 import com.xmheart.service.RoleService;
 import com.xmheart.util.FileUtil;
@@ -50,6 +52,9 @@ public class ArticleController {
     private ColumnService columnService;
     
     @Autowired
+    private ColumnEnglishService columnEnglishService;
+    
+    @Autowired
     RoleService roleService;
     
     @Autowired
@@ -67,6 +72,20 @@ public class ArticleController {
 		List<Long> filterAllColumns = new ArrayList();
 		allColumns = getChildColumns(allColumns, columnId);
 		
+		// 英文版
+		if (columnId == -1) {
+		    // 找到所有的英文栏目
+		    List<XPWColumnEnglish> temp = columnEnglishService.getColumns();
+		    List<XPWColumnEnglish> columns = new ArrayList<>();
+		    for (XPWColumnEnglish c : temp) {
+		        if (!(c.getId() == 1 || c.getId() == 77)) {
+		            columns.add(c);
+		        }
+		    }
+		    
+		    // 根据英文栏目搜索相应的文章
+		    return ResponseEntity.ok(columns);
+		}
 		
 		XPWUser user = (XPWUser) httpSession.getAttribute("user");
 		XPWRole role = roleService.read(user.getRoleId());
@@ -81,7 +100,6 @@ public class ArticleController {
                 example.or().andIdEqualTo(pId);
             }
             privs = privMapper.selectByExample(example);
-            
         }
         
         for (int i = 0; i< privs.size(); i++) {

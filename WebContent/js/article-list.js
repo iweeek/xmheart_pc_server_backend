@@ -98,6 +98,9 @@ $(function() {
                     	optionString += "<option value=\"" + jsonObj.id + "\" >" + jsonObj.columnName + "</option>";
                     $(htmlId).html("<option value='请选择'>请选择</option> " + optionString);
                 }
+                // 添加英文版
+                optionString += "<option value=\"" + "-1" + "\" >" + "英文模块" + "</option>";
+                $(htmlId).html("<option value='请选择'>请选择</option> " + optionString);
                 if (data.length > 0) {
                 		$(htmlId).parent().show();
                 }
