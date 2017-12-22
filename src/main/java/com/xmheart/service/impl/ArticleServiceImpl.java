@@ -66,7 +66,8 @@ public class ArticleServiceImpl implements ArticleService {
 		for (Long id : columnIds) {
 			example.or().andColumnIdEqualTo(id);
 		}
-		example.setOrderByClause("is_pinned desc, pin_order asc, publish_time desc");
+		// 同一天需要进行排序
+		example.setOrderByClause("is_pinned desc, pin_order asc, publish_time desc, created_at desc");
 		List<XPWArticle> list = articleMapper.selectByExample(example);
 		return list;
 	}

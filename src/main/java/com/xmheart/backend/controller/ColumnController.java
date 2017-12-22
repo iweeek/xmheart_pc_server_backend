@@ -54,7 +54,9 @@ public class ColumnController {
         List<XPWColumn> list = new ArrayList();
         List<XPWColumn> temp = new ArrayList();
         
+        
         if (parentColumnId == null) {
+            // TODO 但是前台不会传null？
             list = ColumnService.getColumns();
         } else {
             if (parentColumnId == 0) {
@@ -109,9 +111,42 @@ public class ColumnController {
     
     @ApiOperation(value = "获取子栏目", notes = "获取子栏目")
     @RequestMapping(value = { "/columns/{id}" }, method = RequestMethod.GET)
-    public ResponseEntity<?> subColumn(@ApiParam("栏目的Id") @PathVariable Long id) {
+    public ResponseEntity<?> subColumn(@ApiParam("栏目的Id") @PathVariable Long id, HttpSession httpSession) {
+        List<XPWPriv> privs = null;
+        XPWUser user = (XPWUser) httpSession.getAttribute("user");
         
-        List<XPWColumn> list = ColumnService.readSubColumn(id);
+        List<XPWColumn> list = new ArrayList<>();
+        List<XPWColumn> temp = new ArrayList();
+        
+        if (id == 0) {
+              temp = ColumnService.readSubColumn(id);
+             // 过滤
+              XPWRole role = roleService.read(user.getRoleId());
+              String privIds = role.getPrivIds();
+              XPWPrivExample example = new XPWPrivExample();
+              if (privIds != null) {
+                  String[] split = privIds.split(",");
+                
+                  for (String item : split) {
+                      long pId= Long.parseLong(item);
+                      if (pId <= 22 || pId == 30) {
+                          example.or().andIdEqualTo(pId);
+                      }
+                  }
+                  privs = privMapper.selectByExample(example);
+              }
+              
+              for (XPWColumn col : temp) {
+                  for (XPWPriv p : privs) {
+                      if (col.getId() == p.getColumnId()) {
+                          list.add(col);
+                      }
+                  }
+              }
+        } else {
+            list = ColumnService.readSubColumn(id);
+        }
+        
         if (list.size() == 0) {
             return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);
         } else {
