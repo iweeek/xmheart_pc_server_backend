@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xmheart.model.XPWOnlineVideo;
 import com.xmheart.service.OnlineVideoService;
 import io.swagger.annotations.Api;
@@ -30,12 +32,16 @@ public class OnlineVideoController {
     
     @ApiOperation(value = "获取视频列表", notes = "获取视频列表")
     @RequestMapping(value = { "/onlineVideos" }, method = RequestMethod.GET)
-    public ResponseEntity<?> index(Model model) {
+    public ResponseEntity<?> index(@ApiParam("开始页号") @RequestParam(required = false, defaultValue = "1") Integer pageNo,
+            @ApiParam("每页的数目") @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         List<XPWOnlineVideo> list = new ArrayList<XPWOnlineVideo>();
 
+        PageHelper.startPage(pageNo, pageSize);
         list = onlineVideoService.index();
+        PageInfo pageInfo = new PageInfo(list);
+        
         if (list.size() > 0) {
-            return ResponseEntity.ok(list);
+            return ResponseEntity.ok(pageInfo);
         } else {
             return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);
         }

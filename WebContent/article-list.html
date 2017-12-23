@@ -13,6 +13,9 @@
     <link rel="stylesheet" type="text/css" href="./css/angular-growl.min.css">
     <link rel="stylesheet" type="text/css" href="./css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="./css/article-list.css">
+    <link rel="stylesheet" type="text/css" href="./css/common/reset.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="./css/common/common.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="./css/common/pagination.css" media="screen">
 </head>
 
 <body>
@@ -87,20 +90,24 @@
             <img src="./img/progress_circle.gif" alt="loading">
         </div>
         <!--  翻页的按钮  -->
-        <div>
+        <!--<div>
             <ul class="pager">
                 <li class="previous">
                     <a>
                         <span aria-hidden="true">&larr;</span> 前一页
                     </a>
                 </li>
+
                 <li class="next">
                     <a>
                         后一页 <span aria-hidden="true">&rarr;</span>
                     </a>
                 </li>
             </ul>
-        </div>
+        </div> -->
+        
+        <div class="M-box"></div>
+        
     </div>
     <script id="J_articles_tmpl" type="x-tmpl-mustache">
         {{#result}}
@@ -142,6 +149,7 @@
     <script type="text/javascript" src="./js/third_party/mustache.min.js"></script>
     <script type="text/javascript" src="./js/http-intercept.js"></script>
     <script type="text/javascript" src="./js/article-list.js"></script>
+    <script src="./css/common/jquery.pagination.js"></script>
 </body>
 
 </html>

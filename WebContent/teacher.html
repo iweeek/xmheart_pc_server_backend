@@ -10,6 +10,9 @@
 <link rel="stylesheet" type="text/css" href="./css/sweetalert.css">
 <link rel="stylesheet" type="text/css" href="./css/select2.min.css">
 <link rel="stylesheet" type="text/css" href="./css/article-list.css">
+<link rel="stylesheet" type="text/css" href="./css/common/common.css" media="screen">
+<link rel="stylesheet" type="text/css" href="./css/common/pagination.css" media="screen">
+<link rel="stylesheet" type="text/css" href="./css/common/reset.css" media="screen">
 </head>
 <body>
     <div class="page-article-list">
@@ -40,20 +43,9 @@
             </tbody>
         </table>
         <!--  翻页的按钮  -->
-        <div>
-            <ul class="pager">
-                <li class="previous">
-                    <a>
-                        <span aria-hidden="true">&larr;</span> 前一页
-                    </a>
-                </li>
-                <li class="next">
-                    <a>
-                        后一页 <span aria-hidden="true">&rarr;</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        
+        <div class="M-box"></div>
+        
         <div class="ui-loading">
             <img src="./img/progress_circle.gif" alt="loading">
         </div>
@@ -92,6 +84,7 @@
     <script type="text/javascript" src="./js/i18n/select2.zh-CN.js"></script>
     <script type="text/javascript" src="./js/http-intercept.js"></script>   
     <script type="text/javascript" src="./js/edit-teacher.js"></script>
+    <script src="./css/common/jquery.pagination.js"></script>
     <!-- <script type="text/javascript">XPW.DoctorEdit()</script> -->
 </body>
 </html>

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xmheart.mapper.XPWPrivMapper;
 import com.xmheart.model.XPWArticle;
 import com.xmheart.model.XPWColumn;
@@ -87,7 +88,7 @@ public class ArticleController {
         for (int i = 0; i< privs.size(); i++) {
             getChildColumns(filterAllColumns, privs.get(i).getColumnId());
         }
-        
+        PageHelper.startPage(1, pageSize);
         if (columnId == null || columnId == 0) {
             PageHelper.startPage(pageNo, pageSize);
             list = articleService.index(filterAllColumns);
@@ -100,7 +101,10 @@ public class ArticleController {
                 return ResponseEntity.status(HttpServletResponse.SC_FORBIDDEN).body(null);
             }
         }
-		return ResponseEntity.ok(list);
+        
+        PageInfo pageInfo = new PageInfo(list);
+        // model.addAttribute("pageInfo", pageInfo);
+		return ResponseEntity.ok(pageInfo);
 	}
 
 	/**

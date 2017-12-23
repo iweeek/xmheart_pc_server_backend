@@ -7,7 +7,7 @@ $(function() {
 		pinnedNum : 0,
 		years : 0,
 		times : 0,
-		page : 1,
+		pages : 1,
         getColumns: function (parentColumnId, htmlId) {
             $.get('/columns', {
                 parentColumnId: parentColumnId
@@ -64,36 +64,41 @@ $(function() {
 		getNewspaper : function(pageNo, pageSize) {
 			$('.ui-loading').show();
 			var loading = true;
-			$.get('/newspapers', {
-				pageNo : pageNo,
-				pageSize : pageSize
-			}, function(data) {
-				if (data.length < ctrl.pageSize) {
-					ctrl.noNextPage = true;
-				}
-				$.each(data, function(name, val) {
-					val.publishTime = ctrl.dateFilter(val.publishTime)
-					ctrl.years = val.years;
-					ctrl.times = val.times;
-					ctrl.page = val.page;
-//					if (val.isPinned) {
-//						ctrl.pinnedNum++
-//					}
-				})
-				var template = $('#J_articles_tmpl').html();
-				Mustache.parse(template);
-				var rendered = Mustache.render(template, {
-					result : data
-				});
-				if (data.length === 0) {
-					$('.ui-nodata').show();
-					$("#J_articles").html('');
-				} else {
-					$('.ui-nodata').hide();
-					$("#J_articles").html(rendered);
-				}
-				$('.ui-loading').hide();
-			});
+			$.ajax({
+                type : "get", 
+                url : "/newspapers", 
+                data : {
+                    pageNo : pageNo,
+                    pageSize : pageSize
+                },
+                async : false, 
+                success : function(res){
+                    var data = res.list;
+                    ctrl.pageTotal = res.pages;
+                    if (data.length < ctrl.pageSize) {
+                        ctrl.noNextPage = true;
+                    }
+                    $.each(data, function(name, val) {
+                        val.publishTime = ctrl.dateFilter(val.publishTime)
+                        ctrl.years = val.years;
+                        ctrl.times = val.times;
+                        ctrl.pages = val.page;
+                    })
+                    var template = $('#J_articles_tmpl').html();
+                    Mustache.parse(template);
+                    var rendered = Mustache.render(template, {
+                        result : data
+                    });
+                    if (data.length === 0) {
+                        $('.ui-nodata').show();
+                        $("#J_articles").html('');
+                    } else {
+                        $('.ui-nodata').hide();
+                        $("#J_articles").html(rendered);
+                    }
+                    $('.ui-loading').hide();
+                }
+            });
 		},
 		publish : function(newspaperId, year, times, page) {
 			var params = {
@@ -135,6 +140,13 @@ $(function() {
 				ctrl.getNewspaper(ctrl.pageNo, 10, ctrl.columnId);
 			}
 		},
+		page : function(cur) {
+            if (!ctrl.noNextPage) {
+                ctrl.pageNo = cur;
+                console.log(ctrl.pageNo);
+                ctrl.getNewspaper(ctrl.pageNo, 10, ctrl.columnId);
+            }
+        },
 		pinned : function(articleId, type) {
 			var url = '/articles/' + articleId;
 			$.get(url, function(res){
@@ -201,6 +213,14 @@ $(function() {
 		init : function() {
 			ctrl.getNewspaper(ctrl.pageNo, 10);
 			$('.ui-nodata').hide();
+			$('.M-box').pagination({
+                jump:true,
+                pageCount: ctrl.pageTotal,
+                callback:function(api){
+                    api.setPageCount(ctrl.pageTotal);//动态修改总页数为20页
+                    ctrl.page(api.getCurrent());
+                }
+            });
 		}
 	}
 	ctrl.init();

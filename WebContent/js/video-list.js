@@ -61,33 +61,39 @@ $(function() {
 		getVideos : function(pageNo, pageSize) {
 			$('.ui-loading').show();
 			var loading = true;
-			$.get('/videos', {
-				pageNo : pageNo,
-				pageSize : pageSize
-			}, function(data) {
-				if (data.length < ctrl.pageSize) {
-					ctrl.noNextPage = true;
-				}
-				$.each(data, function(name, val) {
-					val.publishTime = ctrl.dateFilter(val.publishTime)
-//					if (val.isPinned) {
-//						ctrl.pinnedNum++
-//					}
-				})
-				var template = $('#J_articles_tmpl').html();
-				Mustache.parse(template);
-				var rendered = Mustache.render(template, {
-					result : data
-				});
-				if (data.length === 0) {
-					$('.ui-nodata').show();
-					$("#J_articles").html('');
-				} else {
-					$('.ui-nodata').hide();
-					$("#J_articles").html(rendered);
-				}
-				$('.ui-loading').hide();
+			$.ajax({
+                type : "get", 
+                url : "/videos", 
+                data : {
+                    pageNo : pageNo,
+                    pageSize : pageSize
+                },
+                async : false, 
+                success : function(res){
+                    var data = res.list;
+                    ctrl.pageTotal = res.pages;
+                    if (data.length < ctrl.pageSize) {
+                        ctrl.noNextPage = true;
+                    }
+                    $.each(data, function(name, val) {
+                        val.publishTime = ctrl.dateFilter(val.publishTime)
+                    })
+                    var template = $('#J_articles_tmpl').html();
+                    Mustache.parse(template);
+                    var rendered = Mustache.render(template, {
+                        result : data
+                    });
+                    if (data.length === 0) {
+                        $('.ui-nodata').show();
+                        $("#J_articles").html('');
+                    } else {
+                        $('.ui-nodata').hide();
+                        $("#J_articles").html(rendered);
+                    }
+                    $('.ui-loading').hide();
+                }
 			});
+			
 		},
 		publish : function(videoId) {
 			var params = {
@@ -123,6 +129,11 @@ $(function() {
 				ctrl.getVideos(ctrl.pageNo, 10, ctrl.columnId);
 			}
 		},
+		page : function(cur) {
+            ctrl.pageNo = cur;
+            console.log(ctrl.pageNo);
+            ctrl.getVideos(ctrl.pageNo, 10);
+        },
 		pinned : function(articleId, type) {
 			var url = '/articles/' + articleId;
 			$.get(url, function(res){
@@ -189,6 +200,14 @@ $(function() {
 		init : function() {
 			ctrl.getVideos(ctrl.pageNo, 10, ctrl.columnId);
 			$('.ui-nodata').hide();
+			$('.M-box').pagination({
+                jump:true,
+                pageCount: ctrl.pageTotal,
+                callback:function(api){
+                    api.setPageCount(ctrl.pageTotal);//动态修改总页数为20页
+                    ctrl.page(api.getCurrent());
+                }
+            });
 		}
 	}
 	ctrl.init();

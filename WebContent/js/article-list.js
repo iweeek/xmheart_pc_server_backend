@@ -150,35 +150,46 @@ $(function() {
         getArticles : function(pageNo, pageSize, columnId) {
             $('.ui-loading').show();
             var loading = true;
-            $.get('/articles', {
-                pageNo : pageNo,
-                pageSize : pageSize,
-                columnId : columnId
-            }, function(data) {
-                if (data.length < ctrl.pageSize) {
-                    ctrl.noNextPage = true;
-                }
-                $.each(data, function(name, val) {
-                    val.publishTime = ctrl.dateFilter(val.publishTime)
-                    //TODO这里有问题
-//                    if (val.isPinned) {
-//                        ctrl.pinnedNum++
-//                    }
-                })
-                var template = $('#J_articles_tmpl').html();
-                Mustache.parse(template);
-                var rendered = Mustache.render(template, {
-                    result : data
+            $.ajax({ 
+                type : "get", 
+                url : "/articles", 
+                data : {
+                    pageNo : pageNo,
+                    pageSize : pageSize,
+                    columnId : columnId
+                },
+                async : false, 
+                success : function(res){ 
+                    var data = res.list;
+                    ctrl.pageTotal = res.pages;
+                    if (data.length < ctrl.pageSize) {
+                        ctrl.noNextPage = true;
+                    }
+                    $.each(data, function(name, val) {
+                        val.publishTime = ctrl.dateFilter(val.publishTime)
+                    })
+                    var template = $('#J_articles_tmpl').html();
+                    Mustache.parse(template);
+                    var rendered = Mustache.render(template, {
+                        result : data
+                    });
+                    if (data.length === 0) {
+                        $('.ui-nodata').show();
+                        $("#J_articles").html('');
+                    } else {
+                        $('.ui-nodata').hide();
+                        $("#J_articles").html(rendered);
+                    }
+                    $('.ui-loading').hide();
+                } 
                 });
-                if (data.length === 0) {
-                    $('.ui-nodata').show();
-                    $("#J_articles").html('');
-                } else {
-                    $('.ui-nodata').hide();
-                    $("#J_articles").html(rendered);
-                }
-                $('.ui-loading').hide();
-            });
+//            $.get('', {
+//                pageNo : pageNo,
+//                pageSize : pageSize,
+//                columnId : columnId
+//            }, function(res) {
+//                
+//            });
         },
         publish : function(articleId) {
             var params = {
@@ -205,12 +216,21 @@ $(function() {
         previous : function() {
             if (ctrl.pageNo > 1) {
                 ctrl.pageNo--;
+                console.log(ctrl.pageNo);
                 ctrl.getArticles(ctrl.pageNo, 10, ctrl.columnId);
             }
         },
         next : function() {
             if (!ctrl.noNextPage) {
                 ctrl.pageNo++;
+                console.log(ctrl.pageNo);
+                ctrl.getArticles(ctrl.pageNo, 10, ctrl.columnId);
+            }
+        },
+        page : function(cur) {
+            if (!ctrl.noNextPage) {
+                ctrl.pageNo = cur;
+                console.log(ctrl.pageNo);
                 ctrl.getArticles(ctrl.pageNo, 10, ctrl.columnId);
             }
         },
@@ -324,6 +344,14 @@ $(function() {
 	    		}
 	    		ctrl.getColumns(0, '#J_select_first');
             ctrl.getArticles(ctrl.pageNo, 10, ctrl.columnId);
+            $('.M-box').pagination({
+                jump:true,
+                pageCount: ctrl.pageTotal,
+                callback:function(api){
+                    api.setPageCount(ctrl.pageTotal);//动态修改总页数为20页
+                    ctrl.page(api.getCurrent());
+                }
+            });
         }
     }
     

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xmheart.model.XPWElecNewspaper;
 import com.xmheart.service.NewspaperService;
 import io.swagger.annotations.Api;
@@ -36,8 +37,10 @@ public class ElecNewspaperController {
 
         PageHelper.startPage(pageNo, pageSize);
         list = newspaperService.index();
+        PageInfo pageInfo = new PageInfo(list);
+        
         if (list.size() > 0) {
-            return ResponseEntity.ok(list);
+            return ResponseEntity.ok(pageInfo);
         } else {
             return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);
         }

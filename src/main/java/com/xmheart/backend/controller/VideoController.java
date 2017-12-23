@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xmheart.model.XPWColumn;
 import com.xmheart.model.XPWVideo;
 import com.xmheart.service.VideoService;
@@ -31,12 +33,16 @@ public class VideoController {
     
     @ApiOperation(value = "获取视频列表", notes = "获取视频列表")
     @RequestMapping(value = { "/videos" }, method = RequestMethod.GET)
-    public ResponseEntity<?> index(Model model) {
+    public ResponseEntity<?> index(@ApiParam("开始页号") @RequestParam(required = false, defaultValue = "1") Integer pageNo,
+            @ApiParam("每页的数目") @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         List<XPWVideo> list = new ArrayList<XPWVideo>();
-
+        
+        PageHelper.startPage(pageNo, pageSize);
         list = videoService.index();
+        PageInfo pageInfo = new PageInfo(list);
+        
         if (list.size() > 0) {
-            return ResponseEntity.ok(list);
+            return ResponseEntity.ok(pageInfo);
         } else {
             return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);
         }

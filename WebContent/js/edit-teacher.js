@@ -52,6 +52,15 @@ exports.XPW.DoctorEdit = (function() {
     			DoctorEdit.currentPage = DoctorEdit._getUrlParam('pageNo');
     		}
     		DoctorEdit.doctorData();
+    		console.log(DoctorEdit.totalPage);
+        $('.M-box').pagination({
+                jump:true,
+                pageCount: DoctorEdit.totalPage,
+                callback:function(api){
+                    api.setPageCount(DoctorEdit.totalPage);//动态修改总页数为20页
+                    DoctorEdit.page(api.getCurrent());
+                }
+        });
     })
   }
 
@@ -60,37 +69,38 @@ exports.XPW.DoctorEdit = (function() {
       url: '/teachers',
       type: 'GET',
       dataType: 'json',
-      data: {deptId: DoctorEdit.deptId, pageNo: DoctorEdit.currentPage}
-    })
-    .done(function(data) {
-    		var list = data.list;
-    		if (data.hasPreviousPage) {
-    			$('.previous').show();
-    		} else {
-    			$('.previous').hide();
-    		}
-    		if (data.hasNextPage) {
-    			$('.next').show();
-    		} else {
-    			$('.next').hide();
-    		}
-    		DoctorEdit.hasNextPage = data.hasNextPage;
-    		DoctorEdit.hasPreviousPage = data.hasPreviousPage;
-    		DoctorEdit.totalPage = data.pages;
-    		DoctorEdit.currentPage = data.pageNum;
-    		if (list.length > 0) {
-    	    		var doctorTemplate = $('#doctorTd').html();
-    	    	    Mustache.parse(doctorTemplate);   // optional, speeds up future uses
-    	    	    var rendered = Mustache.render(doctorTemplate, {data: list});
-    	    	    $('#doctorTable').html(rendered);
-    	    	    $('.ui-loading').hide();
-    		} else {
-    			swal({
-    				  title: "当前栏目下没有医生",
-    				  timer: 1500,
-    				  showConfirmButton: false
-    			});
-    		}
+      async: false,
+      data: {deptId: DoctorEdit.deptId, pageNo: DoctorEdit.currentPage},
+      success : function(data){ 
+          var list = data.list;
+          if (data.hasPreviousPage) {
+              $('.previous').show();
+          } else {
+              $('.previous').hide();
+          }
+          if (data.hasNextPage) {
+              $('.next').show();
+          } else {
+              $('.next').hide();
+          }
+          DoctorEdit.hasNextPage = data.hasNextPage;
+          DoctorEdit.hasPreviousPage = data.hasPreviousPage;
+          DoctorEdit.totalPage = data.pages;
+          DoctorEdit.currentPage = data.pageNum;
+          if (list.length > 0) {
+                  var doctorTemplate = $('#doctorTd').html();
+                  Mustache.parse(doctorTemplate);   // optional, speeds up future uses
+                  var rendered = Mustache.render(doctorTemplate, {data: list});
+                  $('#doctorTable').html(rendered);
+                  $('.ui-loading').hide();
+          } else {
+              swal({
+                    title: "当前栏目下没有医生",
+                    timer: 1500,
+                    showConfirmButton: false
+              });
+          }
+      }
     })
     .fail(function(e) {
     	 	$('.ui-loading').hide();
@@ -150,6 +160,10 @@ exports.XPW.DoctorEdit = (function() {
 	    	  	DoctorEdit.doctorData();
 	      }
 	  })
+  }
+  DoctorEdit.page = function (cur) {
+      DoctorEdit.currentPage = cur;
+      DoctorEdit.doctorData();
   }
   
   //上移
