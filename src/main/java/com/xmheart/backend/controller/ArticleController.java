@@ -71,6 +71,7 @@ public class ArticleController {
 		List<Long> filterColumns = new ArrayList();
 		List<Long> filterAllColumns = new ArrayList();
 		allColumns = getChildColumns(allColumns, columnId);
+		List<Long> englishColumnIds = new ArrayList();
 		
 		// 英文版
 		if (columnId == -1) {
@@ -80,11 +81,14 @@ public class ArticleController {
 		    for (XPWColumnEnglish c : temp) {
 		        if (!(c.getId() == 1 || c.getId() == 77)) {
 		            columns.add(c);
+		            englishColumnIds.add(c.getId());
 		        }
 		    }
 		    
-		    // 根据英文栏目搜索相应的文章
-		    return ResponseEntity.ok(columns);
+		    // TODO 根据英文栏目搜索相应的文章
+		    List<XPWArticle> englishArticles = articleService.indexEnglish(englishColumnIds);
+		    
+		    return ResponseEntity.ok(englishArticles);
 		}
 		
 		XPWUser user = (XPWUser) httpSession.getAttribute("user");

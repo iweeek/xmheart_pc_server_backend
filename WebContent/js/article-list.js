@@ -167,7 +167,7 @@ $(function() {
 //                    if (val.isPinned) {
 //                        ctrl.pinnedNum++
 //                    }
-                })
+                });
                 var template = $('#J_articles_tmpl').html();
                 Mustache.parse(template);
                 var rendered = Mustache.render(template, {
@@ -414,6 +414,7 @@ $(function() {
     // 编辑
     $('#J_articles').on('click','.edit-btn',function() {
         var articleId = $(this).data('id');
+        console.log('/static/ueditor.html?articleId=' + articleId + '&col=' + ctrl.col);
         var url = '/static/ueditor.html?articleId=' + articleId + '&col=' + ctrl.col;
         location.href = url;
 //        window.open(url, "new window");
