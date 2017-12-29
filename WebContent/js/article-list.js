@@ -99,11 +99,14 @@ $(function() {
                     $(htmlId).html("<option value='请选择'>请选择</option> " + optionString);
                 }
                 // 添加英文版
-                optionString += "<option value=\"" + "-1" + "\" >" + "英文模块" + "</option>";
-                $(htmlId).html("<option value='请选择'>请选择</option> " + optionString);
+                if (parentColumnId == 0) {
+                    optionString += "<option value=\"" + "-1" + "\" >" + "英文模块" + "</option>";
+                    $(htmlId).html("<option value='请选择'>请选择</option> " + optionString);
+                }
                 if (data.length > 0) {
                 		$(htmlId).parent().show();
                 }
+                
                 // 自动显示select option当前选中的内容
                 if (selectedVal) {
                 		$(htmlId + ' ' + 'option[value='+selectedVal+']').attr('selected', 'selected');
@@ -170,6 +173,7 @@ $(function() {
                 });
                 var template = $('#J_articles_tmpl').html();
                 Mustache.parse(template);
+                
                 var rendered = Mustache.render(template, {
                     result : data
                 });
@@ -414,8 +418,13 @@ $(function() {
     // 编辑
     $('#J_articles').on('click','.edit-btn',function() {
         var articleId = $(this).data('id');
+        var isEnglish = $(this).data('english');
         console.log('/static/ueditor.html?articleId=' + articleId + '&col=' + ctrl.col);
-        var url = '/static/ueditor.html?articleId=' + articleId + '&col=' + ctrl.col;
+        if (isEnglish == 1) {
+            var url = '/static/ueditor.html?articleId=' + articleId + '&col=' + ctrl.col + "&isEnglish=1";
+        } else {
+            var url = '/static/ueditor.html?articleId=' + articleId + '&col=' + ctrl.col;
+        }
         location.href = url;
 //        window.open(url, "new window");
     });
