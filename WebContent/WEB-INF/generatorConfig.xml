@@ -10,9 +10,9 @@
 
   <context id="xmheart_pc_web" targetRuntime="MyBatis3">
     <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-        connectionURL="jdbc:mysql://119.23.12.36:3306/xmheart_pc_web"
-        userId="remote"
-        password="251725">
+        connectionURL="jdbc:mysql://127.0.0.1:3306/xmheart_pc_web"
+        userId="root"
+        password="123456">
     </jdbcConnection>
 
     <javaTypeResolver >

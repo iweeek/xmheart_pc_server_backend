@@ -190,6 +190,8 @@ public class ArticleController {
 		    article.setContent("");
 		}
 		
+	    article.setIsEnglish((byte)0);
+	      
 		int ret = articleService.create(article);
 		if (ret > 0) {
 		    article.setUrl("/newsDetail?id=" + String.valueOf(article.getId()));

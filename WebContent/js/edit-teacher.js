@@ -54,12 +54,12 @@ exports.XPW.DoctorEdit = (function() {
     		DoctorEdit.doctorData();
     		console.log(DoctorEdit.totalPage);
         $('.M-box').pagination({
-                jump:true,
-                pageCount: DoctorEdit.totalPage,
-                callback:function(api){
-                    api.setPageCount(DoctorEdit.totalPage);//动态修改总页数为20页
-                    DoctorEdit.page(api.getCurrent());
-                }
+            jump:true,
+            pageCount: DoctorEdit.totalPage,
+            callback:function(api){
+                api.setPageCount(DoctorEdit.totalPage);//动态修改总页数为20页
+                DoctorEdit.page(api.getCurrent());
+            }
         });
     })
   }
