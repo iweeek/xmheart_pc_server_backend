@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.joda.time.DateTime;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.xmheart.mapper.XPWPrivMapper;
+import com.xmheart.mapper.XPWVisitLogMapper;
 import com.xmheart.model.XPWPriv;
 import com.xmheart.model.XPWPrivExample;
 import com.xmheart.model.XPWRole;
 import com.xmheart.model.XPWUser;
+import com.xmheart.model.XPWVisitLog;
 import com.xmheart.service.RoleService;
 import com.xmheart.service.UserService;
 
@@ -52,6 +55,8 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
     @Autowired
     XPWPrivMapper privMapper;
     
+    @Autowired
+    XPWVisitLogMapper visitLogMapper;
 
 	/**
 	 * jwt加密、解密的密匙
@@ -84,9 +89,23 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 			if (token != null) {
 				Claims claims = Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).getBody();
 				String userId = claims.getSubject();
-//				String tableName = request.getRequestURI().substring(1, request.getRequestURI().length() - 1);
 				String tableName = "";
 				boolean isGranted = false;
+				
+				// 统计日志
+                String userAgent = request.getHeader("User-Agent");
+                String requestURI = request.getRequestURI();
+                XPWVisitLog visitLog = new XPWVisitLog();
+                visitLog.setAccessTime(new DateTime().toDate());
+                visitLog.setUri(requestURI);
+                visitLog.setUserAgent(userAgent);
+                visitLog.setUserId(Long.valueOf(userId));
+                try {
+                    visitLogMapper.insert(visitLog);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                
 				// 判断权限
 				XPWUser user = userService.read(Long.valueOf(userId));
 				XPWRole role = roleService.read(user.getRoleId());
@@ -130,18 +149,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 		                return false;
 		            }
 		        }
-//				
-//				if (request.getRequestURI().equals("/users")) {
-//					if (user.getUserType() == 2) {
-//						Set<String> keySet = request.getParameterMap().keySet();
-//						if (keySet.contains("roleId")) {
-//							response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-//							return false;
-//						}
-//					} else {
-//						return true;
-//					}
-//				}
+		        
 			} else {
 				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 				return false;

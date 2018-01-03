@@ -2,8 +2,10 @@ package com.xmheart.service;
 
 import java.awt.image.BufferedImage;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.ui.ModelMap;
 
 import com.xmheart.util.ResponseBody;
@@ -27,6 +29,6 @@ public interface TokenService {
 	*/
 	@SuppressWarnings("rawtypes")
     int create(String username, String password, String salt, int expiredHour, ResponseBody body,
-            HttpSession httpSession);
+            HttpSession httpSession, HttpServletRequest request);
 	
 }

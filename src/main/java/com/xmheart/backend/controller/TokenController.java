@@ -74,9 +74,9 @@ public class TokenController {
         Boolean isPassed = captchaService.verifyCaptchaIsPassed(request, captcha);
         if (isPassed) {
             ResponseBody body = new ResponseBody();
-            int status = tokenService.create(username, password, salt, expiredHour, body, httpSession);
+            int status = tokenService.create(username, password, salt, expiredHour, body, httpSession, request);
             if (status == 0) {
-                // 删除本次的验证码
+                // 创建成功。删除本次的验证码
                 if (captcha != null) {
                     captchaMapper.deleteByPrimaryKey(captcha.getId());
                 }
