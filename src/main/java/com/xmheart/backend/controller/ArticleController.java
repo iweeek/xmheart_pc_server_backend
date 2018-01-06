@@ -12,6 +12,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -56,6 +58,7 @@ public class ArticleController {
     @Autowired
     XPWPrivMapper privMapper;
 	
+    @RequiresPermissions("article")
 	@ApiOperation(value = "获取文章", notes = "获取文章")
 	@RequestMapping(value = { "/articles" }, method = RequestMethod.GET)
 	public ResponseEntity<?> index(@ApiParam("开始页号") @RequestParam(required = false, defaultValue = "1") Integer pageNo,
@@ -68,9 +71,11 @@ public class ArticleController {
 		List<Long> filterAllColumns = new ArrayList();
 		allColumns = getChildColumns(allColumns, columnId);
 		
-		
 		XPWUser user = (XPWUser) httpSession.getAttribute("user");
-		XPWRole role = roleService.read(user.getRoleId());
+		XPWUser user1 = (XPWUser) SecurityUtils.getSubject().getPrincipal();
+		
+		boolean permitted = SecurityUtils.getSubject().isPermitted("admin");
+		XPWRole role = roleService.read(Long.valueOf(user.getRoleIds()));
 		String privIds = role.getPrivIds();
         XPWPrivExample example = new XPWPrivExample();
         if (privIds != null) {

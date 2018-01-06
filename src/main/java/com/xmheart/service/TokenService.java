@@ -31,4 +31,6 @@ public interface TokenService {
     int create(String username, String password, String salt, int expiredHour, ResponseBody body,
             HttpSession httpSession, HttpServletRequest request);
 	
+	Object getSubject();
+	
 }

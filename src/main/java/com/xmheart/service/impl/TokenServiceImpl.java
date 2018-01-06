@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.time.DateUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -101,6 +103,7 @@ public class TokenServiceImpl implements TokenService {
         // 密码清零
         user.setPassword("");
         httpSession.setAttribute("user", user);
+//        getSubject().getSession().setAttribute("user", user);
         body.obj1 = user;
         body.obj2 = Jwts.builder()
                 .setSubject(String.valueOf(userId))
@@ -110,5 +113,11 @@ public class TokenServiceImpl implements TokenService {
                 .compact();
         
         return 0;
+    }
+
+    @Override
+    public Subject getSubject() {
+         Subject subject = SecurityUtils.getSubject();
+         return subject;
     }
 }

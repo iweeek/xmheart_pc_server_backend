@@ -3,9 +3,14 @@ package com.xmheart.backend.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,6 +27,7 @@ import com.xmheart.model.XPWRole;
 import com.xmheart.model.XPWUser;
 import com.xmheart.service.ColumnService;
 import com.xmheart.service.RoleService;
+import com.xmheart.service.TokenService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,6 +36,8 @@ import io.swagger.annotations.ApiParam;
 @Api(tags = "栏目管理接口")
 @Controller
 public class ColumnController {
+    @Autowired 
+    private TokenService tokenService;
     
     @Autowired 
     private ColumnService ColumnService;
@@ -47,10 +55,16 @@ public class ColumnController {
     @RequestMapping(value = { "/columns" }, method = RequestMethod.GET)
     public ResponseEntity<?> index(
             @ApiParam("父栏目的Id，父栏目Id为0的表示没有父栏目") @RequestParam(required = false) Long parentColumnId, 
-            HttpSession httpSession) {
+            HttpSession httpSession, HttpServletRequest request) {
         List<XPWPriv> privs = null;
-        XPWUser user = (XPWUser) httpSession.getAttribute("user");
         
+        XPWUser user = (XPWUser) SecurityUtils.getSubject().getPrincipal();
+//        XPWUser user = (XPWUser) httpSession.getAttribute("user");
+        Subject subject = SecurityUtils.getSubject();
+        subject.checkPermission("article");
+        
+        XPWUser user1 = (XPWUser) subject.getPrincipal();
+        ServletContext servletContext = httpSession.getServletContext();
         List<XPWColumn> list = new ArrayList();
         List<XPWColumn> temp = new ArrayList();
         
@@ -62,7 +76,7 @@ public class ColumnController {
             if (parentColumnId == 0) {
                 temp = ColumnService.getColumnsByParentId(parentColumnId);
                  // 过滤
-                  XPWRole role = roleService.read(user.getRoleId());
+                  XPWRole role = roleService.read(Long.valueOf(user.getRoleIds()));
                   String privIds = role.getPrivIds();
                   XPWPrivExample example = new XPWPrivExample();
                   if (privIds != null) {
@@ -120,8 +134,8 @@ public class ColumnController {
         
         if (id == 0) {
               temp = ColumnService.readSubColumn(id);
-             // 过滤
-              XPWRole role = roleService.read(user.getRoleId());
+             // 过滤 TODO
+              XPWRole role = roleService.read(Long.valueOf(user.getRoleIds()));
               String privIds = role.getPrivIds();
               XPWPrivExample example = new XPWPrivExample();
               if (privIds != null) {

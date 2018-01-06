@@ -2,6 +2,7 @@ package com.xmheart.service.impl;
 
 import java.util.List;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,7 @@ public class RoleServiceImpl implements RoleService{
         int ret = roleMapper.updateByPrimaryKeySelective(role);
         return ret;
     }
-    
+    @RequiresPermissions("s")
     @Override
     public int delete(Long id) {
         int ret = roleMapper.deleteByPrimaryKey(id);

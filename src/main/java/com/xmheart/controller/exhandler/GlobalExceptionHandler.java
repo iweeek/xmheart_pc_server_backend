@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -100,8 +101,10 @@ public class GlobalExceptionHandler {
 		exception.printStackTrace();
 		if (exception instanceof ExpiredJwtException) {
 			return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED).body(null);
+		} else if (exception instanceof UnauthorizedException) {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 		} else {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+		    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
 	}
 }

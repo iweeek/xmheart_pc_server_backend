@@ -22,6 +22,8 @@ public interface UserService {
 	
 	XPWUser read(Long id);
 	
+	XPWUser findUser(String username);
+	
     String getAvatarUrl(String fileName);
 
     List<XPWUser> index();

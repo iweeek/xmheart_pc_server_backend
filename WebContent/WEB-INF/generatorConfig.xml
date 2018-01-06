@@ -28,20 +28,20 @@
     <javaClientGenerator type="MIXEDMAPPER" targetPackage="com.xmheart.mapper"  targetProject="xmheart_pc_server_backend">
     </javaClientGenerator>
 
-    <table schema="xmeart_pc_web" tableName="xpw_column" domainObjectName ="XPWColumn" >
+    <table schema="xmheart_pc_web" tableName="xpw_column" domainObjectName ="XPWColumn" >
       <generatedKey column="id" sqlStatement="MySql" identity="true" />
       <columnOverride column="position" property="position" javaType="java.lang.Boolean"/>
       <ignoreColumn column="created_at"/>
       <ignoreColumn column="updated_at"/>
     </table>
 
-    <table schema="xmeart_pc_web" tableName="xpw_nav" domainObjectName ="XPWNav" >
+    <table schema="xmheart_pc_web" tableName="xpw_nav" domainObjectName ="XPWNav" >
       <generatedKey column="id" sqlStatement="MySql" identity="true" />
       <ignoreColumn column="created_at"/>
       <ignoreColumn column="updated_at"/>
     </table>
 
-    <table schema="xmeart_pc_web" tableName="xpw_article" domainObjectName ="XPWArticle" >
+    <table schema="xmheart_pc_web" tableName="xpw_article" domainObjectName ="XPWArticle" >
       <generatedKey column="id" sqlStatement="MySql" identity="true" />
       <columnOverride column="is_pinned" property="isPinned" javaType="java.lang.Boolean"/>
       <columnOverride column="is_published" property="isPublished" javaType="java.lang.Boolean"/>
@@ -49,21 +49,21 @@
       <ignoreColumn column="updated_at"/>
     </table>
 
-    <table schema="xmeart_pc_web" tableName="xpw_doctor" domainObjectName ="XPWDoctor" >
+    <table schema="xmheart_pc_web" tableName="xpw_doctor" domainObjectName ="XPWDoctor" >
       <generatedKey column="id" sqlStatement="MySql" identity="true" />
       <columnOverride column="is_displayed" javaType="java.lang.Boolean"/>
       <ignoreColumn column="created_at"/>
       <ignoreColumn column="updated_at"/>
     </table>
     
-    <table schema="xmeart_pc_web" tableName="xpw_teacher" domainObjectName ="XPWTeacher" >
+    <table schema="xmheart_pc_web" tableName="xpw_teacher" domainObjectName ="XPWTeacher" >
       <generatedKey column="id" sqlStatement="MySql" identity="true" />
       <columnOverride column="is_displayed" javaType="java.lang.Boolean"/>
       <ignoreColumn column="created_at"/>
       <ignoreColumn column="updated_at"/>
     </table>
 
-    <table schema="xmeart_pc_web" tableName="xpw_dept" domainObjectName ="XPWDept" >
+    <table schema="xmheart_pc_web" tableName="xpw_dept" domainObjectName ="XPWDept" >
       <generatedKey column="id" sqlStatement="MySql" identity="true" />
       <columnOverride column="out_service" javaType="java.lang.Boolean"/>
       <columnOverride column="is_displayed" javaType="java.lang.Boolean"/>
@@ -71,32 +71,32 @@
       <ignoreColumn column="updated_at"/>
     </table>
 
-    <table schema="xmeart_pc_web" tableName="xpw_electronic_newspaper" domainObjectName ="XPWElecNewspaper" >
+    <table schema="xmheart_pc_web" tableName="xpw_electronic_newspaper" domainObjectName ="XPWElecNewspaper" >
       <generatedKey column="id" sqlStatement="MySql" identity="true" />
       <columnOverride column="is_published" javaType="java.lang.Boolean"/>
       <ignoreColumn column="created_at"/>
       <ignoreColumn column="updated_at"/>
     </table>
  
-    <table schema="xmeart_pc_web" tableName="xpw_index" domainObjectName ="XPWIndex" >
+    <table schema="xmheart_pc_web" tableName="xpw_index" domainObjectName ="XPWIndex" >
       <generatedKey column="id" sqlStatement="MySql" identity="true" />
       <ignoreColumn column="created_at"/>
       <ignoreColumn column="updated_at"/>
     </table>   
     
-    <table schema="xmeart_pc_web" tableName="xpw_xtindex" domainObjectName ="XPWXTIndex" >
+    <table schema="xmheart_pc_web" tableName="xpw_xtindex" domainObjectName ="XPWXTIndex" >
       <generatedKey column="id" sqlStatement="MySql" identity="true" />
       <ignoreColumn column="created_at"/>
       <ignoreColumn column="updated_at"/>
     </table>
     
-    <table schema="xmeart_pc_web" tableName="xpw_user" domainObjectName ="XPWUser" >
+    <table schema="xmheart_pc_web" tableName="xpw_user" domainObjectName ="XPWUser" >
       <generatedKey column="id" sqlStatement="MySql" identity="true" />
       <ignoreColumn column="created_at"/>
       <ignoreColumn column="updated_at"/>
     </table>
 
-    <table schema="xmeart_pc_web" tableName="xpw_video" domainObjectName ="XPWVideo" >
+    <table schema="xmheart_pc_web" tableName="xpw_video" domainObjectName ="XPWVideo" >
       <generatedKey column="id" sqlStatement="MySql" identity="true" />
       <columnOverride column="is_pinned" javaType="java.lang.Boolean"/>
       <columnOverride column="is_published" javaType="java.lang.Boolean"/>
@@ -104,7 +104,7 @@
       <ignoreColumn column="updated_at"/>
     </table>
     
-    <table schema="xmeart_pc_web" tableName="xpw_online_video" domainObjectName ="XPWOnlineVideo" >
+    <table schema="xmheart_pc_web" tableName="xpw_online_video" domainObjectName ="XPWOnlineVideo" >
       <generatedKey column="id" sqlStatement="MySql" identity="true" />
       <columnOverride column="is_pinned" javaType="java.lang.Boolean"/>
       <columnOverride column="is_published" javaType="java.lang.Boolean"/>
@@ -112,27 +112,27 @@
       <ignoreColumn column="updated_at"/>
     </table>
     
-    <table schema="xmeart_pc_web" tableName="xpw_role" domainObjectName ="XPWRole" >
+    <table schema="xmheart_pc_web" tableName="xpw_role" domainObjectName ="XPWRole" >
       <generatedKey column="id" sqlStatement="MySql" identity="true" />
       <ignoreColumn column="created_at"/>
       <ignoreColumn column="updated_at"/>
     </table>
     
-    <table schema="xmeart_pc_web" tableName="xpw_user_role" domainObjectName ="XPWUserRole" >
+    <table schema="xmheart_pc_web" tableName="xpw_user_role" domainObjectName ="XPWUserRole" >
       <generatedKey column="id" sqlStatement="MySql" identity="true" />
     </table>
     
-    <table schema="xmeart_pc_web" tableName="xpw_priv" domainObjectName ="XPWPriv" >
+    <table schema="xmheart_pc_web" tableName="xpw_priv" domainObjectName ="XPWPriv" >
       <generatedKey column="id" sqlStatement="MySql" identity="true" />
       <ignoreColumn column="created_at"/>
       <ignoreColumn column="updated_at"/>
     </table>
     
-    <table schema="xmeart_pc_web" tableName="xpw_captcha" domainObjectName ="XPWCaptcha" >
+    <table schema="xmheart_pc_web" tableName="xpw_captcha" domainObjectName ="XPWCaptcha" >
       <generatedKey column="id" sqlStatement="MySql" identity="true" />
     </table>
     
-    <table schema="xmeart_pc_web" tableName="xpw_visit_log" domainObjectName ="XPWVisitLog" >
+    <table schema="xmheart_pc_web" tableName="xpw_visit_log" domainObjectName ="XPWVisitLog" >
       <generatedKey column="id" sqlStatement="MySql" identity="true" />
       <ignoreColumn column="created_at"/>
       <ignoreColumn column="updated_at"/>

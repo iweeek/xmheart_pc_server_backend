@@ -10,6 +10,7 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
+                /WEB-INF/spring-shiro.xml,
 				/WEB-INF/spring-mvc.xml,
 				/WEB-INF/spring-mybatis.xml
 			</param-value>
@@ -63,4 +64,20 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+    <!-- shiro集成spring配置 -->
+    <!-- DelegatingFilterProxy为Spring提供的过滤器代理类，委托由Spring容器管理的同名的bean来进行实际操作 -->
+    <filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <!-- 该值缺省为false,表示生命周期由SpringApplicationContext管理,设置为true则表示由ServletContainer管理 -->
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>

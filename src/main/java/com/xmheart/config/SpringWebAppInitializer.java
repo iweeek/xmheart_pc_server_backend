@@ -20,7 +20,7 @@ public class SpringWebAppInitializer implements WebApplicationInitializer {
 //        appContext.register(ApplicationContextConfig.class);
         
         XmlWebApplicationContext appContext = new XmlWebApplicationContext();
-        appContext.setConfigLocation("/WEB-INF/spring-mybatis.xml, /WEB-INF/spring-mvc.xml");
+        appContext.setConfigLocation("/WEB-INF/spring-shiro.xml, /WEB-INF/spring-mybatis.xml, /WEB-INF/spring-mvc.xml");
 //        appContext.setConfigLocation("/WEB-INF/spring-mvc.xml");
  
         // Dispatcher Servlet

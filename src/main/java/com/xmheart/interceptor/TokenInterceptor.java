@@ -108,7 +108,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                 
 				// 判断权限
 				XPWUser user = userService.read(Long.valueOf(userId));
-				XPWRole role = roleService.read(user.getRoleId());
+				XPWRole role = roleService.read(Long.valueOf(user.getRoleIds()));
 				String privIds = role.getPrivIds();
 				XPWPrivExample example = new XPWPrivExample();
 		        if (privIds != null) {
@@ -144,10 +144,10 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 		            if (request.getRequestURI().contains("column")) {
                         isGranted = true;
                     }
-		            if (!isGranted) {
-		                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-		                return false;
-		            }
+//		            if (!isGranted) {
+//		                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+//		                return false;
+//		            }
 		        }
 		        
 			} else {

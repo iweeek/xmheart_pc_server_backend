@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
@@ -24,7 +27,9 @@ import com.xmheart.mapper.XPWCaptchaMapper;
 import com.xmheart.model.XPWCaptcha;
 import com.xmheart.service.CaptchaService;
 import com.xmheart.service.TokenService;
+import com.xmheart.shiro.MyUsernamePasswordToken;
 import com.xmheart.util.FileUtil;
+import com.xmheart.util.MessageDigestUtil;
 import com.xmheart.util.PathUtil;
 import com.xmheart.util.ResponseBody;
 
@@ -74,7 +79,22 @@ public class TokenController {
         Boolean isPassed = captchaService.verifyCaptchaIsPassed(request, captcha);
         if (isPassed) {
             ResponseBody body = new ResponseBody();
+//            HttpSession httpSession = null;
             int status = tokenService.create(username, password, salt, expiredHour, body, httpSession, request);
+            
+            Subject currentUser = SecurityUtils.getSubject();
+            // shiro 登录验证
+            MyUsernamePasswordToken token = new MyUsernamePasswordToken(username, password);
+            token.setSalt(salt);
+            try {
+                currentUser.login(token);
+                System.out.println(currentUser.isAuthenticated());
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);
+            }
+            
             if (status == 0) {
                 // 创建成功。删除本次的验证码
                 if (captcha != null) {
@@ -110,22 +130,6 @@ public class TokenController {
             ex.printStackTrace();
         }
     }
-
-//    @RequestMapping(value = { "/captcha" }, method = RequestMethod.GET)
-//    public ResponseEntity<?> uploadCaptcha(HttpServletResponse response) {
-//        String captchaPath = "";
-//        String captchaUrl = "";
-//        try {
-//            BufferedImage image = captchaService.genCaptcha(response);
-//            captchaPath = FileUtil.saveCaptcha(PathUtil.CAPTCHA_STORAGE_PATH, image);
-//            captchaUrl = PathUtil.getInstance().ORIGIN + File.separator + PathUtil.CAPTCHA_FOLDER_PATH + captchaPath;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//        return ResponseEntity.status(HttpServletResponse.SC_CREATED).body(captchaUrl);
-//    }
-    
     
     /**
      * 检查验证码是否正确

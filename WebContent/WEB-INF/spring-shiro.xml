@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	    <!-- Shiro的Web过滤器 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+	<bean id="subjectFactory" class="com.xmheart.shiro.StatelessDefaultSubjectFactory" />
+
+	<bean id="sessionManager" class="org.apache.shiro.session.mgt.DefaultSessionManager">
+		<property name="sessionValidationSchedulerEnabled" value="true" />
+	</bean>
+
+    <!-- <bean id="securityManager" class="org.apache.shiro.mgt.DefaultSecurityManager"> -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="tokenRealm" />
+		<property name="sessionManager" ref="sessionManager" />
+		<property name="subjectFactory" ref="subjectFactory"/> 
+		<property name="subjectDAO.sessionStorageEvaluator.sessionStorageEnabled" value="true"/>
+		<!-- By default the servlet container sessions will be used. Uncomment 
+			this line to use shiro's native sessions (see the JavaDoc for more): -->
+		<property name="sessionMode" value="native"/>
+	</bean>
+
+	<!-- Shiro生命周期处理器 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+	<!-- Define the Shiro Realm implementation you want to use to connect to 
+		your back-end -->
+	<!-- security datasource: -->
+	<bean id="tokenRealm" class="com.xmheart.shiro.TokenRealm">
+        <constructor-arg type="String" value="TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"/>
+    </bean>
+ 
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+ 
+    <!-- Enable Shiro Annotations for Spring-configured beans.  Only run after -->
+    <!-- the lifecycleBeanProcessor has run: -->
+    <!-- Shiro启用注解 -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>
+        <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+</beans>

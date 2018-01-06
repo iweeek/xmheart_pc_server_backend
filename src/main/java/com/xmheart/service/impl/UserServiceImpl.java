@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.xmheart.mapper.XPWUserMapper;
 import com.xmheart.model.XPWUser;
+import com.xmheart.model.XPWUserExample;
 import com.xmheart.service.UserService;
 import com.xmheart.util.ResponseBody;
 
@@ -56,6 +57,17 @@ public class UserServiceImpl implements UserService {
     public int create(XPWUser user) {
         int ret = userMapper.insert(user);
         return ret;
+    }
+
+    @Override
+    public XPWUser findUser(String username) {
+        XPWUserExample example = new XPWUserExample();
+        example.createCriteria().andUsernameEqualTo(username);
+        List<XPWUser> selectByExample = userMapper.selectByExample(example);
+        if (selectByExample != null) {
+            return selectByExample.get(0);
+        }
+        return null;
     }
 	
 }
