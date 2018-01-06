@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +52,7 @@ public class TeacherController {
     @Autowired
     private TeacherTeamService teacherTeamService;
     
+    @RequiresPermissions("teacher")
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @ApiOperation(value = "获取导师列表", notes = "获取医生列表")
     @RequestMapping(value = { "/teachers" }, method = RequestMethod.GET)
@@ -80,6 +82,7 @@ public class TeacherController {
         }
     }
     
+    @RequiresPermissions("teacher")
     @ApiOperation(value = "根据Id获取医生信息", notes = "根据Id获取医生信息")
     @RequestMapping(value = { "/teachers/{id}" }, method = RequestMethod.GET)
     public ResponseEntity<?> read(@ApiParam("医生的Id") @PathVariable Long id) {
@@ -94,6 +97,7 @@ public class TeacherController {
         }
     }
     
+    @RequiresPermissions("teacher")
     @ApiOperation(value = "根据Id更新医生信息", notes = "根据Id更新医生信息")
     @RequestMapping(value = { "/teachers/{id}" }, method = RequestMethod.POST)
     public ResponseEntity<?> update(@ApiParam("医生的Id") @PathVariable Long id,
@@ -154,6 +158,7 @@ public class TeacherController {
         }
     }
     
+    @RequiresPermissions("teacher")
     @ApiOperation(value = "创建医生信息", notes = "创建医生信息")
     @RequestMapping(value = { "/teachers" }, method = RequestMethod.POST)
     public ResponseEntity<?> create(@ApiParam("医生的姓名，可选") @RequestParam(required = false) String name,

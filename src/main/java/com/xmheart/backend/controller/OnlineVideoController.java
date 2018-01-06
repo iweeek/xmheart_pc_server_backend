@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,7 @@ public class OnlineVideoController {
     @Autowired
     OnlineVideoService onlineVideoService;
     
+    @RequiresPermissions("onlineVideo")
     @ApiOperation(value = "获取视频列表", notes = "获取视频列表")
     @RequestMapping(value = { "/onlineVideos" }, method = RequestMethod.GET)
     public ResponseEntity<?> index(@ApiParam("开始页号") @RequestParam(required = false, defaultValue = "1") Integer pageNo,
@@ -47,6 +49,7 @@ public class OnlineVideoController {
         }
     }
     
+    @RequiresPermissions("onlineVideo")
     @ApiOperation(value = "获取在线视频", notes = "获取在线视频列表")
     @RequestMapping(value = { "/onlineVideos/{id}" }, method = RequestMethod.GET)
     public ResponseEntity<?> read(@PathVariable Long id) {
@@ -58,6 +61,7 @@ public class OnlineVideoController {
         }
     }    
 
+    @RequiresPermissions("onlineVideo")
     @ApiOperation(value = "创建一个在线视频", notes = "创建一个在线视频")
     @RequestMapping(value = { "/onlineVideos" }, method = RequestMethod.POST)
     public ResponseEntity<?> create(@ApiParam("视频标题") @RequestParam String title,
@@ -124,6 +128,7 @@ public class OnlineVideoController {
         }
     }
     
+    @RequiresPermissions("onlineVideo")
     @ApiOperation(value = "更新一个视频", notes = "更新一篇视频")
     @RequestMapping(value = { "/onlineVideos/{id}" }, method = RequestMethod.POST)
     public ResponseEntity<?> update(@ApiParam("视频Id") @PathVariable Long id,

@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public class DeptController {
 	@Autowired
 	private DoctorAndDeptService doctorAndDeptService;
 
+	@RequiresPermissions("dept")
 	@ApiOperation(value = "获取科室列表", notes = "获取科室列表")
 	@RequestMapping(value = { "/depts" }, method = RequestMethod.GET)
 	public ResponseEntity<?> index() {
@@ -41,6 +43,7 @@ public class DeptController {
 		}
 	}
 
+	@RequiresPermissions("dept")
 	@ApiOperation(value = "根据Id获取科室信息", notes = "根据Id获取科室信息")
 	@RequestMapping(value = { "/depts/{id}" }, method = RequestMethod.GET)
 	public ResponseEntity<?> read(@ApiParam("科室的Id") @PathVariable Long id) {
@@ -54,6 +57,7 @@ public class DeptController {
 		}
 	}
 
+	@RequiresPermissions("dept")
 	@ApiOperation(value = "根据Id更新科室信息", notes = "根据Id更新科室信息")
 	@RequestMapping(value = { "/depts/{id}" }, method = RequestMethod.POST)
 	public ResponseEntity<?> update(@ApiParam("科室的Id") @PathVariable Long id,
@@ -99,6 +103,7 @@ public class DeptController {
 		}
 	}
 
+	@RequiresPermissions("dept")
 	@ApiOperation(value = "创建科室信息", notes = "创建科室信息")
 	@RequestMapping(value = { "/depts" }, method = RequestMethod.POST)
 	public ResponseEntity<?> create(@ApiParam("科室的名称，可选") @RequestParam(required = false) String name,

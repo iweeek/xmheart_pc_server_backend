@@ -91,10 +91,10 @@ public interface XPWUserMapper {
             "where id = #{id,jdbcType=BIGINT}" })
     int updateByPrimaryKey(XPWUser record);
 
-    @Select({ "select u.id, u.username, u.`password`, u.user_type, u.role_id, r.name as role_name \n" + 
+    @Select({ "select u.id, u.username, u.`password`, u.user_type, u.role_ids, r.name as role_name \n" + 
             "from xpw_user as u \n" + 
             "left JOIN xpw_role as r\n" + 
-            "on u.role_id = r.id" })
+            "on u.role_ids = r.id" })
     @ResultMap("com.xmheart.mapper.XPWUserMapper.BaseResultMap")
     List<XPWUser> index();
 }

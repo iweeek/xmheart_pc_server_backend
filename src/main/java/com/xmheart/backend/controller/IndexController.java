@@ -2,6 +2,7 @@ package com.xmheart.backend.controller;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ public class IndexController {
 	@Autowired 
 	IndexService indexService;
 	
+	@RequiresPermissions("indexPage")
     @ApiOperation(value = "获取首页信息", notes = "获取首页信息")
     @RequestMapping(value = { "/indexPage" }, method = RequestMethod.GET)
     public ResponseEntity<?> index() {
@@ -33,6 +35,7 @@ public class IndexController {
         
     }
     
+    @RequiresPermissions("indexPage")
     @ApiOperation(value = "更新首页信息", notes = "更新首页信息")
     @RequestMapping(value = { "/indexPage/{id}" }, method = RequestMethod.POST)
     public ResponseEntity<?> update(@ApiParam("首页信息的Id") @PathVariable Long id,
@@ -138,6 +141,7 @@ public class IndexController {
         }
     }
     
+    @RequiresPermissions("xtIndexPage")
     @ApiOperation(value = "获取胸痛首页信息", notes = "获取胸痛首页信息")
     @RequestMapping(value = { "/xtIndexPage" }, method = RequestMethod.GET)
     public ResponseEntity<?> xtIndex() {
@@ -148,6 +152,7 @@ public class IndexController {
         
     }
     
+    @RequiresPermissions("xtIndexPage")
     @ApiOperation(value = "更新胸痛首页信息", notes = "更新胸痛首页信息")
     @RequestMapping(value = { "/xtIndexPage/{id}" }, method = RequestMethod.POST)
     public ResponseEntity<?> update(@ApiParam("首页信息的Id") @PathVariable Long id,

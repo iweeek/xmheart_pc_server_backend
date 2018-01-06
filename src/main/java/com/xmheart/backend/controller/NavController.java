@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,7 @@ public class NavController {
     @Autowired 
     ArticleService articleService;
     
+    @RequiresPermissions("nav")
     @ApiOperation(value = "根据一级栏目获取所有导航内容", notes = "根据一级栏目获取所有导航内容")
     @RequestMapping(value = { "/navs" }, method = RequestMethod.GET)
     public ResponseEntity<?> index(@ApiParam("一级栏目的Id") @RequestParam Long columnId) {
@@ -49,6 +51,7 @@ public class NavController {
         return ResponseEntity.status(HttpServletResponse.SC_OK).body(list);
     }
     
+    @RequiresPermissions("nav")
     @ApiOperation(value = "根据Id获取导航内容", notes = "根据Id获取导航内容")
     @RequestMapping(value = { "/navs/{id}" }, method = RequestMethod.GET)
     public ResponseEntity<?> read(@ApiParam("导航条目的Id") @PathVariable Long id) {
@@ -61,6 +64,7 @@ public class NavController {
         }
     }
     
+    @RequiresPermissions("nav")
     @ApiOperation(value = "根据Id更新导航内容", notes = "根据Id更新导航内容")
     @RequestMapping(value = { "/navs/{id}" }, method = RequestMethod.POST)
     public ResponseEntity<?> update(@ApiParam("导航条目的Id") @PathVariable Long id, 

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,7 @@ public class VideoController {
     @Autowired
     VideoService videoService;
     
+    @RequiresPermissions("video")
     @ApiOperation(value = "获取视频列表", notes = "获取视频列表")
     @RequestMapping(value = { "/videos" }, method = RequestMethod.GET)
     public ResponseEntity<?> index(@ApiParam("开始页号") @RequestParam(required = false, defaultValue = "1") Integer pageNo,
@@ -48,6 +50,7 @@ public class VideoController {
         }
     }
     
+    @RequiresPermissions("video")
     @ApiOperation(value = "获取院报", notes = "获取院报列表")
     @RequestMapping(value = { "/videos/{id}" }, method = RequestMethod.GET)
     public ResponseEntity<?> read(@PathVariable Long id) {
@@ -59,6 +62,7 @@ public class VideoController {
         }
     }    
 
+    @RequiresPermissions("video")
     @ApiOperation(value = "创建一个视频", notes = "创建一个视频")
     @RequestMapping(value = { "/videos" }, method = RequestMethod.POST)
     public ResponseEntity<?> create(@ApiParam("视频标题") @RequestParam String title,
@@ -125,6 +129,7 @@ public class VideoController {
         }
     }
     
+    @RequiresPermissions("video")
     @ApiOperation(value = "更新一个视频", notes = "更新一篇视频")
     @RequestMapping(value = { "/videos/{id}" }, method = RequestMethod.POST)
     public ResponseEntity<?> update(@ApiParam("视频Id") @PathVariable Long id,

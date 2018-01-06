@@ -86,7 +86,7 @@ public class UserController {
 			user.setPassword(password);
 		}
 		if (roleId != null) {
-			user.setRoleId(roleId);
+			user.setRoleIds(String.valueOf(roleId));
 		}
 
 		int ret = userService.update(user);
@@ -114,7 +114,7 @@ public class UserController {
 			user.setPassword(password);
 		}
 		if (roleId != null) {
-			user.setRoleId(roleId);
+			user.setRoleIds(String.valueOf(roleId));
 		}
 		user.setUserType((byte) 2);
 
