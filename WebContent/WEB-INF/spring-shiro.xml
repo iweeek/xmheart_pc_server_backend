@@ -26,7 +26,7 @@
 		<property name="subjectDAO.sessionStorageEvaluator.sessionStorageEnabled" value="true"/>
 		<!-- By default the servlet container sessions will be used. Uncomment 
 			this line to use shiro's native sessions (see the JavaDoc for more): -->
-		<property name="sessionMode" value="native"/>
+		<property name="sessionMode" value="http"/>
 	</bean>
 
 	<!-- Shiro生命周期处理器 -->

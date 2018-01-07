@@ -88,7 +88,7 @@ public interface XPWPrivMapper {
             "where id = #{id,jdbcType=BIGINT}" })
     int updateByPrimaryKey(XPWPriv record);
 
-    @Select("select a.*, b.column_name as column_name  from xpw_priv a, xpw_column b where a.column_id = b.id")
+    @Select("select a.*, b.column_name as column_name  from xpw_priv a, xpw_column b where a.column_id = b.id and a.is_enabled = 1")
 	@ResultMap("ColumnNameBaseResultMap")
 	List<XPWPriv> selectWithColumnNameByExample();
     

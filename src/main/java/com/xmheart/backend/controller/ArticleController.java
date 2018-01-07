@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.AuthorizationException;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -73,6 +75,15 @@ public class ArticleController {
 		
 		XPWUser user = (XPWUser) httpSession.getAttribute("user");
 		XPWUser user1 = (XPWUser) SecurityUtils.getSubject().getPrincipal();
+		
+		// 如果 column_id 为 0, 默认是通过的。
+		// 这里先不动原来的逻辑
+//		if (columnId != 0) {
+//		    String permission = "article:view:" + columnId;
+//		    if (!SecurityUtils.getSubject().isPermitted(permission)) {
+//		        throw new UnauthorizedException();
+//		    }
+//		}
 		
 		boolean permitted = SecurityUtils.getSubject().isPermitted("admin");
 		XPWRole role = roleService.read(Long.valueOf(user.getRoleIds()));
@@ -139,7 +150,6 @@ public class ArticleController {
 		System.out.println(list);
 		return list;
 	}
-    
 	
     //TODO 这个接口要移到后台系统中去
 	@ApiOperation(value = "创建一篇文章", notes = "创建一篇文章")
@@ -233,6 +243,23 @@ public class ArticleController {
             @ApiParam("文章摘要，可选") @RequestParam(required = false) String brief,
             @ApiParam("文章内容，可选") @RequestParam(required = false) String content) {
         
+        XPWArticle a = articleService.read(id);
+        XPWColumn parentColumn = columnService.getParentColumnById(a.getColumnId());
+        // 权限判断，这里的读相当于更新操作
+        String permission = "";
+        if (parentColumn.getId() != 0) {
+            if (isPublished != null) {
+                permission = "articles:publish:" + parentColumn.getId();
+                if (!SecurityUtils.getSubject().isPermitted(permission)) {
+                    throw new UnauthorizedException();
+                }
+            }
+//            permission = "articles:update:" + parentColumn.getId();
+//            if (!SecurityUtils.getSubject().isPermitted(permission)) {
+//                throw new UnauthorizedException();
+//            }
+        }
+        
         XPWArticle article = new XPWArticle();
         article.setId(id);
         if (columnId != null) {
@@ -257,14 +284,6 @@ public class ArticleController {
             }
         }
         
-//        if (publishTime == null) {
-//            Date date = new Date();
-////            Timestamp ts = Timestamp.valueOf(publishTime); 
-////            date = ts;
-//            article.setPublishTime(date);
-//        } else {
-//        		
-//        }
         
         if (publishTime != null) {
             long milliSeconds= Long.parseLong(publishTime);
@@ -273,9 +292,6 @@ public class ArticleController {
         
         if (isPublished != null) {
             article.setIsPublished(isPublished);
-//            if (isPublished) {
-//                article.setPublishTime(new Date());
-//            }
         }
         
         if (tags != null) {
@@ -305,7 +321,18 @@ public class ArticleController {
 	@RequestMapping(value = { "/articles/{id}" }, method = RequestMethod.DELETE)
 	public ResponseEntity<?> delete(@ApiParam("文章Id，必填") @PathVariable Long id) {
 		
+	    XPWArticle a = articleService.read(id);
+        XPWColumn parentColumn = columnService.getParentColumnById(a.getColumnId());
+        // 权限判断，这里的读相当于更新操作
+//        if (parentColumn.getId() != 0) {
+//            String permission = "articles:delete:" + parentColumn.getId();
+//            if (!SecurityUtils.getSubject().isPermitted(permission)) {
+//                throw new UnauthorizedException();
+//            }
+//        }
+	    
 		int ret = articleService.delete(id);
+		
 		if (ret > 0) {
 			return ResponseEntity.ok(null);
 		} else {
@@ -322,11 +349,16 @@ public class ArticleController {
         article.setId(id);
         
         article = articleService.read(id);
-        if (article != null) {
-            return ResponseEntity.ok(article);
-        } else {
-            return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);
-        }
+        XPWColumn parentColumn = columnService.getParentColumnById(article.getColumnId());
+        // 权限判断，这里的读相当于更新操作
+//        if (parentColumn.getId() != 0) {
+//            String permission = "articles:view:" + parentColumn.getId();
+//            if (!SecurityUtils.getSubject().isPermitted(permission)) {
+//                throw new UnauthorizedException();
+//            }
+//        }
+        
+        return ResponseEntity.ok(article);
     }
 	
     @RequestMapping(value = { "/uploadImage" }, method = RequestMethod.POST)

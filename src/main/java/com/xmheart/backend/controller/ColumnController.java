@@ -64,7 +64,6 @@ public class ColumnController {
         subject.checkPermission("article");
         
         XPWUser user1 = (XPWUser) subject.getPrincipal();
-        ServletContext servletContext = httpSession.getServletContext();
         List<XPWColumn> list = new ArrayList();
         List<XPWColumn> temp = new ArrayList();
         
