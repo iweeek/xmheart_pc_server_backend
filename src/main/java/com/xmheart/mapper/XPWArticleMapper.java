@@ -150,7 +150,7 @@ public interface XPWArticleMapper {
      * @param columnName
      * @return
      */       
-    @Select("SELECT * from xpw_article where is_published = 1 and title like concat('%', #{keywords, jdbcType=VARCHAR}, '%') and #{whereClause} ORDER BY publish_time desc")
+    @Select("SELECT * from xpw_article where is_published = 1 and title like concat('%', #{keywords, jdbcType=VARCHAR}, '%') and ${whereClause} ORDER BY publish_time desc")
     List<XPWArticle> selectReadableColumn(@Param("keywords")  String keywords, @Param("whereClause") String whereClause);
     
 }
