@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <link rel="stylesheet" type="text/css" href="./css/business.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/angular-growl.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/article-list.css">
+    <link rel="stylesheet" type="text/css" href="./css/common/reset.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="./css/common/common.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="./css/common/pagination.css" media="screen">
+</head>
+
+<body>
+    <div class="page-article-list">
+        <ol class="breadcrumb">
+            <li><a href="#"></a>日志记录</li>
+            <li class="active">日志列表</li>
+        </ol>
+        <div class="row"> 
+            <div class="col-md-1 select-title select-title-first" style="line-height: 34px;">栏目选择</div>
+            <div class="col-sm-1 select-title select-title-first">
+                <select class="form-control" id="J_select_first"></select>
+            </div>
+            <div class="col-sm-1 select-title select-title-second">
+                <select class="form-control" id="J_select_second"></select>
+            </div>
+            <div class="col-sm-1 select-title select-title-third">
+                <select class="form-control" id="J_select_third"></select>
+            </div>
+            <div class="col-sm-1 select-title select-title-fourth">
+                <select class="form-control" id="J_select_fourth"></select>
+            </div>
+            <div class="operate-panel">
+                <button class="btn btn-primary" id="J_filter_btn" data-first="" data-second="" data-third="" data-fourth="">筛选</button>
+                <button class="btn btn-primary" id="J_create_btn">新建文章</button>
+                <button id="search" class="btn btn-primary post-btn-edit" data-title={{articleTitle}} data-nav-id={{id}} data-column-id={{columnId}}
+                        data-column-name={{childColumnName}}>搜索</button>
+            </div>
+        </div>
+        <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="postModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">搜索文章标题</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-horizontal">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">文章搜索</label>
+                    <div class="col-sm-10">
+                      <select class="form-control" id="postSelect">
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="bindNavTitle">确定</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="text-align: center;">日志编号</th>
+                    <th style="text-align: center;">访问路径</th>
+                    <th style="text-align: center;">用户名</th>
+                    <th style="text-align: center;">代理</th>
+                    <th style="text-align: center;">访问时间</th>
+                </tr>
+            </thead>
+            <tbody id="J_articles"></tbody>
+        </table>
+        <div class="ui-nodata">
+            该栏目下无数据～请重新选择栏目
+        </div>
+        <div class="ui-loading">
+            <img src="./img/progress_circle.gif" alt="loading">
+        </div>
+        
+        <div class="M-box"></div>
+        
+    </div>
+    <script id="J_articles_tmpl" type="x-tmpl-mustache">
+        {{#result}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{uri}}</td>
+			<td>
+                {{username}}
+			</td>
+			<td>{{userAgent}}</td>
+            <td>
+                {{accessTime}}
+            </td>
+        </tr>
+        {{/result}}
+
+    </script>     
+    <script type="text/javascript" src="./js/third_party/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/sweetalert-dev.js"></script>
+    <script type="text/javascript" src="./js/third_party/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/select2.min.js"></script>
+    <script type="text/javascript" src="./js/third_party/mustache.min.js"></script>
+    <script type="text/javascript" src="./js/http-intercept.js"></script>
+    <script type="text/javascript" src="./js/log-list.js"></script>
+    <script src="./css/common/jquery.pagination.js"></script>
+</body>
+
+</html>
