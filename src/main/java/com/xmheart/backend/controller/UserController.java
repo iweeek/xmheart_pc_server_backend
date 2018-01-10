@@ -1,5 +1,6 @@
 package com.xmheart.backend.controller;
 
+import org.apache.commons.digester.RegexMatcher;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,13 @@ import com.xmheart.model.XPWUserRole;
 import com.xmheart.service.RoleService;
 import com.xmheart.service.UserRoleService;
 import com.xmheart.service.UserService;
+import com.xmheart.util.MessageDigestUtil;
 import com.xmheart.util.ResponseBody;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -82,9 +86,18 @@ public class UserController {
 		if (username != null) {
 			user.setUsername(username);
 		}
+		// 使用正则表达式进行密码的验证。
 		if (password != null) {
-			user.setPassword(password);
+		    String rex = "(?=.*?[0-9])(?=.*?[a-z])(?=.*?[A-Z])[a-zA-Z0-9]{6,18}$";
+	        Pattern pattern = Pattern.compile(rex);
+	        Matcher matcher = pattern.matcher(password);
+	        if (!matcher.matches()) {
+	            return ResponseEntity.status(HttpServletResponse.SC_OK).body("no-match");
+	        }
+	        String md5Password = MessageDigestUtil.Md5(password);
+			user.setPassword(md5Password);
 		}
+		
 		if (roleId != null) {
 			user.setRoleIds(String.valueOf(roleId));
 		}
@@ -99,6 +112,15 @@ public class UserController {
 		}
 	}
 
+	public static void main(String[] args) {
+	    String rex = "^[a-zA-Z0-9]{6,18}$";
+        
+        Pattern pattern = Pattern.compile(rex);
+        Matcher matcher = pattern.matcher("123jhias");
+        boolean matches = matcher.matches();
+        System.out.println(matches);
+    }
+	
 	@ApiOperation(value = "创建一个用户", notes = "创建一个用户")
 	@RequestMapping(value = { "/users" }, method = RequestMethod.POST)
 	public ResponseEntity<?> create(@ApiParam("用户名") @RequestParam(required = false) String username,

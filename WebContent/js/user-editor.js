@@ -77,9 +77,66 @@ exports.XPW.UserUeditor = (function() {
 		  }
 		  var salt = Math.ceil(Math.random()*10);
 		  var saltPassword = ($.md5(password).toString()/* + salt.toString()*/);
-		  var upateParms = {id: id, username: username, password: saltPassword, roleId: roleId };
+		  /*这里修改了password  2018年01月10日23:06:40*/
+		  var upateParms = {id: id, username: username, password: password, roleId: roleId };
 		  var newParms = {username: username, password: saltPassword, roleId: roleId };
 		  var parms = id ? upateParms : newParms;
+		  $.ajax({
+              url: url,
+              type: 'POST',
+              dataType: 'json',
+              data: parms,
+              success: function(data) {
+                  $this.removeAttr('disabled');
+                  UserUeditor.fillData(data);
+                  if (id) {
+                      swal({
+                          title: "编辑成功",
+                          text: "返回上一页？",
+                          type: "success",
+                          showCancelButton: true,
+                          confirmButtonColor: "#8cd4f5",
+                          confirmButtonText: "返回上一页",
+                          cancelButtonText: "留在本页",
+                          closeOnConfirm: false
+                      }, function () {
+                          window.history.go(-1);
+                      });
+                  } else {
+                      swal({
+                          title: "创建成功",
+                          text: "返回上一页？",
+                          type: "success",
+                          showCancelButton: true,
+                          confirmButtonColor: "#8cd4f5",
+                          confirmButtonText: "返回上一页",
+                          cancelButtonText: "留在本页",
+                          closeOnConfirm: false
+                      }, function () {
+                            var url = '/user_list.html';
+                         location.href = url;
+                      });
+                  }
+              },
+              error: function(request,msg,error) {
+                $this.removeAttr('disabled');
+                if (request.responseText == "no-match") {
+                    swal({
+                          title: "密码不符合要求，请重新输入。",
+    //                      text: "返回上一页？",
+                          type: "error",
+    //                      showCancelButton: true,
+                          confirmButtonColor: "#8cd4f5",
+                          confirmButtonText: "确定",
+    //                      cancelButtonText: "留在本页",
+                          closeOnConfirm: true
+                      }, function () {
+    //                      window.history.go(-1);
+                      });
+                }
+              }
+          });
+		  
 		  $.ajax({
 		  	  	url: url,
 		        type: 'POST',
@@ -88,9 +145,23 @@ exports.XPW.UserUeditor = (function() {
 		      })
 		   .done(function(data) {
 			  $this.removeAttr('disabled');
+//			  if (data == "no-match") {
+//			      swal({
+//                      title: "密码不符合要求，请重新输入。",
+////                      text: "返回上一页？",
+//                      type: "error",
+////                      showCancelButton: true,
+//                      confirmButtonColor: "#8cd4f5",
+//                      confirmButtonText: "确定",
+////                      cancelButtonText: "留在本页",
+//                      closeOnConfirm: false
+//                  }, function () {
+////                      window.history.go(-1);
+//                  });
+//			  }
 			  UserUeditor.fillData(data);
-			  if (id) {
-				  swal({
+              if (id) {
+                  swal({
                       title: "编辑成功",
                       text: "返回上一页？",
                       type: "success",
@@ -102,8 +173,8 @@ exports.XPW.UserUeditor = (function() {
                   }, function () {
                       window.history.go(-1);
                   });
-			  } else {
-				  swal({
+              } else {
+                  swal({
                       title: "创建成功",
                       text: "返回上一页？",
                       type: "success",
@@ -113,10 +184,10 @@ exports.XPW.UserUeditor = (function() {
                       cancelButtonText: "留在本页",
                       closeOnConfirm: false
                   }, function () {
-                	  	var url = '/user_list.html';
+                        var url = '/user_list.html';
                      location.href = url;
                   });
-			  }
+              }
 		  });
 	  })
   }
