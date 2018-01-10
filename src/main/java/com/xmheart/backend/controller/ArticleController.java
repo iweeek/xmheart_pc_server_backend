@@ -76,34 +76,12 @@ public class ArticleController {
 		XPWUser user = (XPWUser) httpSession.getAttribute("user");
 		XPWUser user1 = (XPWUser) SecurityUtils.getSubject().getPrincipal();
 		
-		// 如果 column_id 为 0, 默认是通过的。
-		// 这里先不动原来的逻辑
-//		if (columnId != 0) {
-//		    String permission = "article:view:" + columnId;
-//		    if (!SecurityUtils.getSubject().isPermitted(permission)) {
-//		        throw new UnauthorizedException();
-//		    }
-//		}
-		
-		boolean permitted = SecurityUtils.getSubject().isPermitted("admin");
-		XPWRole role = roleService.read(Long.valueOf(user.getRoleIds()));
-		String privIds = role.getPrivIds();
-        XPWPrivExample example = new XPWPrivExample();
-        if (privIds != null) {
-            String[] split = privIds.split(",");
-          
-            StringBuilder sb = new StringBuilder();
-            for (String item : split) {
-                long pId= Long.parseLong(item);
-                example.or().andIdEqualTo(pId);
-            }
-            privs = privMapper.selectByExample(example);
-            
-        }
+		privs = getGrantedColumns(user);
         
         for (int i = 0; i< privs.size(); i++) {
             getChildColumns(filterAllColumns, privs.get(i).getColumnId());
         }
+        
         PageHelper.startPage(1, pageSize);
         if (columnId == null || columnId == 0) {
             PageHelper.startPage(pageNo, pageSize);
@@ -122,6 +100,24 @@ public class ArticleController {
         // model.addAttribute("pageInfo", pageInfo);
 		return ResponseEntity.ok(pageInfo);
 	}
+    
+    public List<XPWPriv> getGrantedColumns(XPWUser user) {
+        List<XPWPriv> privs = null;
+        XPWRole role = roleService.read(Long.valueOf(user.getRoleIds()));
+        String privIds = role.getPrivIds();
+        XPWPrivExample example = new XPWPrivExample();
+        if (privIds != null) {
+            String[] split = privIds.split(",");
+          
+            StringBuilder sb = new StringBuilder();
+            for (String item : split) {
+                long pId= Long.parseLong(item);
+                example.or().andIdEqualTo(pId);
+            }
+            privs = privMapper.selectByExample(example);
+        }
+        return privs;
+    }
 
 	/**
 	 * 得到所有的这一栏目下的子栏目ID，包括父栏目
@@ -247,7 +243,7 @@ public class ArticleController {
         XPWColumn parentColumn = columnService.getParentColumnById(a.getColumnId());
         // 权限判断，这里的读相当于更新操作
         String permission = "";
-        if (parentColumn.getId() != 0) {
+        if (parentColumn != null && parentColumn.getId() != 0) {
             if (isPublished != null) {
                 permission = "articles:publish:" + parentColumn.getId();
                 if (!SecurityUtils.getSubject().isPermitted(permission)) {
@@ -396,16 +392,26 @@ public class ArticleController {
             @ApiParam("文章的栏目Id") @RequestParam(required = false) Long columnId,
             @ApiParam("文章的栏目的名称") @RequestParam(required = false) String columnName) {
         List<XPWArticle> list;
+        List<XPWPriv> privs = null;
+        List<Long> filterAllColumns = new ArrayList();
+        
+        XPWUser user = (XPWUser) SecurityUtils.getSubject().getPrincipal();
+        privs = getGrantedColumns(user);
+        
+        for (int i = 0; i< privs.size(); i++) {
+            getChildColumns(filterAllColumns, privs.get(i).getColumnId());
+        }
+        
         if (columnId != null) {
             list = articleService.show(columnId, keyword);
         } else {
-            list = articleService.show(keyword);
+            list = articleService.show(keyword, filterAllColumns);
         }
         
         if (columnName != null) {
-        	list = articleService.showByColNameAndKey(columnName, keyword);
+            list = articleService.showByColNameAndKey(columnName, keyword);
         } else {
-            list = articleService.show(keyword);
+            list = articleService.show(keyword, filterAllColumns);
         }
         
         if (list.size() != 0) {

@@ -91,14 +91,14 @@ public class BackendNewsController {
 //        return ResponseEntity.ok(columnList);
 //    }
     
-    @ApiOperation(value = "媒体看厦心、医院新闻搜索文章", notes = "媒体看厦心、医院新闻搜索文章")
-    @RequestMapping(value = { "/news/articles/show" }, method = RequestMethod.GET)
-    public ResponseEntity<?> show(@ApiParam("文章标题的关键字") @RequestParam String keyword) {
-        //TODO 需要做分页，需不需要送栏目Id呢？这个地方的结构要考虑一下。
-        List<XPWArticle> list = articleService.show(keyword);
-
-        return ResponseEntity.ok(list);
-    }
+//    @ApiOperation(value = "媒体看厦心、医院新闻搜索文章", notes = "媒体看厦心、医院新闻搜索文章")
+//    @RequestMapping(value = { "/news/articles/show" }, method = RequestMethod.GET)
+//    public ResponseEntity<?> show(@ApiParam("文章标题的关键字") @RequestParam String keyword) {
+//        //TODO 需要做分页，需不需要送栏目Id呢？这个地方的结构要考虑一下。
+//        List<XPWArticle> list = articleService.show(keyword);
+//
+//        return ResponseEntity.ok(list);
+//    }
 
     // @ApiOperation(value = "获取Nav", notes = "根据title获取Nav")
     // @RequestMapping(value = { "/column" }, method = RequestMethod.GET)

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.xmheart.mapper.XPWArticleMapper;
 import com.xmheart.model.XPWArticle;
 import com.xmheart.model.XPWArticleExample;
+import com.xmheart.model.XPWArticleExample.Criteria;
 import com.xmheart.model.XPWVideo;
 import com.xmheart.service.ArticleService;
 
@@ -35,10 +36,23 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<XPWArticle> show(String keyword) {
-        XPWArticleExample example = new XPWArticleExample();
-        example.createCriteria().andTitleLike("%" + keyword + "%");
-        List<XPWArticle> list = articleMapper.selectByExample(example);
+    public List<XPWArticle> show(String keyword, List<Long> coloumIds) {
+        StringBuilder s = new StringBuilder();
+//        s.append(" title like '%" + keyword + "%'");
+        if (coloumIds.size() != 0) {
+            s.append(" (");
+        }
+        for (int i = 0; i < coloumIds.size(); i++) {
+            s.append("column_id = " + coloumIds.get(i)); 
+            if (i != coloumIds.size() - 1) {
+                s.append(" or ");
+            }
+        }
+        s.append(")");
+        
+        
+        List<XPWArticle> list = articleMapper.selectReadableColumn(keyword, s.toString());
+        System.out.println(s.toString());
         return list;
     }
 

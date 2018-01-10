@@ -11,6 +11,21 @@
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
     </bean>
+    
+    <!-- <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/login.html"/>
+        <property name="successUrl" value="/s/index"/>
+        <property name="unauthorizedUrl" value="/s/unauthorized"/>
+        <property name="filterChainDefinitions">
+            <value>
+                /login.html = anon
+                /captcha = anon
+                /tokens = anon
+                /** = authc
+            </value>
+        </property>
+    </bean> -->
 
 	<bean id="subjectFactory" class="com.xmheart.shiro.StatelessDefaultSubjectFactory" />
 

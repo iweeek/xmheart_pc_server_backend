@@ -18,7 +18,7 @@ public interface ArticleService {
 
     int update(XPWArticle article);
 
-    List<XPWArticle> show(String keyword);
+//    List<XPWArticle> show(String keyword);
 
     List<XPWArticle> index();
 
@@ -45,4 +45,6 @@ public interface ArticleService {
     Byte getMaxPinOrder();
 
     List<XPWArticle> searchArticleByTitle(String title);
+
+    List<XPWArticle> show(String keyword, List<Long> coloumIds);
 }
