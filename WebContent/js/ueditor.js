@@ -141,7 +141,7 @@ $(function () {
 	            content: ue.getContent(),
 	            tags: tags.val(),
 	            brief: brief,
-	            isPublished: false,
+//	            isPublished: false,
 	            imgUrl: imgUrl,
 	            publishTime: publishTime
             };
