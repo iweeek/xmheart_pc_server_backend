@@ -9,9 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,7 +64,12 @@ public class ColumnController {
         XPWUser user = (XPWUser) SecurityUtils.getSubject().getPrincipal();
 //        XPWUser user = (XPWUser) httpSession.getAttribute("user");
         Subject subject = SecurityUtils.getSubject();
-        subject.checkPermission("article");
+        try {
+            subject.checkPermission("article");
+        } catch (UnauthenticatedException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
         
         XPWUser user1 = (XPWUser) subject.getPrincipal();
         List<XPWColumn> list = new ArrayList();

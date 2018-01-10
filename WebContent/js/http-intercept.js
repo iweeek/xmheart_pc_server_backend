@@ -49,6 +49,37 @@ $(function () {
                     closeOnConfirm: false
                     })
                 }
+            
+            if (jqXHR.status == 401) {
+                //安全退出，清除客户端cookies
+                document.cookie ='xmheart_token=;';
+                document.cookie = "user_id=";
+                document.cookie = "user_type=";
+                swal({
+                    title: "对不起，您需要重新登录。",
+//                    text: "返回上一页？",
+                    type: "error",
+//                    showCancelButton: true,
+                    confirmButtonColor: "#8cd4f5",
+                    confirmButtonText: "确定",
+//                    cancelButtonText: "留在本页",
+                    closeOnConfirm: true
+                }, function() {
+                    location.reload(true);
+                });
+            }
+//            
+//            $("#logout").click(function() {
+//                swal({
+//                    title : "登出成功",
+//                    type : "success",
+//                    confirmButtonColor : "#8cd4f5",
+//                    confirmButtonText : "确定",
+//                    closeOnConfirm : true
+//                }, function() {
+//                    location.reload(true);
+//                });
+//              })
 //            alert( '发送AJAX请求到"' + this.url + '"时出错[' + jqXHR.status + ']：' + errorMsg );        
         }
     });

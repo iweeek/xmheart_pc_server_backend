@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -103,7 +104,9 @@ public class GlobalExceptionHandler {
 			return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED).body(null);
 		} else if (exception instanceof UnauthorizedException) {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
-		} else {
+		} else if (exception instanceof UnauthenticatedException) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        } else {
 		    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
 	}
