@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
 	<wb-module deploy-name="xmheart_pc_server_backend">
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/" source-path="/WebContent"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
 		<property name="context-root" value="xmheart_pc_server_backend"/>
         <property name="java-output-path" value="/xmheart_pc_server_backend/bin"/>
-		<wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/java"/>
-		<wb-resource deploy-path="/" source-path="WebContent"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
 	</wb-module>
 </project-modules>

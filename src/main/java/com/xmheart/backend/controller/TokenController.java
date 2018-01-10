@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.UnauthenticatedException;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -90,6 +93,15 @@ public class TokenController {
                 currentUser.login(token);
                 System.out.println(currentUser.isAuthenticated());
                 
+            } catch (UnauthorizedException e) {  
+                e.printStackTrace();
+                return ResponseEntity.status(HttpServletResponse.SC_FORBIDDEN).body(null);
+            } catch (UnauthenticatedException e) {  
+                e.printStackTrace();
+                return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED).body(null);
+            } catch (ExcessiveAttemptsException e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpServletResponse.SC_EXPECTATION_FAILED).body(null);
             } catch (Exception e) {
                 e.printStackTrace();
                 return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);

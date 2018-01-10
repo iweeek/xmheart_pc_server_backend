@@ -1,9 +1,13 @@
 package com.xmheart.controller.exhandler;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
@@ -106,6 +110,8 @@ public class GlobalExceptionHandler {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 		} else if (exception instanceof UnauthenticatedException) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        } else if (exception instanceof ExcessiveAttemptsException) {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
         } else {
 		    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}

@@ -50,8 +50,23 @@
 	<!-- Define the Shiro Realm implementation you want to use to connect to 
 		your back-end -->
 	<!-- security datasource: -->
-	<bean id="tokenRealm" class="com.xmheart.shiro.TokenRealm">
+    <bean id="tokenRealm" class="com.xmheart.shiro.TokenRealm">
         <constructor-arg type="String" value="TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"/>
+         <property name="credentialsMatcher" ref="credentialsMatcher"/>  
+    </bean>
+
+    <!-- 凭证匹配器 -->  
+    <bean id="credentialsMatcher"  
+          class="com.xmheart.shiro.RetryLimitCredentialsMatcher">  
+        <constructor-arg index="0" ref="cacheManager"/>  
+        <constructor-arg index="1" value="5"/>  
+        <!-- <property name="hashAlgorithmName" value="md5"/>   --> 
+        <!-- <property name="hashIterations" value="0"/>  -->
+    </bean>  
+    
+    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager" >
+        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml" />
+
     </bean>
  
 	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">

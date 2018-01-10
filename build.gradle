@@ -71,6 +71,7 @@ dependencies {
 	compile group: 'org.mybatis', name: 'mybatis-spring', version: '1.3.1'
 	compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
 	compile group: 'org.apache.shiro', name: 'shiro-spring', version: '1.3.2'
+	compile group: 'org.apache.shiro', name: 'shiro-ehcache', version: '1.2.3'
 	
 	compile group: 'org.apache.logging.log4j', name: 'log4j-web', version: '2.8.2'
 	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'

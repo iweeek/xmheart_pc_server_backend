@@ -68,6 +68,25 @@ $(function () {
                     location.reload(true);
                 });
             }
+            
+            if (jqXHR.status == 417) {
+                // 登录失败次数过多
+                document.cookie ='xmheart_token=;';
+                document.cookie = "user_id=";
+                document.cookie = "user_type=";
+                swal({
+                    title: "对不起，您的登录失败超过5次。请15分钟后再尝试登录。",
+//                    text: "返回上一页？",
+                    type: "error",
+//                    showCancelButton: true,
+                    confirmButtonColor: "#8cd4f5",
+                    confirmButtonText: "确定",
+//                    cancelButtonText: "留在本页",
+                    closeOnConfirm: true
+                }, function() {
+                    location.reload(true);
+                });
+            }
 //            
 //            $("#logout").click(function() {
 //                swal({

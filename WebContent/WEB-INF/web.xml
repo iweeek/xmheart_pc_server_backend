@@ -4,19 +4,24 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 	<display-name>Archetype Created Web Application</display-name>
 	<!-- spring servlet 用于接管请求 -->
+	<!-- 注意！！！！！！！！！这个地方的配置不会生效 -->	
 	<servlet>
 		<servlet-name>DispatcherServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
-                /WEB-INF/spring-shiro.xml,
-				/WEB-INF/spring-mvc.xml,
-				/WEB-INF/spring-mybatis.xml
+              
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
+	<!-- spring mvc 映射路径 -->
+	<servlet-mapping>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
 	
 <!-- 	<filter>  
 		<filter-name>encodingFilter</filter-name>  
@@ -57,12 +62,6 @@
 	<!-- <listener>
     	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
  	</listener> -->
-
-	<!-- spring mvc 映射路径 -->
-	<servlet-mapping>
-		<servlet-name>DispatcherServlet</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
 
     <!-- shiro集成spring配置 -->
     <!-- DelegatingFilterProxy为Spring提供的过滤器代理类，委托由Spring容器管理的同名的bean来进行实际操作 -->
