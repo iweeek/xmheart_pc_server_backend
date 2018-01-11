@@ -1,5 +1,6 @@
 package com.xmheart.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -29,9 +30,17 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public List<XPWVisitLog> index() {
+        XPWVisitLogExample example = new XPWVisitLogExample();
+        example.setOrderByClause("access_time desc");
+        List<XPWVisitLog> list = logMapper.selectAll();
+        return list;
+    }
+    
+    @Override
+    public List<XPWVisitLog> index(Date startTime, Date endTime) {
 //        XPWVisitLogExample example = new XPWVisitLogExample();
 //        example.setOrderByClause("access_time desc");
-        List<XPWVisitLog> list = logMapper.selectWithUsername();
+        List<XPWVisitLog> list = logMapper.selectWithUsername(startTime, endTime);
         return list;
     }
 

@@ -5,6 +5,8 @@ $(function() {
         pageTotal : 0,
         noNextPage : false,
         pinnedNum : 0,
+        startTime: 0,
+        endTime: 0,
         col: [],
         newCol: [],
       //获取url中的参数
@@ -147,16 +149,19 @@ $(function() {
             });
             return formatDate;
         },
-        getArticles : function(pageNo, pageSize, columnId) {
+        /* 从article-list拷贝过来，只改了这里 */
+        getArticles : function(pageNo, pageSize, startTime, endTime) {
             $('.ui-loading').show();
             var loading = true;
+            
             $.ajax({ 
                 type : "get", 
                 url : "/logs", 
                 data : {
                     pageNo : pageNo,
                     pageSize : pageSize,
-                    columnId : columnId
+                    startTime: startTime,
+                    endTime: endTime
                 },
                 async : false, 
                 success : function(res){ 
@@ -217,21 +222,21 @@ $(function() {
             if (ctrl.pageNo > 1) {
                 ctrl.pageNo--;
                 console.log(ctrl.pageNo);
-                ctrl.getArticles(ctrl.pageNo, 10, ctrl.columnId);
+                ctrl.getArticles(ctrl.pageNo, 10, startTime, endTime);
             }
         },
         next : function() {
             if (!ctrl.noNextPage) {
                 ctrl.pageNo++;
                 console.log(ctrl.pageNo);
-                ctrl.getArticles(ctrl.pageNo, 10, ctrl.columnId);
+                ctrl.getArticles(ctrl.pageNo, 10, startTime, endTime);
             }
         },
         page : function(cur) {
             if (!ctrl.noNextPage) {
                 ctrl.pageNo = cur;
                 console.log(ctrl.pageNo);
-                ctrl.getArticles(ctrl.pageNo, 10, ctrl.columnId);
+                ctrl.getArticles(ctrl.pageNo, 10, ctrl.startTime, ctrl.endTime);
             }
         },
         pinned : function(articleId, type) {
@@ -352,6 +357,16 @@ $(function() {
                     ctrl.page(api.getCurrent());
                 }
             });
+            // 初始化时间选择器
+            $('[data-toggle="startDatepicker"]').datepicker({
+                language: 'zh-CN',
+                format: 'yyyy-MM-dd'
+             });
+            
+            $('[data-toggle="endDatepicker"]').datepicker({
+                language: 'zh-CN',
+                format: 'yyyy-MM-dd'
+             });
         }
     }
     
@@ -415,19 +430,11 @@ $(function() {
     $('#J_filter_btn').on('click', function() {
     		var $this = $(this);
     		ctrl.col = [];
-    		if ($this.data('first')) {
-    			ctrl.col.push($this.data('first'));
-    		}
-    		if ($this.data('second')) {
-    			ctrl.col.push($this.data('second'));
-    		}
-    		if ($this.data('third')) {
-    			ctrl.col.push($this.data('third'));
-    		}
-    		if ($this.data('fourth')) {
-    			ctrl.col.push($this.data('fourth'));
-    		}
-        ctrl.getArticles(1, 10, ctrl.columnId);
+    		
+    		ctrl.startTime = $('[data-toggle="startDatepicker"]').datepicker('getDate').getTime();
+        ctrl.endTime = $('[data-toggle="endDatepicker"]').datepicker('getDate').getTime();
+        
+        ctrl.getArticles(1, 10, ctrl.startTime, ctrl.endTime);
     });
 
     // 上一页

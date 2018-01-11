@@ -2,6 +2,8 @@ package com.xmheart.mapper;
 
 import com.xmheart.model.XPWVisitLog;
 import com.xmheart.model.XPWVisitLogExample;
+
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -93,5 +95,11 @@ public interface XPWVisitLogMapper {
     @Select({ "select l.id, u.username as username, l.uri, l.user_agent, "
             + "l.access_time, l.user_id from xpw_visit_log as l join xpw_user as u on l.user_id = u.id order by access_time desc" })
     @ResultMap("com.xmheart.mapper.XPWVisitLogMapper.BaseResultMap")
-    List<XPWVisitLog> selectWithUsername();
+    List<XPWVisitLog> selectAll();
+    
+    @Select({ "select l.id, u.username as username, l.uri, l.user_agent, "
+            + "l.access_time, l.user_id from xpw_visit_log as l join xpw_user as u on l.user_id = u.id "
+            + "where access_time between date(#{startTime}) and date(#{endTime}) order by access_time desc" })
+    @ResultMap("com.xmheart.mapper.XPWVisitLogMapper.BaseResultMap")
+    List<XPWVisitLog> selectWithUsername(@Param("startTime") Date startTime, @Param("endTime") Date endTime);
 }

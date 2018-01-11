@@ -16,6 +16,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -65,17 +66,30 @@ public class LogController {
 	@RequestMapping(value = { "/logs" }, method = RequestMethod.GET)
 	public ResponseEntity<?> index(@ApiParam("开始页号") @RequestParam(required = false, defaultValue = "1") Integer pageNo,
 			@ApiParam("每页的数目") @RequestParam(required = false, defaultValue = "10") Integer pageSize,
-			@ApiParam("栏目Id") @RequestParam(required = false) Long columnId, HttpSession httpSession) {
+			@RequestParam(required = false, value = "startTime") String startTime,
+			@RequestParam(required = false, value = "endTime") String endTime, HttpSession httpSession) {
 		List<XPWVisitLog> list = null;
 		List<XPWPriv> privs = null;
 		
 		XPWUser user = (XPWUser) httpSession.getAttribute("user");
 		XPWUser user1 = (XPWUser) SecurityUtils.getSubject().getPrincipal();
 		
-		privs = getGrantedColumns(user);
-        
-        PageHelper.startPage(pageNo, pageSize);
-        list = logService.index();
+		if (startTime.equals("0") || startTime == null) {
+		    PageHelper.startPage(pageNo, pageSize);
+		    list = logService.index();
+		} else {
+		
+		    long startMilliSeconds= Long.parseLong(startTime);
+    	        long endMilliSeconds= Long.parseLong(endTime);
+            
+    	        privs = getGrantedColumns(user);
+    	        PageHelper.startPage(pageNo, pageSize);
+    	        Date date = new Date(startMilliSeconds);
+    	        Date date2 = new Date(endMilliSeconds);
+    	        System.out.println(date);
+    	        System.out.println(date2);
+            list = logService.index(new Date(startMilliSeconds), new Date(endMilliSeconds));
+		}
         PageInfo pageInfo = new PageInfo(list);
         return ResponseEntity.ok(pageInfo);
 	}

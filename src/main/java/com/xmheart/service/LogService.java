@@ -14,11 +14,12 @@ import com.xmheart.model.XPWVisitLog;
  * 用于处理日志相关
  */
 public interface LogService {
-
-
-    List<XPWVisitLog> index();
     
     XPWVisitLog read(Long id);
     
     int delete(Long id);
+
+    List<XPWVisitLog> index(java.util.Date startTime, java.util.Date endTime);
+
+    List<XPWVisitLog> index();
 }

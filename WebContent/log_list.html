@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="./css/angular-growl.min.css">
     <link rel="stylesheet" type="text/css" href="./css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="./css/article-list.css">
+    <link rel="stylesheet" type="text/css" href="../css/datepicker.min.css">
     <link rel="stylesheet" type="text/css" href="./css/common/reset.css" media="screen">
     <link rel="stylesheet" type="text/css" href="./css/common/common.css" media="screen">
     <link rel="stylesheet" type="text/css" href="./css/common/pagination.css" media="screen">
@@ -24,7 +25,16 @@
             <li><a href="#"></a>日志记录</li>
             <li class="active">日志列表</li>
         </ol>
-        <div class="row"> 
+        <p class="subtit">选择日期范围</p>
+        <div class="tag-wrapper">
+            <input type="text" class="date-input" id="startDate" value="" data-toggle="startDatepicker"> 
+            至
+            <input type="text" class="date-input" id="endDate" value="" data-toggle="endDatepicker">
+            <button class="btn btn-primary" id="J_filter_btn" data-first="" data-second="" data-third="" data-fourth="">筛选</button>
+        </div>
+        <br/>
+        <br/>
+        <!-- <div class="row"> 
             <div class="col-md-1 select-title select-title-first" style="line-height: 34px;">栏目选择</div>
             <div class="col-sm-1 select-title select-title-first">
                 <select class="form-control" id="J_select_first"></select>
@@ -44,7 +54,7 @@
                 <button id="search" class="btn btn-primary post-btn-edit" data-title={{articleTitle}} data-nav-id={{id}} data-column-id={{columnId}}
                         data-column-name={{childColumnName}}>搜索</button>
             </div>
-        </div>
+        </div> -->
         <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="postModal">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -115,6 +125,8 @@
     <script type="text/javascript" src="./js/third_party/select2.min.js"></script>
     <script type="text/javascript" src="./js/third_party/mustache.min.js"></script>
     <script type="text/javascript" src="./js/http-intercept.js"></script>
+    <script type="text/javascript" src="../js/third_party/datepicker.min.js"></script>
+    <script type="text/javascript" src="../js/i18n/datepicker.zh-CN.js"></script>
     <script type="text/javascript" src="./js/log-list.js"></script>
     <script src="./css/common/jquery.pagination.js"></script>
 </body>
