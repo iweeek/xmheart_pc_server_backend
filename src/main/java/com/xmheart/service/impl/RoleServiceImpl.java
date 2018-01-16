@@ -32,7 +32,6 @@ public class RoleServiceImpl implements RoleService{
         int ret = roleMapper.updateByPrimaryKeySelective(role);
         return ret;
     }
-    @RequiresPermissions("s")
     @Override
     public int delete(Long id) {
         int ret = roleMapper.deleteByPrimaryKey(id);

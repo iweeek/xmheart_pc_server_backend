@@ -6,8 +6,6 @@ public class MyUsernamePasswordToken extends UsernamePasswordToken{
     
     private String salt;
 
-    
-    
     public MyUsernamePasswordToken(String username, String password) {
         super(username, password);
         // TODO Auto-generated constructor stub

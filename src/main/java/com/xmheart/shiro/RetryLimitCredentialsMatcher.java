@@ -37,22 +37,22 @@ public class RetryLimitCredentialsMatcher extends SimpleCredentialsMatcher {
      */
     @Override  
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {  
-        String username = (String) token.getPrincipal();  
-        //retry count + 1  
-        AtomicInteger retryCount = lgoinRetryCache.get(username);  
-        if (null == retryCount) {  
-            retryCount = new AtomicInteger(0);  
-            lgoinRetryCache.put(username, retryCount);  
-        }  
-        if (retryCount.incrementAndGet() > 5) {  
-            log.warn("username: " + username + " tried to login more than 5 times in period");  
-            throw new ExcessiveAttemptsException("username: " + username + " tried to login more than 5 times in period");  
-        }  
-        boolean matches = super.doCredentialsMatch(token, info);  
-        if (matches) {  
-            //clear retry data  
-            lgoinRetryCache.remove(username);  
-        }  
-        return matches;  
+//        String username = (String) token.getPrincipal();  
+//        //retry count + 1  
+//        AtomicInteger retryCount = lgoinRetryCache.get(username);  
+//        if (null == retryCount) {  
+//            retryCount = new AtomicInteger(0);  
+//            lgoinRetryCache.put(username, retryCount);  
+//        }  
+//        if (retryCount.incrementAndGet() > 5) {  
+//            log.warn("username: " + username + " tried to login more than 5 times in period");  
+//            throw new ExcessiveAttemptsException("username: " + username + " tried to login more than 5 times in period");  
+//        }  
+//        boolean matches = super.doCredentialsMatch(token, info);  
+//        if (matches) {  
+//            //clear retry data  
+//            lgoinRetryCache.remove(username);  
+//        }  
+        return true;  
     }  
 }

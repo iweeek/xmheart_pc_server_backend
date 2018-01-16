@@ -86,6 +86,7 @@ public class TokenRealm extends AuthorizingRealm{
 		for(String roleId : roleIds.toArray(new String[0])) {
             XPWRole role = roleService.read(Long.valueOf(roleId));
             String privIds = role.getPrivIds();
+            System.out.println("privIds: " + privIds);
             String[] split2 = privIds.split(",");
             for (String id : split2) {
                 if (StringUtils.isEmpty(id)) {
