@@ -13,24 +13,25 @@
        diskExpiryThreadIntervalSeconds="600"/>
     	-->
     <!-- 登录记录缓存 锁定15分钟 -->
-    <cache name="lgoinRetryCache"
+    <!-- <cache name="lgoinRetryCache"
            maxEntriesLocalHeap="2000"
            eternal="false"
-           timeToIdleSeconds="900"
-           timeToLiveSeconds="0"
+           timeToIdleSeconds="10"
+           timeToLiveSeconds="10"
            overflowToDisk="false"
            statistics="true">
-    </cache>
+    		</cache>
+    -->
        	
     	<defaultCache
     		name="default"
 		 maxElementsInMemory="10000"    
 	     maxElementsOnDisk="0"    
-	     eternal="true"    
+	     eternal="false"    
 	     overflowToDisk="true"    
 	     diskPersistent="false"    
-         timeToIdleSeconds="0"    
-         timeToLiveSeconds="0"    
+         timeToIdleSeconds="900"    
+         timeToLiveSeconds="900"    
          diskSpoolBufferSizeMB="50"    
          diskExpiryThreadIntervalSeconds="120"    
          memoryStoreEvictionPolicy="LFU"    
