@@ -12,9 +12,11 @@ exports.XPW.IndexEdit = (function() {
 	}
 
 	IndexEdit.init = function() {
+		$('.ui-loading').show();
 		IndexEdit.postDialogHandle();
 		IndexEdit.select2Handle();
 		IndexEdit.bindSearchArticle();
+		$('.ui-loading').hide();
 	}
 
 	IndexEdit.whichPostDialog = -1;

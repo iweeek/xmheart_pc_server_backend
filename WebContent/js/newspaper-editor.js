@@ -72,7 +72,7 @@ $(function() {
 		},
 		save : function() {
 			var $this = $(this);
-
+			
 			var imgUrl = $('.upload-img').attr('src');
 			var params = {
 				title : title.val(),

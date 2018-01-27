@@ -25,6 +25,8 @@
 .ui-loading {
     width: 100%;
     text-align: center;
+    float: left;
+    position: absolute;
 }
 .ui-nodata {
     width: 100%;

@@ -46,6 +46,7 @@ exports.XPW.xtIndexEdit = (function() {
   }
   
   xtIndexEdit.getData = function () {
+		$('.ui-loading').show();
 	  $.get('/xtIndexPage', function(data){
 		  xtIndexEdit.pageId = data.id;
 		  if (data.bannerImage1Url) {
@@ -72,6 +73,7 @@ exports.XPW.xtIndexEdit = (function() {
 		  if (data.bannerImage3ActionUrl) {
 			  $('.add-img-list').eq(2).find('.add-img-link input').val(data.bannerImage3ActionUrl);
 		  }
+			$('.ui-loading').hide();
 	  });
   }
   

@@ -35,6 +35,7 @@ exports.XPW.OfficeUeditor = (function() {
   }
   
   OfficeUeditor.getOfficeInfo = function () {
+	  $('.ui-loading').show();
     var id = OfficeUeditor.getUrlParam('deptId')
     if (id) {
 	    $.ajax({
@@ -45,11 +46,13 @@ exports.XPW.OfficeUeditor = (function() {
 	      })
 	     .done(function(data) {
 	    	   OfficeUeditor.fillData(data);
+	    	   $('.ui-loading').hide();
 	     })
      }
   }
  
   OfficeUeditor.postOfficeInfo = function () {
+	  $('.ui-loading').show();
 	  var id = OfficeUeditor.getUrlParam('deptId');
 	  var url = id ? '/depts/' + id : '/depts'
 	  $('.btn-group').on('click', '#save', function() {
@@ -74,6 +77,7 @@ exports.XPW.OfficeUeditor = (function() {
 			  OfficeUeditor.fillData(data);
 //			  swal("保存成功!");
 			  console.log(data.id);
+			  $('.ui-loading').hide();
 			  swal({
 					title : "保存成功!",
 					type : "success",
@@ -86,6 +90,7 @@ exports.XPW.OfficeUeditor = (function() {
 					window.history.go(-1);
 //					location.href="../static/office_ueditor.html?deptId=" + data.id;
 				});
+			  
 		  });
 	  })
   }

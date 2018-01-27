@@ -59,7 +59,6 @@ $(function () {
         init: function () {
             $('.ui-loading').show();
             $('.ui-nodata').hide();
-
             this.getColumns(0, '#J_select_first');
         }
     }

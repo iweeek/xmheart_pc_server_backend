@@ -9,6 +9,7 @@ exports.XPW.OfficeEdit = (function() {
 
   }
   OfficeEdit.firstOfficeLoad = function () {
+	  $('.ui-loading').show();
 	$.ajax({
 	  url: '/depts',
       type: 'GET'

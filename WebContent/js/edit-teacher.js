@@ -24,7 +24,7 @@ exports.XPW.DoctorEdit = (function() {
       if (r != null) return unescape(r[2]); return null; //返回参数值
   },
   DoctorEdit.firstOfficeLoad = function () {
-	$('.ui-loading').hide();
+	//$('.ui-loading').hide();
 	$('.previous').hide();
 	$('.next').hide();
 	$.ajax({
@@ -65,6 +65,7 @@ exports.XPW.DoctorEdit = (function() {
   }
 
   DoctorEdit.doctorData = function () {
+	  $('.ui-loading').show();
     $.ajax({
       url: '/teachers',
       type: 'GET',
@@ -100,6 +101,7 @@ exports.XPW.DoctorEdit = (function() {
                     showConfirmButton: false
               });
           }
+          $('.ui-loading').hide();
       }
     })
 //    .fail(function(e) {
@@ -117,6 +119,7 @@ exports.XPW.DoctorEdit = (function() {
   }
   
   DoctorEdit.online = function () {
+	  $('.ui-loading').show();
 	  $('#doctorTable').on ('click', '.post-btn-online', function() {
 		  var $this = $(this);
 		  $this.attr('disabled','disabled');
@@ -134,6 +137,7 @@ exports.XPW.DoctorEdit = (function() {
 		    	  Mustache.parse(doctorTemplate);   // optional, speeds up future uses
 		    	  var rendered = Mustache.render(doctorTemplate, {data:data});
 		    	  $('#'+id).replaceWith(rendered);
+		    	  $('.ui-loading').hide();
 		  });
 	  })
   }

@@ -70,6 +70,7 @@ exports.XPW.NavEdit = (function() {
 		    	 	data:data,
 		    	 });
 		     $('#typeSelectInput').html(rendered);
+		     $('.ui-loading').hide();
 		   });
   }
   
@@ -82,6 +83,8 @@ exports.XPW.NavEdit = (function() {
   }
 
   NavEdit.firstColumnData = function (val, selectedVal, htmlId) {
+	$('.ui-loading').show();
+	var loading = true;
     $.ajax({
       url: '/navs',
       type: 'GET',
@@ -121,6 +124,7 @@ exports.XPW.NavEdit = (function() {
         if (selectedVal) {
             $(htmlId + ' ' + 'option[value='+selectedVal+']').attr('selected', 'selected');
         }  
+        $('.ui-loading').hide();
     })
   }
 
@@ -234,6 +238,7 @@ exports.XPW.NavEdit = (function() {
   }
   
   NavEdit.bindNavNews = function () {
+	  $('.ui-loading').show();
 	  $('#postModal').on('click', '#bindNavTitle', function() {
 		  var id = $('#secondColumnId').data('nav-id')
 		  var postId = $('#postSelect').val();
@@ -249,6 +254,7 @@ exports.XPW.NavEdit = (function() {
 		   .done(function() {
 			   $('#postModal').modal('hide');
 			   window.location.reload()
+			   $('.ui-loading').hide();
 		    })
 	  })
   }
