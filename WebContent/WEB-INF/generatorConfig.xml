@@ -10,9 +10,9 @@
 
   <context id="xmheart_pc_web" targetRuntime="MyBatis3">
     <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-        connectionURL="jdbc:mysql://127.0.0.1:3306/xmheart_pc_web"
-        userId="root"
-        password="123456">
+        connectionURL="jdbc:mysql://119.23.12.36:3306/xmheart_pc_web"
+        userId="remote"
+        password="remote!QAZ">
     </jdbcConnection>
 
     <javaTypeResolver >
@@ -92,6 +92,7 @@
     
     <table schema="xmheart_pc_web" tableName="xpw_user" domainObjectName ="XPWUser" >
       <generatedKey column="id" sqlStatement="MySql" identity="true" />
+      <columnOverride column="is_enabled" property="isEnabled" javaType="java.lang.Boolean"/>
       <ignoreColumn column="created_at"/>
       <ignoreColumn column="updated_at"/>
     </table>

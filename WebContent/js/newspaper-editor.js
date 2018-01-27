@@ -31,6 +31,7 @@ $(function() {
         },
 		
 		publish : function() {
+		    $('.ui-loading').show();
 			var $this = $(this);
 
 			var imgUrl = $('.upload-img').attr('src');
@@ -52,6 +53,7 @@ $(function() {
 			var url = '/newspapers';
 			$.post(url, params, function(res) {
 				$this.removeAttr('disabled');
+				$('.ui-loading').hide();
 				swal({
 					title : "上传成功",
 					text: "您可以在本页继续进行编辑上传新的院报",
@@ -64,6 +66,7 @@ $(function() {
 				});
 			}).error(function() {
 				$this.removeAttr('disabled');
+				$('.ui-loading').hide();
 				sweetAlert("哎呀", "服务器开小差了~请稍后再试", "error");
 			});
 
@@ -71,6 +74,7 @@ $(function() {
 			
 		},
 		save : function() {
+		    $('.ui-loading').show();
 			var $this = $(this);
 			
 			var imgUrl = $('.upload-img').attr('src');
@@ -94,6 +98,7 @@ $(function() {
 				var url = '/newspapers/' + newspaperId;
 				$.post(url, params, function(res) {
 					$this.removeAttr('disabled');
+					$('.ui-loading').hide();
 					swal({
 						title : "更新成功",
 						type : "success",
@@ -105,6 +110,7 @@ $(function() {
 					});
 				}).error(function() {
 					$this.removeAttr('disabled');
+					$('.ui-loading').hide();
 					sweetAlert("哎呀", "服务器开小差了~请稍后再试", "error");
 				});
 				

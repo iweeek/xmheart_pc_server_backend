@@ -74,10 +74,17 @@ public class TokenController {
     @SuppressWarnings("rawtypes")
     @ApiOperation(value = "创建token", notes = "验证用户名与密码，为用户创建一个用于鉴权的Token")
     @RequestMapping(value = { "/tokens" }, method = RequestMethod.POST)
-    public ResponseEntity<?> create(@ApiParam("用户名") @RequestParam String username,
-            @ApiParam("密码") @RequestParam String password, @ApiParam("盐值") @RequestParam String salt,
-            @ApiParam("有效时间(单位:小时)，不填则默认为1") @RequestParam(required = false, defaultValue = "1") Integer expiredHour,
-            HttpServletRequest request, HttpSession httpSession) {
+    public ResponseEntity<?> create(@ApiParam("用户名") 
+                                    @RequestParam String username,
+                                    @ApiParam("密码") 
+                                    @RequestParam String password, 
+                                    @ApiParam("盐值") 
+                                    @RequestParam String salt,
+                                    @ApiParam("有效时间(单位:小时)，不填则默认为1") 
+                                    @RequestParam(required = false, defaultValue = "1") Integer expiredHour,
+                                    HttpServletRequest request, 
+                                    HttpSession httpSession
+                                    ) {
         XPWCaptcha captcha = new XPWCaptcha();
         Boolean isPassed = captchaService.verifyCaptchaIsPassed(request, captcha);
         if (isPassed) {

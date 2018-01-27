@@ -324,6 +324,7 @@ $(function() {
         },
         init: function() {
         		$('.ui-nodata').hide();
+        		$('.ui-loading').show();
             ctrl.postDialogHandle();
             ctrl.select2Handle();
             ctrl.bindSearchArticle();

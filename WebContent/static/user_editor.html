@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../css/reset.css">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../css/editor.css">
+    <link rel="stylesheet" type="text/css" href="../css/article-list.css">
     <link rel="stylesheet" type="text/css" href="../css/sweetalert.css">
     <!--[if lt IE 9]>
       <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -28,14 +29,17 @@
 		<div class="input-wrapper">
 			<input type="text" class="article-title" id="userName" value="" autocomplete="off">
 		</div>
-		<p class="subtit">用户密码(必须包含大小写字母与数字)</p>
+		<p class="subtit">用户密码(必须包含大小写字母与数字,长度在 6 - 20 位)</p>
 		<div class="input-wrapper">
-			<input type="password" class="article-title" id="userPassword" value="" autocomplete="off">
+			<input type="password" class="article-title" id="userPassword" value="" autocomplete="off" width="100">
 		</div>
 		<p class="subtit">角色选择</p>
 		<div class="input-wrapper">
 			<select id="userRole" class="user-role"></select>
 		</div>
+        <div class="ui-loading">
+            <img src="../img/progress_circle.gif" alt="loading">
+        </div>
 	   <div class="btn-group">
 	       <input id="save" type="button" name="" value="保存">
 	       <input id="cancel" type="button" name="cancel" value="取消">

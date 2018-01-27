@@ -129,6 +129,7 @@ $(function () {
                 });
         },
         save: function() {
+            $('.ui-loading').show();
             var $this = $(this);
             // 保存(提交请求但isPublished为false)
         		var brief = digest.val() ? digest.val() : ue.getContentTxt().slice(0,200);
@@ -156,6 +157,7 @@ $(function () {
                 var url = '/articles/' + articleId;
                 $.post(url, params, function (res) {
                         $this.removeAttr('disabled');
+                        $('.ui-loading').show();
                     swal({
                         title: "保存成功",
                         type: "success",

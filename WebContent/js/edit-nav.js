@@ -54,6 +54,7 @@ exports.XPW.NavEdit = (function() {
     }
     
     NavEdit.getNav = function (navId) {
+        $('.ui-loading').show();
         var url = '/navs/' + navId;
         $.get(url, function (res) {
 //        		var reg = new RegExp("<br/>", "g");
@@ -77,10 +78,12 @@ exports.XPW.NavEdit = (function() {
 	        	$('#secondColumnId').data('nav-id', res.id)
 	        	$('#secondColumnId').data('column-id', res.columnId)
 	        	$('#secondColumnId').data('column-name', res.childColumnName)
+	        	$('.ui-loading').hide();
         });
     },
     
     NavEdit.publish = function () {
+        $('.ui-loading').show();
 	    $('#publish').on('click', function(){
 		    var $this = $(this);
 		    var imgUrl = $('#upload-img').attr('src');
@@ -105,6 +108,7 @@ exports.XPW.NavEdit = (function() {
 			var url = '/navs/' + navId;
 			$.post(url, params, function(res) {
 				$this.removeAttr('disabled');
+				$('.ui-loading').hide();
 				swal({
 					title : "更新成功",
 					text : "返回上一页？",

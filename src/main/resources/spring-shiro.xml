@@ -36,6 +36,7 @@
     <!-- <bean id="securityManager" class="org.apache.shiro.mgt.DefaultSecurityManager"> -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="tokenRealm" />
+        <property name="cacheManager" ref="cacheManager"></property>
 		<property name="sessionManager" ref="sessionManager" />
 		<property name="subjectFactory" ref="subjectFactory"/> 
 		<property name="subjectDAO.sessionStorageEvaluator.sessionStorageEnabled" value="true"/>
@@ -59,7 +60,7 @@
     <bean id="credentialsMatcher"  
           class="com.xmheart.shiro.RetryLimitCredentialsMatcher">  
         <constructor-arg index="0" ref="cacheManager"/>  
-        <constructor-arg index="1" value="5"/>  
+        <constructor-arg index="1" value="lgoinRetryCache"/>  
         <!-- <property name="hashAlgorithmName" value="md5"/>   --> 
         <!-- <property name="hashIterations" value="0"/>  -->
     </bean>  

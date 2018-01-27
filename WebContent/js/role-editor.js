@@ -50,6 +50,7 @@ exports.XPW.RoleUeditor = (function() {
   
   // 当前角色
   RoleUeditor.getRoleInfo = function () {
+    $('.ui-loading').show();
     var id = RoleUeditor._getUrlParam('roleId');
     if (id) {
 	    $.ajax({
@@ -64,11 +65,16 @@ exports.XPW.RoleUeditor = (function() {
 	    	 	 RoleUeditor.fillData(data);
 	    	 	 // 为了保证在获取完role之后，渲染
 	    	 	RoleUeditor.getPrivs();
+	    	 	
+	    	 	$('.ui-loading').hide();
 	     })
+     } else {
+         $('.ui-loading').hide();
      }
   }
  
   RoleUeditor.postRoleInfo = function () {
+      
 	  var id = RoleUeditor._getUrlParam('roleId');
 	  var url = id ? '/roles/' + id : '/roles'
 	  $('.btn-group').on('click', '#save', function() {
@@ -90,6 +96,8 @@ exports.XPW.RoleUeditor = (function() {
 			  $this.removeAttr('disabled');
 			  return false;
 		  }
+		  // 进度圈
+		  $('.ui-loading').show();
 		  var upateParms = {id: id, name: name, "privIds[]": privIds};
 		  var newParms = {name: name, "privIds[]": privIds };
 		  var parms = id ? upateParms : newParms;
@@ -101,6 +109,7 @@ exports.XPW.RoleUeditor = (function() {
 		      })
 		   .done(function(data) {
 			  $this.removeAttr('disabled');
+			  $('.ui-loading').hide();
 			  RoleUeditor.fillData(data);
 			  if (id) {
 				  swal({

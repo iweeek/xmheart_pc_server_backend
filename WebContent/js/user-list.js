@@ -62,35 +62,98 @@ $(function() {
 				ctrl.getArticles(ctrl.pageNo, 10, ctrl.columnId);
 			}
 		},
-		delete : function() {
-            // 编辑模式
-            var url = '/users/' + id;
-            $.ajax({
-                url: url,
-                type: 'DELETE',
-                success: function(result) {
-                        swal({
-                        title : "操作成功",
-                        type : "success",
-                        confirmButtonColor : "#DD6B55",
-                        confirmButtonText : "确定！",
-                        closeOnConfirm : false
-                    }, function() {
-                        location.reload()
-                    });
-                },
-                error: function(request,msg,error) {
-                        swal({
-                        title : "操作失败",
-                        type : "success",
-                        confirmButtonColor : "#DD6B55",
-                        confirmButtonText : "确定！",
-                        closeOnConfirm : false
-                    }, function() {
-                        location.reload()
-                    });
-                }
-            });
+		delete : function(userId) {
+            // 删除
+		    console.log("haha" + userId);
+		    swal({ 
+		        title: "确定停用吗？", 
+//		        text: "你将无法恢复该虚拟文件！", 
+		        type: "warning",
+		        showCancelButton: true, 
+		        confirmButtonColor: "#DD6B55",
+		        confirmButtonText: "确定停用！", 
+		        cancelButtonText: "取消停用！",
+		        closeOnConfirm: false
+		      },
+		      function(){
+		        // 停用用户
+	            var url = '/users/' + userId;
+	            $.ajax({
+	                url: url,
+	                type: 'POST',
+	                data : {
+	                    isEnabled: false
+	                },
+	                success: function(result) {
+	                        swal({
+	                        title : "操作成功",
+	                        type : "success",
+	                        confirmButtonColor : "#DD6B55",
+	                        confirmButtonText : "确定！",
+	                        closeOnConfirm : false
+	                    }, function() {
+	                        location.reload()
+	                    });
+
+	                },
+	                error: function(request,msg,error) {
+	                        swal({
+	                        title : "操作失败",
+	                        type : "error",
+	                        confirmButtonColor : "#DD6B55",
+	                        confirmButtonText : "确定！",
+	                        closeOnConfirm : false
+	                    }, function() {
+	                        location.reload()
+	                    });
+	                }
+	            });
+		      });
+        },
+        enable : function(userId) {
+            // 启用
+            swal({ 
+                title: "确定启用吗？", 
+                type: "warning",
+                showCancelButton: true, 
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定启用！", 
+                cancelButtonText: "取消启用！",
+                closeOnConfirm: false
+              },
+              function(){
+                // 删除用户
+                var url = '/users/' + userId;
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data : {
+                        isEnabled: true
+                    },
+                    success: function(result) {
+                            swal({
+                            title : "操作成功",
+                            type : "success",
+                            confirmButtonColor : "#DD6B55",
+                            confirmButtonText : "确定！",
+                            closeOnConfirm : false
+                        }, function() {
+                            location.reload()
+                        });
+                    },
+                    error: function(request,msg,error) {
+                            swal({
+                            title : "操作失败",
+                            type : "error",
+                            confirmButtonColor : "#DD6B55",
+                            confirmButtonText : "确定！",
+                            closeOnConfirm : false
+                        }, function() {
+                            location.reload()
+                        });
+                    }
+                });
+              });
         },
 		init : function() {
 			ctrl.getUsers(ctrl.pageNo, 10, ctrl.columnId);
@@ -116,6 +179,14 @@ $(function() {
 		location.href = '/static/user_editor.html';
 	})
 	
+	// 启用 TODO
+	$('#J_articles').on('click','.edit-delete', function() {
+        var userId = $(this).data('id');
+        ctrl.delete(userId);
+    });
 	// 删除 TODO
-    
+	$('#J_articles').on('click','.edit-enable', function() {
+	    var userId = $(this).data('id');
+	    ctrl.enable(userId);
+	});
 })

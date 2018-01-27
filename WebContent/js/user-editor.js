@@ -10,7 +10,9 @@ exports.XPW.UserUeditor = (function() {
   }
   
   UserUeditor.roleData = function (selectedVal) {
+      $('.ui-loading').show();
 	  $.get('/roles', function (data) {
+	      $('.ui-loading').hide();
           var optionString = '';
           for (var i in data) {
               var jsonObj = data[i];
@@ -20,6 +22,8 @@ exports.XPW.UserUeditor = (function() {
           if (selectedVal) {
         	  	 $('#userRole option[value='+selectedVal+']').attr('selected', 'selected');
           }
+      }).error(function(jqXHR, textStatus, errorThrown){
+          $('.ui-loading').hide();
       });
   }
 
@@ -70,11 +74,13 @@ exports.XPW.UserUeditor = (function() {
 			  $this.removeAttr('disabled');
 			  return false;
 		  }
-		  if (!roleId) {
+		  if (roleId == "请选择") {
 			  swal("角色不能为空");
 			  $this.removeAttr('disabled');
 			  return false;
 		  }
+		  // 进度圈
+	      $('.ui-loading').show();
 		  var salt = Math.ceil(Math.random()*10);
 		  var saltPassword = ($.md5(password).toString()/* + salt.toString()*/);
 		  /*这里修改了password  2018年01月10日23:06:40*/
@@ -87,6 +93,8 @@ exports.XPW.UserUeditor = (function() {
               dataType: 'json',
               data: parms,
               success: function(data) {
+                  // 进度圈
+                  $('.ui-loading').hide();
                   $this.removeAttr('disabled');
                   UserUeditor.fillData(data);
                   if (id) {
@@ -117,8 +125,11 @@ exports.XPW.UserUeditor = (function() {
                          location.href = url;
                       });
                   }
+
               },
               error: function(request,msg,error) {
+                // 进度圈
+                $('.ui-loading').hide();
                 $this.removeAttr('disabled');
                 if (request.responseText == "no-match") {
                     swal({
@@ -145,6 +156,7 @@ exports.XPW.UserUeditor = (function() {
 		      })
 		   .done(function(data) {
 			  $this.removeAttr('disabled');
+			  $('.ui-loading').hide();
 //			  if (data == "no-match") {
 //			      swal({
 //                      title: "密码不符合要求，请重新输入。",
@@ -174,6 +186,7 @@ exports.XPW.UserUeditor = (function() {
                       window.history.go(-1);
                   });
               } else {
+                  $('.ui-loading').hide();
                   swal({
                       title: "创建成功",
                       text: "返回上一页？",

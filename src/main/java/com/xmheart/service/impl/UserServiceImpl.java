@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     
     @Override
     public int update(XPWUser user) {
-        return userMapper.updateByPrimaryKey(user);
+        return userMapper.updateByPrimaryKeySelective(user);
        
     }
 
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int create(XPWUser user) {
-        int ret = userMapper.insert(user);
+        int ret = userMapper.insertSelective(user);
         return ret;
     }
 

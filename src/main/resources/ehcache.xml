@@ -13,7 +13,7 @@
        diskExpiryThreadIntervalSeconds="600"/>
     	-->
     <!-- 登录记录缓存 锁定15分钟 -->
-    <!-- <cache name="lgoinRetryCache"
+    <cache name="lgoinRetryCache"
            maxEntriesLocalHeap="2000"
            eternal="false"
            timeToIdleSeconds="10"
@@ -21,7 +21,7 @@
            overflowToDisk="false"
            statistics="true">
     		</cache>
-    -->
+    
        	
     	<defaultCache
     		name="default"

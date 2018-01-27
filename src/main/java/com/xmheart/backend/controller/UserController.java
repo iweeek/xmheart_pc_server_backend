@@ -44,122 +44,129 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "", produces = "application/json;charset=UTF-8")
 public class UserController {
 
-	private static final Logger logger = LogManager.getLogger(UserController.class);
+    private static final Logger logger = LogManager.getLogger(UserController.class);
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	@Autowired
-	UserRoleService userRoleService;
+    @Autowired
+    UserRoleService userRoleService;
 
     @Autowired
     RoleService roleService;
     
 
-	@ApiOperation(value = "用户列表", notes = "用户列表")
-	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public ResponseEntity<?> index() {
-		List<XPWUser> list = userService.index();
-		if (list.size() > 0) {
-			return ResponseEntity.status(HttpServletResponse.SC_OK).body(list);
-		} else {
-			return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);
-		}
-	}
+    @ApiOperation(value = "用户列表", notes = "用户列表")
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public ResponseEntity<?> index() {
+        List<XPWUser> list = userService.index();
+        if (list.size() > 0) {
+            return ResponseEntity.status(HttpServletResponse.SC_OK).body(list);
+        } else {
+            return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);
+        }
+    }
 
-	@ApiOperation(value = "更新用户信息", notes = "更新用户信息")
-	@RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
-	public ResponseEntity<?> update(@ApiParam("用户Id") @PathVariable Long id,
-			@ApiParam("用户名") @RequestParam(required = false) String username,
-			@ApiParam("密码") @RequestParam(required = false) String password,
-			@ApiParam("角色") @RequestParam(required = false) Long roleId) throws IOException {
+    @ApiOperation(value = "更新用户信息", notes = "更新用户信息")
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
+    public ResponseEntity<?> update(@ApiParam("用户Id") @PathVariable Long id,
+            @ApiParam("用户名") @RequestParam(required = false) String username,
+            @ApiParam("密码") @RequestParam(required = false) String password,
+            @ApiParam("角色") @RequestParam(required = false) Long roleId,
+            @ApiParam("上线下线") @RequestParam(required = false) Boolean isEnabled
+            ) throws IOException {
 
-		// ResponseBody resBody = new ResponseBody<XPWUser>();
+        // ResponseBody resBody = new ResponseBody<XPWUser>();
 
-		XPWUser user = userService.read(id);
-		if (user == null) {
-			// resBody.statusMsg = "没有找到该用户";
-			// resBody.obj = null;
-			return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);
-		}
+        XPWUser user = userService.read(id);
+        if (user == null) {
+            // resBody.statusMsg = "没有找到该用户";
+            // resBody.obj = null;
+            return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);
+        }
 
-		if (username != null) {
-			user.setUsername(username);
-		}
-		// 使用正则表达式进行密码的验证。
-		if (password != null) {
-		    String rex = "(?=.*?[0-9])(?=.*?[a-z])(?=.*?[A-Z])[a-zA-Z0-9]{6,18}$";
-	        Pattern pattern = Pattern.compile(rex);
-	        Matcher matcher = pattern.matcher(password);
-	        if (!matcher.matches()) {
-	            return ResponseEntity.status(HttpServletResponse.SC_OK).body("no-match");
-	        }
-	        String md5Password = MessageDigestUtil.Md5(password);
-			user.setPassword(md5Password);
-		}
-		
-		if (roleId != null) {
-			user.setRoleIds(String.valueOf(roleId));
-		}
+        if (username != null) {
+            user.setUsername(username);
+        }
+        // 使用正则表达式进行密码的验证。
+        if (password != null) {
+            String rex = "[0-9A-Za-z]{6,20}";
+            Pattern pattern = Pattern.compile(rex);
+            Matcher matcher = pattern.matcher(password);
+            if (!matcher.matches()) {
+                return ResponseEntity.status(HttpServletResponse.SC_OK).body("no-match");
+            }
+            String md5Password = MessageDigestUtil.Md5(password);
+            user.setPassword(md5Password);
+        }
+        
+        if (roleId != null) {
+            user.setRoleIds(String.valueOf(roleId));
+        }
+        
+        if (isEnabled != null) {
+            user.setIsEnabled(isEnabled);
+        }
+        
+        int ret = userService.update(user);
+        if (ret > 0) {
+            // resBody.statusMsg = "更新成功";
+            return ResponseEntity.status(HttpServletResponse.SC_OK).body(user);
+        } else {
+            // resBody.statusMsg = "更新失败";
+            return ResponseEntity.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
 
-		int ret = userService.update(user);
-		if (ret > 0) {
-			// resBody.statusMsg = "更新成功";
-			return ResponseEntity.status(HttpServletResponse.SC_OK).body(user);
-		} else {
-			// resBody.statusMsg = "更新失败";
-			return ResponseEntity.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).body(null);
-		}
-	}
-
-	public static void main(String[] args) {
-	    String rex = "^[a-zA-Z0-9]{6,18}$";
+    public static void main(String[] args) {
+        String rex = "^[a-zA-Z0-9]{6,18}$";
         
         Pattern pattern = Pattern.compile(rex);
         Matcher matcher = pattern.matcher("123jhias");
         boolean matches = matcher.matches();
         System.out.println(matches);
     }
-	
-	@ApiOperation(value = "创建一个用户", notes = "创建一个用户")
-	@RequestMapping(value = { "/users" }, method = RequestMethod.POST)
-	public ResponseEntity<?> create(@ApiParam("用户名") @RequestParam(required = false) String username,
-			@ApiParam("密码") @RequestParam(required = false) String password,
-			@ApiParam("角色Id") @RequestParam(required = false) Long roleId) {
+    
+    @ApiOperation(value = "创建一个用户", notes = "创建一个用户")
+    @RequestMapping(value = { "/users" }, method = RequestMethod.POST)
+    public ResponseEntity<?> create(@ApiParam("用户名") @RequestParam(required = false) String username,
+            @ApiParam("密码") @RequestParam(required = false) String password,
+            @ApiParam("角色Id") @RequestParam(required = false) Long roleId) {
 
-		XPWUser user = new XPWUser();
+        XPWUser user = new XPWUser();
 
-		if (username != null) {
-			user.setUsername(username);
-		}
-		if (password != null) {
-			user.setPassword(password);
-		}
-		if (roleId != null) {
-			user.setRoleIds(String.valueOf(roleId));
-		}
-		user.setUserType((byte) 2);
+        if (username != null) {
+            user.setUsername(username);
+        }
+        if (password != null) {
+            user.setPassword(password);
+        }
+        if (roleId != null) {
+            user.setRoleIds(String.valueOf(roleId));
+        }
+        user.setUserType((byte) 2);
+        user.setSalt("0");
+        
+        int ret = userService.create(user);
+        if (ret > 0) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
 
-		int ret = userService.create(user);
-		if (ret > 0) {
-			return ResponseEntity.ok(user);
-		} else {
-			return ResponseEntity.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).body(null);
-		}
-	}
+    @ApiOperation(value = "读取一个用户信息", notes = "读取一个用户信息")
+    @RequestMapping(value = { "/users/{id}" }, method = RequestMethod.GET)
+    public ResponseEntity<?> read(@ApiParam("用户角色对应关系Id，必填") @PathVariable Long id) {
+        XPWUser user = userService.read(id);
 
-	@ApiOperation(value = "读取一个用户信息", notes = "读取一个用户信息")
-	@RequestMapping(value = { "/users/{id}" }, method = RequestMethod.GET)
-	public ResponseEntity<?> read(@ApiParam("用户角色对应关系Id，必填") @PathVariable Long id) {
-		XPWUser user = userService.read(id);
-
-		if (user != null) {
-			return ResponseEntity.ok(user);
-		} else {
-			return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);
-		}
-	}
-	
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);
+        }
+    }
+    
     @ApiOperation(value = "获取当前用户所有权限列表", notes = "获取当前用户所有权限列表")
     @RequestMapping(value = { "/users/privs/{id}" }, method = RequestMethod.GET)
     public ResponseEntity<?> indexPrivs() {

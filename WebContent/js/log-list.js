@@ -38,7 +38,7 @@ $(function() {
                        $('.ui-nodata').hide();
                        $("#J_articles").html(rendered);
                    }
-                   $('.ui-loading').hide();
+//                   $('.ui-loading').hide();
                })
                  .done(function() {
                      $('#postModal').modal('hide');
@@ -348,7 +348,7 @@ $(function() {
 	    			}
 	    		}
 	    		ctrl.getColumns(0, '#J_select_first');
-            ctrl.getArticles(ctrl.pageNo, 10, ctrl.columnId);
+            ctrl.getArticles(ctrl.pageNo, 2, ctrl.columnId);
             $('.M-box').pagination({
                 jump:true,
                 pageCount: ctrl.pageTotal,
@@ -428,13 +428,14 @@ $(function() {
 
     // 筛选
     $('#J_filter_btn').on('click', function() {
+        $('.ui-loading').show();
     		var $this = $(this);
     		ctrl.col = [];
     		
     		ctrl.startTime = $('[data-toggle="startDatepicker"]').datepicker('getDate').getTime();
         ctrl.endTime = $('[data-toggle="endDatepicker"]').datepicker('getDate').getTime();
         
-        ctrl.getArticles(1, 10, ctrl.startTime, ctrl.endTime);
+        ctrl.getArticles(1, 2, ctrl.startTime, ctrl.endTime);
     });
 
     // 上一页

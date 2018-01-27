@@ -16,7 +16,6 @@ exports.XPW.IndexEdit = (function() {
 		IndexEdit.postDialogHandle();
 		IndexEdit.select2Handle();
 		IndexEdit.bindSearchArticle();
-		$('.ui-loading').hide();
 	}
 
 	IndexEdit.whichPostDialog = -1;
@@ -136,7 +135,9 @@ exports.XPW.IndexEdit = (function() {
     }
 
     IndexEdit.getData = function () {
+      $('.ui-loading').show();
 	  $.get('/indexPage',function(data){
+	      $('.ui-loading').hide();
 		  IndexEdit.pageId = data.id;
 		  if(data.bannerImage1Url) {
 			  $('.add-img-list').eq(0).find('.add-image-url img').attr('src', data.bannerImage1Url);
@@ -162,6 +163,7 @@ exports.XPW.IndexEdit = (function() {
 		  if (data.bannerImage3ActionUrl) {
 			  $('.add-img-list').eq(2).find('.add-img-link input').val(data.bannerImage3ActionUrl);
 		  }
+		  
 		  $('.add-font-list').eq(0).find('.link-tag').val(data.bannerArticle1Tag),
 		  $('.add-font-list').eq(0).find('.link-title').val(data.bannerArticle1Title),
 		  $('.add-font-list').eq(0).find('textarea').val(data.bannerArticle1Brief),
@@ -177,6 +179,7 @@ exports.XPW.IndexEdit = (function() {
 		  $('.add-font-list').eq(2).find('textarea').val(data.bannerArticle3Brief),
 		  $('.add-font-list').eq(2).find('.word').text(data.bannerArticle3Brief.length),
 		  $('.add-font-list').eq(2).find('.input-link').val(data.bannerArticle3Url)
+		  
 	  })
     }
     
