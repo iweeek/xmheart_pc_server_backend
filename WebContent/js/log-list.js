@@ -348,7 +348,7 @@ $(function() {
 	    			}
 	    		}
 	    		ctrl.getColumns(0, '#J_select_first');
-            ctrl.getArticles(ctrl.pageNo, 2, ctrl.columnId);
+            ctrl.getArticles(ctrl.pageNo, 8, ctrl.columnId);
             $('.M-box').pagination({
                 jump:true,
                 pageCount: ctrl.pageTotal,
@@ -435,7 +435,7 @@ $(function() {
     		ctrl.startTime = $('[data-toggle="startDatepicker"]').datepicker('getDate').getTime();
         ctrl.endTime = $('[data-toggle="endDatepicker"]').datepicker('getDate').getTime();
         
-        ctrl.getArticles(1, 2, ctrl.startTime, ctrl.endTime);
+        ctrl.getArticles(1, 8, ctrl.startTime, ctrl.endTime);
     });
 
     // 上一页

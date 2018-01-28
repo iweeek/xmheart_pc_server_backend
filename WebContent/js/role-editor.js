@@ -77,7 +77,7 @@ exports.XPW.RoleUeditor = (function() {
       
 	  var id = RoleUeditor._getUrlParam('roleId');
 	  var url = id ? '/roles/' + id : '/roles'
-	  $('.btn-group').on('click', '#save', function() {
+	  $('#save').on('click', function() {
 		  var $this = $(this);
 		  $this.attr('disabled','disabled');
 		  var name = $('#roleName').val();

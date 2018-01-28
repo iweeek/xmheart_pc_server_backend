@@ -55,7 +55,7 @@ exports.XPW.OfficeUeditor = (function() {
 	  $('.ui-loading').show();
 	  var id = OfficeUeditor.getUrlParam('deptId');
 	  var url = id ? '/depts/' + id : '/depts'
-	  $('.btn-group').on('click', '#save', function() {
+	  $('#save').on('click', function() {
 		  var $this = $(this);
 		  $this.attr('disabled','disabled');
 		  var name = $('#officeName').val();

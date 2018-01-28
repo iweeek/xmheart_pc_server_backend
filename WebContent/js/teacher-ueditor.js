@@ -70,7 +70,7 @@ exports.XPW.DoctorUeditor = (function() {
   DoctorUeditor.postDoctorInfo = function () {
 	  var id = DoctorUeditor._getUrlParam('teacherId');
 	  var url = id ? '/teachers/' + id : '/teachers'
-	  $('.btn-group').on('click', '#save', function() {
+	  $('#save').on('click', function() {
 		  var $this = $(this);
 		  $this.attr('disabled','disabled');
 		  var name = $('#doctorName').val();

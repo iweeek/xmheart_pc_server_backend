@@ -157,7 +157,7 @@ $(function () {
                 var url = '/articles/' + articleId;
                 $.post(url, params, function (res) {
                         $this.removeAttr('disabled');
-                        $('.ui-loading').show();
+                        $('.ui-loading').hide();
                     swal({
                         title: "保存成功",
                         type: "success",
@@ -171,6 +171,7 @@ $(function () {
                     });
                 }).error(function() { 
                         $this.removeAttr('disabled');
+                        $('.ui-loading').hide();
                         sweetAlert("哎呀", "服务器开小差了~请稍后再试", "error"); 
                     });
 

@@ -58,7 +58,8 @@ exports.XPW.UserUeditor = (function() {
 	  var id = UserUeditor._getUrlParam('userId');
 	  var url = id ? '/users/' + id : '/users'
 	  console.log(id);
-	  $('.btn-group').on('click', '#save', function() {
+	  $('#save').on('click', function() {
+	      
 		  var $this = $(this);
 		  $this.attr('disabled','disabled');
 		  var username = $('#userName').val();
