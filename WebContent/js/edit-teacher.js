@@ -40,6 +40,9 @@ exports.XPW.DoctorEdit = (function() {
           DoctorEdit.deptId = DoctorEdit._getUrlParam('deptId');
           $('#typeSelectInput option[value='+DoctorEdit.deptId+']').attr('selected', 'selected');
       }
+      if (DoctorEdit._getUrlParam('pageNo')) {
+          DoctorEdit.currentPage = DoctorEdit._getUrlParam('pageNo');
+      }
       $('#columnSearch').trigger('click');
    })
   }
@@ -56,7 +59,9 @@ exports.XPW.DoctorEdit = (function() {
         $('.M-box').pagination({
             jump:true,
             pageCount: DoctorEdit.totalPage,
+            current: DoctorEdit.currentPage,
             callback:function(api){
+                console.log(api.getCurrent());
                 api.setPageCount(DoctorEdit.totalPage);//动态修改总页数为20页
                 DoctorEdit.page(api.getCurrent());
             }

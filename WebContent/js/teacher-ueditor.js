@@ -125,7 +125,8 @@ exports.XPW.DoctorUeditor = (function() {
                       cancelButtonText: "留在本页",
                       closeOnConfirm: false
                   }, function () {
-                      window.history.go(-1);
+                      var url = '/teacher.html?deptId=' + deptId;
+                      location.href = url;
                   });
 			  } else {
 			      $this.removeAttr('disabled');
@@ -137,8 +138,8 @@ exports.XPW.DoctorUeditor = (function() {
 	                      confirmButtonColor: "#8cd4f5",
 	                      confirmButtonText: "确定",
 	                      closeOnConfirm: false
-	                  }, function () {
-	                	  	  var url = '/teacher.html?pageNo=' + data.pages;
+	                  }, function (res) {
+	                	  	  var url = '/teacher.html?pageNo=' + data.pages + "&deptId=" + deptId;
 	                      location.href = url;
 	                  });
 				  })

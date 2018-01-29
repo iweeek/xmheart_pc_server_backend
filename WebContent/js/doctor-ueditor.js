@@ -127,7 +127,8 @@ exports.XPW.DoctorUeditor = (function() {
                       cancelButtonText: "留在本页",
                       closeOnConfirm: false
                   }, function () {
-                      window.history.go(-1);
+                      var url = '/doctor.html?deptId=' + deptId;
+                      location.href = url;
                   });
 			  } else {
 				  $.get('/doctors',{deptId: deptId}, function(data){
@@ -139,7 +140,7 @@ exports.XPW.DoctorUeditor = (function() {
 	                      confirmButtonText: "确定",
 	                      closeOnConfirm: false
 	                  }, function () {
-	                	  	  var url = '/doctor.html?pageNo=' + data.pages;
+	                	  	 var url = '/doctor.html?pageNo=' + data.pages + "&deptId=" + deptId;
 	                      location.href = url;
 	                  });
 				  })

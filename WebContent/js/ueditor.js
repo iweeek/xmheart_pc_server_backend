@@ -80,6 +80,7 @@ $(function () {
             };
             
             if (!ctrl.valid(params, 'publish')) {
+                $('.ui-loading').hide();
                 return;
             }
             $this.attr('disabled','disabled');
@@ -104,6 +105,7 @@ $(function () {
                     });
                 }).error(function() { 
                         $this.removeAttr('disabled');
+                        $('.ui-loading').hide();
                         sweetAlert("哎呀", "服务器开小差了~请稍后再试", "error"); 
                     });
 
@@ -125,6 +127,7 @@ $(function () {
                 // window.history.go(-1);
             }).error(function() { 
                     $this.removeAttr('disabled');
+                    $('.ui-loading').hide();
                     sweetAlert("哎呀", "服务器开小差了~请稍后再试", "error"); 
                 });
         },
@@ -148,6 +151,7 @@ $(function () {
             };
             
             if (!ctrl.valid(params)) {
+                $('.ui-loading').hide();
                 return;
             }
             $this.attr('disabled','disabled');

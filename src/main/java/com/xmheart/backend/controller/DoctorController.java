@@ -58,12 +58,12 @@ public class DoctorController {
             @ApiParam("每页的数目") @RequestParam(required = false, defaultValue = "10") Integer pageSize,
             @ApiParam("科室的Id，可选") @RequestParam(required = false) Long deptId) {
         
-        PageHelper.startPage(pageNo, pageSize);
-        
         List<XPWDoctor> list;
         if (deptId == null) {
+            PageHelper.startPage(pageNo, pageSize);
             list = doctorAndDeptService.getDisplayDoctors();
         } else {
+            PageHelper.startPage(pageNo, pageSize);
             list = doctorAndDeptService.getDoctorsByDeptId(deptId);
         }
         

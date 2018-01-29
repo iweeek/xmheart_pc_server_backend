@@ -378,11 +378,14 @@ public class ArticleController {
         String imageUrl = "";
         try {
             imagePath = FileUtil.uploadFile(PathUtil.IMG_STORAGE_PATH, image);
+            System.out.println("image path: " + PathUtil.IMG_STORAGE_PATH + "\n");
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
-        imageUrl = PathUtil.getInstance().ORIGIN + File.separator + PathUtil.IMG_FOLDER_PATH + imagePath;
+        imageUrl = /*PathUtil.getInstance().ORIGIN +*/ File.separator + PathUtil.IMG_FOLDER_PATH + imagePath;
+        System.out.println("PathUtil.getInstance().ORIGIN: " + PathUtil.getInstance().ORIGIN);
+        System.out.println("imageUrl: " + imageUrl);
         return ResponseEntity.status(HttpServletResponse.SC_CREATED).body(imageUrl);
     }
 

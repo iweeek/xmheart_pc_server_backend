@@ -27,7 +27,7 @@ public class BackendNewsController {
 
     @Autowired
     private ColumnService columnService;
-    
+
     @Autowired
     private ArticleService articleService;
 
@@ -67,38 +67,42 @@ public class BackendNewsController {
         return htmlStr.trim(); // 返回文本字符串
     }
 
-//    @ApiOperation(value = "获取一级栏目", notes = "")
-//    @RequestMapping(value = { "/column/first" }, method = RequestMethod.GET)
-//    public ResponseEntity<?> getFirstColumns() {
-//        List<XPWColumn> columnList = columnService.getFirstColumns();
-//
-//        return ResponseEntity.ok().body(columnList);
-//    }
-//
-//    @ApiOperation(value = "获取二级栏目", notes = "")
-//    @RequestMapping(value = { "/column/second" }, method = RequestMethod.GET)
-//    public ResponseEntity<?> getSecondColumns(@ApiParam("父级id") @RequestParam long id) {
-//        List<XPWColumn> columnList = columnService.getChildColumnsById(id);
-//
-//        return ResponseEntity.ok(columnList);
-//    }
-//
-//    @ApiOperation(value = "获取导航信息", notes = "获取导航信息")
-//    @RequestMapping(value = { "/news/navs" }, method = RequestMethod.GET)
-//    public ResponseEntity<?> navs() {
-//        List<XPWNav> columnList = columnService.getNavListBySecondColumnName(NEWS_COLUMN_NAME);
-//
-//        return ResponseEntity.ok(columnList);
-//    }
-    
-//    @ApiOperation(value = "媒体看厦心、医院新闻搜索文章", notes = "媒体看厦心、医院新闻搜索文章")
-//    @RequestMapping(value = { "/news/articles/show" }, method = RequestMethod.GET)
-//    public ResponseEntity<?> show(@ApiParam("文章标题的关键字") @RequestParam String keyword) {
-//        //TODO 需要做分页，需不需要送栏目Id呢？这个地方的结构要考虑一下。
-//        List<XPWArticle> list = articleService.show(keyword);
-//
-//        return ResponseEntity.ok(list);
-//    }
+    // @ApiOperation(value = "获取一级栏目", notes = "")
+    // @RequestMapping(value = { "/column/first" }, method = RequestMethod.GET)
+    // public ResponseEntity<?> getFirstColumns() {
+    // List<XPWColumn> columnList = columnService.getFirstColumns();
+    //
+    // return ResponseEntity.ok().body(columnList);
+    // }
+    //
+    // @ApiOperation(value = "获取二级栏目", notes = "")
+    // @RequestMapping(value = { "/column/second" }, method = RequestMethod.GET)
+    // public ResponseEntity<?> getSecondColumns(@ApiParam("父级id") @RequestParam
+    // long id) {
+    // List<XPWColumn> columnList = columnService.getChildColumnsById(id);
+    //
+    // return ResponseEntity.ok(columnList);
+    // }
+    //
+    // @ApiOperation(value = "获取导航信息", notes = "获取导航信息")
+    // @RequestMapping(value = { "/news/navs" }, method = RequestMethod.GET)
+    // public ResponseEntity<?> navs() {
+    // List<XPWNav> columnList =
+    // columnService.getNavListBySecondColumnName(NEWS_COLUMN_NAME);
+    //
+    // return ResponseEntity.ok(columnList);
+    // }
+
+    // @ApiOperation(value = "媒体看厦心、医院新闻搜索文章", notes = "媒体看厦心、医院新闻搜索文章")
+    // @RequestMapping(value = { "/news/articles/show" }, method =
+    // RequestMethod.GET)
+    // public ResponseEntity<?> show(@ApiParam("文章标题的关键字") @RequestParam String
+    // keyword) {
+    // //TODO 需要做分页，需不需要送栏目Id呢？这个地方的结构要考虑一下。
+    // List<XPWArticle> list = articleService.show(keyword);
+    //
+    // return ResponseEntity.ok(list);
+    // }
 
     // @ApiOperation(value = "获取Nav", notes = "根据title获取Nav")
     // @RequestMapping(value = { "/column" }, method = RequestMethod.GET)
@@ -109,35 +113,37 @@ public class BackendNewsController {
     // return ResponseEntity.ok(columnList);
     // }
 
-//    @ApiOperation(value = "添加nav", notes = "")
-//    @RequestMapping(value = { "/news/navs/{id}" }, method = RequestMethod.POST)
-//    public ResponseEntity<?> createNav(@ApiParam("一级栏目id") @RequestParam Long columnId,
-//            @ApiParam("一级栏目名称") @RequestParam String columnName,
-//            @ApiParam("二级栏目名称") @RequestParam String childColumnName,
-//            @ApiParam("文章标题") @RequestParam String articleTitle, @ApiParam("url") @RequestParam String url,
-//            @ApiParam("图片url") @RequestParam String imgUrl) {
-//        XPWNav nav = new XPWNav();
-//        nav.setColumnId(columnId);
-//        nav.setColumnName(childColumnName);
-//        nav.setChildColumnName(childColumnName);
-//        nav.setArticleTitle(articleTitle);
-//        nav.setUrl(url);
-//        nav.setImgUrl(imgUrl);
-//        nav.setPublishTime(new java.util.Date());
-//
-//        int result = ColumnService.createNav(nav);
-//        return ResponseEntity.status(result).body(null);
-//    }
+    // @ApiOperation(value = "添加nav", notes = "")
+    // @RequestMapping(value = { "/news/navs/{id}" }, method = RequestMethod.POST)
+    // public ResponseEntity<?> createNav(@ApiParam("一级栏目id") @RequestParam Long
+    // columnId,
+    // @ApiParam("一级栏目名称") @RequestParam String columnName,
+    // @ApiParam("二级栏目名称") @RequestParam String childColumnName,
+    // @ApiParam("文章标题") @RequestParam String articleTitle, @ApiParam("url")
+    // @RequestParam String url,
+    // @ApiParam("图片url") @RequestParam String imgUrl) {
+    // XPWNav nav = new XPWNav();
+    // nav.setColumnId(columnId);
+    // nav.setColumnName(childColumnName);
+    // nav.setChildColumnName(childColumnName);
+    // nav.setArticleTitle(articleTitle);
+    // nav.setUrl(url);
+    // nav.setImgUrl(imgUrl);
+    // nav.setPublishTime(new java.util.Date());
+    //
+    // int result = ColumnService.createNav(nav);
+    // return ResponseEntity.status(result).body(null);
+    // }
 
     @ApiOperation(value = "根据id修改新闻nav部分，修改媒体看厦心和医院新闻", notes = "根据id修改新闻nav部分，修改媒体看厦心和医院新闻")
     @RequestMapping(value = { "/news/navs/{id}" }, method = RequestMethod.POST)
-    public ResponseEntity<?> updateNav(@ApiParam("唯一主键id") @PathVariable Long id, @ApiParam("文章标题") @RequestParam String title,
-            @ApiParam("文章地址") @RequestParam String url) {
+    public ResponseEntity<?> updateNav(@ApiParam("唯一主键id") @PathVariable Long id,
+            @ApiParam("文章标题") @RequestParam String title, @ApiParam("文章地址") @RequestParam String url) {
         XPWNav nav = new XPWNav();
         nav.setId(id);
         nav.setArticleTitle(title);
         nav.setUrl(url);
-//        nav.setImgUrl(imgUrl);
+        // nav.setImgUrl(imgUrl);
         nav.setPublishTime(new java.util.Date());
 
         int result = columnService.updateNav(nav);
