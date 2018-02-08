@@ -40,6 +40,7 @@ $(function () {
                     swal('验证码错误~'); 
                 } else {
                     document.cookie = "user_id=" + res.obj1.id;
+                    document.cookie = "username=" + res.obj1.username;
                     document.cookie = "user_type=" + res.obj1.userType;
                     document.cookie = "xmheart_token=" + res.obj2;
                     var url = 'http://' + window.location.host + '/index.html'

@@ -67,10 +67,11 @@ td {
 
 /* ----------------------------------------------------------------------    left */
 .manager_index_left {
-    background-color: #fff;
+    background-color: #f9f9f9;
     border-right: 1px solid #eee;
-    padding-top: 10px;
+    padding-top: 15px;
     height: 1000px;
+	margin-top:-8px;
 }
 .manager_index_left .title{
     font-size: 30px;
@@ -80,6 +81,10 @@ td {
 }
 .main-nav {
     margin-left: 1px;
+}
+.manager_index_right{
+	padding: 0 40px;
+	margin-top:8px;
 }
 
 .main-nav.nav-tabs.nav-stacked > li > a {
@@ -175,7 +180,7 @@ footer.duomi-page-footer .list-inline a, footer.authenticated-footer .list-inlin
 
 /*********************************************鑷畾涔夐儴鍒�*********************************************/
 .secondmenu a {
-    font-size: 12px;
+    font-size: 14px;
     color: #4A515B;
     margin-left: 20px;
     /* border-radius: 4px; */
@@ -185,12 +190,14 @@ footer.duomi-page-footer .list-inline a, footer.authenticated-footer .list-inlin
 .secondmenu > li > a:hover {
     background-color: #6f7782;
     border-color: #428bca;
+	color:#337ab7;
 }
 
 .secondmenu li.active {
     background-color: #6f7782;
     border-color: #428bca;
     border-radius: 4px;
+	color:#337ab7;
 }
 
 .secondmenu li.active > a {

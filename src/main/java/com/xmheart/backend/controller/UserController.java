@@ -3,6 +3,8 @@ package com.xmheart.backend.controller;
 import org.apache.commons.digester.RegexMatcher;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -67,6 +69,23 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value = "更新当前用户密码", notes = "更新用户信息")
+    @RequestMapping(value = "/users/update", method = RequestMethod.POST)
+    public ResponseEntity<?> updatePassword(
+            @ApiParam("密码") @RequestParam(required = false) String password
+            ) {
+        
+        Subject subject = SecurityUtils.getSubject();
+        XPWUser user = (XPWUser) subject.getPrincipal();
+        
+        String md5Password = MessageDigestUtil.Md5(password);
+        user.setPassword(md5Password);
+        userService.update(user);
+        
+        return ResponseEntity.status(HttpServletResponse.SC_OK).body(null);
+    }
+    
+    
     @ApiOperation(value = "更新用户信息", notes = "更新用户信息")
     @RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
     public ResponseEntity<?> update(@ApiParam("用户Id") @PathVariable Long id,
@@ -76,7 +95,6 @@ public class UserController {
             @ApiParam("上线下线") @RequestParam(required = false) Boolean isEnabled
             ) throws IOException {
 
-        // ResponseBody resBody = new ResponseBody<XPWUser>();
 
         XPWUser user = userService.read(id);
         if (user == null) {
@@ -90,12 +108,13 @@ public class UserController {
         }
         // 使用正则表达式进行密码的验证。
         if (password != null) {
-            String rex = "[0-9A-Za-z]{6,20}";
-            Pattern pattern = Pattern.compile(rex);
-            Matcher matcher = pattern.matcher(password);
-            if (!matcher.matches()) {
-                return ResponseEntity.status(HttpServletResponse.SC_OK).body("no-match");
-            }
+//            String rex = "[0-9A-Za-z]{6,20}";
+//            String rex = "(?=.*\\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,30}";
+//            Pattern pattern = Pattern.compile(rex);
+//            Matcher matcher = pattern.matcher(password);
+//            if (!matcher.matches()) {
+//                return ResponseEntity.status(HttpServletResponse.SC_OK).body("no-match");
+//            }
             String md5Password = MessageDigestUtil.Md5(password);
             user.setPassword(md5Password);
         }
@@ -120,6 +139,7 @@ public class UserController {
 
     public static void main(String[] args) {
         String rex = "^[a-zA-Z0-9]{6,18}$";
+//        String rex = "(?=.*\\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,30}";
         
         Pattern pattern = Pattern.compile(rex);
         Matcher matcher = pattern.matcher("123jhias");

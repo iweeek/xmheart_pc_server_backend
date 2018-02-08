@@ -47,7 +47,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 	display: block;
 }
 
-body{font-family:"hiragino sans gb","microsoft yahei";color:#686868;}
+/*body{font-family:"hiragino sans gb","microsoft yahei";color:#686868;}*/
 
 ol, ul {
 	list-style: none;

@@ -9,6 +9,8 @@ exports.XPW.UserUeditor = (function() {
 	UserUeditor.cancel();
   }
   
+  UserUeditor.isPassed = false;
+  
   UserUeditor.roleData = function (selectedVal) {
       $('.ui-loading').show();
 	  $.get('/roles', function (data) {
@@ -53,6 +55,40 @@ exports.XPW.UserUeditor = (function() {
 	     })
      }
   }
+  
+  $('#userPassword').keyup(function (e) {
+      
+      originPas = $('#userPassword').val();
+//      originrePas = $('#rePassword').val();
+      var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+      var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Za-z0-9])(?=.*[a-z]))).*$", "g");
+      var enoughRegex = new RegExp("(?=.{6,}).*", "g");
+      if (false == enoughRegex.test(originPas))
+      {
+          $('#passstrength').html('弱');
+      }
+      else if (strongRegex.test(originPas))
+      {
+//          $('#passstrength').toggleClass("ok");
+          $('#passstrength').css("color","green");
+          $('#passstrength').html('强');
+          isPass = true;
+      }
+      else if (mediumRegex.test(originPas))
+      {
+//          $('#passstrength').toggleClass("alert");
+          $('#passstrength').css("color","orange");
+          $('#passstrength').html('中');
+          isPass = true;
+      }
+      else
+      {
+//          $('#passstrength').toggleClass("error");
+          $('#passstrength').css("color","red");
+          $('#passstrength').html('弱');
+          isPass = false;
+      }
+  });
  
   UserUeditor.postRoleInfo = function () {
 	  var id = UserUeditor._getUrlParam('userId');
@@ -79,6 +115,10 @@ exports.XPW.UserUeditor = (function() {
 			  swal("角色不能为空");
 			  $this.removeAttr('disabled');
 			  return false;
+		  }
+		  
+		  if (!UserUeditor.isPassed) {
+		      return false;
 		  }
 		  // 进度圈
 	      $('.ui-loading').show();

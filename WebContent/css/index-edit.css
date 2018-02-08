@@ -2,9 +2,11 @@
 	padding-left: 40px;
 }
 .slide-title {
-	margin-bottom: 30px;
+	margin: 10px 0;
 	border-bottom: #d9d9de solid 1px;
 	line-height: 40px;
+	font-size: 16px;
+	font-weight:bold;
 }
 .add-list-main {
 	overflow: hidden;
@@ -63,7 +65,7 @@
 }
 
 .add-font-list {
-	width: 200px;
+	width: 25%;
 	float: left;
 	position: relative;
 	margin-right: 30px;
@@ -73,15 +75,19 @@
 	height: 125px;
 }
 .add-font-list p {
-	margin-top: 10px;
+	margin-top: 15px;
 	margin-bottom: 5px;
 }
 .add-font-list input {
 	width: 100%;
+	border: 1px solid #ddd;
+    padding: 5px;
 }
 .add-font-list textarea {
 	width: 100%;
 	height: 125px;
+	border: 1px solid #ddd;
+    padding: 5px;
 }
 .wordwrap {
 	position: absolute;

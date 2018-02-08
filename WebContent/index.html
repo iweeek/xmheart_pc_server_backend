@@ -37,9 +37,19 @@
 </head>
 
 <body>
+	<!-- 头部 -->
+    <div class="xm-header">
+        <div class="xm-container">
+            <a href="#" class="header-logo"><img src="img/layout/logo_sys.png" alt=""></a>
+			<div class="header-right">
+				您好！<span class="title"  style="margin-right:40px" id="username">ADMIN</span>
+				<a class="btn btn-default" href="/modify-password.html">修改密码</a>
+				<a class="btn btn-default" id="logout">退出登录</a>
+			</div>
+        </div>
+    </div>
     <!--左边 -->
     <div class="col-md-2 col-xs-2 col-sm-2 manager_index_left">
-        <span class="title">ADMIN</span>
         <ul id="main-nav" class="main-nav nav">
             <li>
                 <a href="#column" class="nav-header collapsed" data-toggle="collapse">
@@ -59,52 +69,52 @@
                     </li> -->
                     <li>
                         <a onclick="document.getElementById('rightContentFrame').src = 'nav_list.html'">
-                            <i class="glyphicon glyphicon-magnet"></i> &nbsp;导航管理
+                             &nbsp;导航管理
                         </a>
                     </li>
                     <li>
                         <a onclick="document.getElementById('rightContentFrame').src = 'article-list.html'">
-                            <i class="glyphicon glyphicon-magnet"></i> &nbsp;文章列表
+                             &nbsp;文章列表
                         </a>
                     </li>
                     <li>
                         <a onclick="document.getElementById('rightContentFrame').src = 'doctor.html'">
-                            <i class="glyphicon glyphicon-magnet"></i> &nbsp;医生列表
+                             &nbsp;医生列表
                         </a>
                     </li>
                     <li>
                         <a onclick="document.getElementById('rightContentFrame').src = 'teacher.html'">
-                            <i class="glyphicon glyphicon-magnet"></i> &nbsp;导师列表
+                             &nbsp;导师列表
                         </a>
                     </li>
                     <li>
                         <a onclick="document.getElementById('rightContentFrame').src = 'office.html'">
-                            <i class="glyphicon glyphicon-magnet"></i> &nbsp;科室列表
+                             &nbsp;科室列表
                         </a>
                     </li>
                      <li>
                         <a onclick="document.getElementById('rightContentFrame').src = 'elec_newspaper_list.html'">
-                            <i class="glyphicon glyphicon-magnet"></i> &nbsp;院报列表
+                             &nbsp;院报列表
                         </a>
                     </li>   
                     <li>
                         <a onclick="document.getElementById('rightContentFrame').src = 'video_list.html'">
-                            <i class="glyphicon glyphicon-magnet"></i> &nbsp;影像列表
+                             &nbsp;影像列表
                         </a>
                     </li>
                     <li>
                         <a onclick="document.getElementById('rightContentFrame').src = 'online_video_list.html'">
-                            <i class="glyphicon glyphicon-magnet"></i> &nbsp;在线视频列表
+                             &nbsp;在线视频列表
                         </a>
                     </li>
                      <li>
                         <a onclick="document.getElementById('rightContentFrame').src = 'index_edit.html'">
-                            <i class="glyphicon glyphicon-magnet"></i> &nbsp;首页编辑
+                             &nbsp;首页编辑
                         </a>
                     </li>
                     <li>
                         <a onclick="document.getElementById('rightContentFrame').src = 'xtIndex_edit.html'">
-                            <i class="glyphicon glyphicon-magnet"></i> &nbsp;胸痛中心编辑
+                             &nbsp;胸痛中心编辑
                         </a>
                     </li>
                     <!-- <li>
@@ -127,26 +137,22 @@
                 <ul id="priv" class="nav nav-list secondmenu collapse">
                     <li>
                         <a onclick="document.getElementById('rightContentFrame').src = 'user_list.html'">
-                            <i class="glyphicon glyphicon-magnet"></i> &nbsp;用户管理
+                             &nbsp;用户管理
                         </a>
                     </li>
                     <li>
                         <a onclick="document.getElementById('rightContentFrame').src = 'role_list.html'">
-                            <i class="glyphicon glyphicon-magnet"></i> &nbsp;角色管理
+                             &nbsp;角色管理
                         </a>
                     </li>
                     <li>
                         <a onclick="document.getElementById('rightContentFrame').src = 'log_list.html'">
-                            <i class="glyphicon glyphicon-magnet"></i> &nbsp;日志管理
+                             &nbsp;日志管理
                         </a>
                     </li>
                 </ul>
             </li>
         </ul>
-        <br>
-        <br>
-        <a class="btn btn-default" href="/modify-password.html">修改密码</a>
-        <a class="btn btn-default" id="logout">退出登录</a>
         <!-- <div class="manager_index_left_tip">
             <h4>公告</h4>
             <ul>
@@ -156,14 +162,9 @@
             </ul>
         </div> -->
     </div>
-    <!-- 头部 -->
-    <div class="xm-header">
-        <div class="xm-container">
-            <a href="#" class="header-logo"><img src="img/layout/logo.png" alt=""></a>
-        </div>
-    </div>
+    
     <!-- 右边  -->
-    <div class="col-md-10 col-xs-10 col-sm-10 col-lg-10" style="padding-left: 40px; padding-right: 40px;">
+    <div class="col-md-10 col-xs-10 col-sm-10 col-lg-10 manager_index_right">
         <iframe id="rightContentFrame" height="1080px" frameborder="no" width="100%" border="0" marginwidth="0" marginheight=" 0" scrolling="yes"
             allowtransparency="yes" width="100%" style="min-height: 1080px;"> </iframe>
     </div>
@@ -194,5 +195,6 @@
       }, function() {
           location.reload(true);
       });
-    })
+    });
+    $('#username').html(getCookieValue('username'));
 </script>

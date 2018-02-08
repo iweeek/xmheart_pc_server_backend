@@ -2,6 +2,14 @@
     outline: none !important;
     margin-right: 10px;
 }
+.table .btn {
+	margin:3px;
+}
+.table .btn.btn-danger {
+	border-color: #ccc;
+	background-color:#fff;
+	color:#d8150f;
+}
 
 .page-article-list .select-title-second {
     display: none;
@@ -17,6 +25,7 @@
 }
 .page-article-list .pager a{
     cursor: pointer;
+	border-radius:0;
 }
 .page-article-list .operate-panel {
     display: inline-block;
@@ -45,4 +54,14 @@
     vertical-align: middle;
 	border: 1px solid #eee;
     border-bottom-width: 1px;
+}
+
+.ok {
+    color: green;
+}
+.alert {
+    color: red;
+}
+.error {
+    color: red;
 }
