@@ -75,7 +75,6 @@ public class ArticleServiceImpl implements ArticleService {
     
 	@Override
 	public List<XPWArticle> index(List<Long> columnIds) {
-		// TODO Auto-generated method stub
 		XPWArticleExample example = new XPWArticleExample();
 		for (Long id : columnIds) {
 			example.or().andColumnIdEqualTo(id);
@@ -85,6 +84,18 @@ public class ArticleServiceImpl implements ArticleService {
 		List<XPWArticle> list = articleMapper.selectByExample(example);
 		return list;
 	}
+	
+    @Override
+    public List<XPWArticle> indexEnglish(List<Long> columnIds) {
+        XPWArticleExample example = new XPWArticleExample();
+        for (Long id : columnIds) {
+            example.or().andColumnIdEqualTo(id);
+        }
+        example.createCriteria().andIsEnglishEqualTo((byte) 1);
+        example.setOrderByClause("is_pinned desc, pin_order asc, publish_time desc");
+        List<XPWArticle> list = articleMapper.selectByExample(example);
+        return list;
+    }
 
 	@Override
 	public int delete(Long id) {

@@ -30,11 +30,13 @@ import com.github.pagehelper.PageInfo;
 import com.xmheart.mapper.XPWPrivMapper;
 import com.xmheart.model.XPWArticle;
 import com.xmheart.model.XPWColumn;
+import com.xmheart.model.XPWColumnEnglish;
 import com.xmheart.model.XPWPriv;
 import com.xmheart.model.XPWPrivExample;
 import com.xmheart.model.XPWRole;
 import com.xmheart.model.XPWUser;
 import com.xmheart.service.ArticleService;
+import com.xmheart.service.ColumnEnglishService;
 import com.xmheart.service.ColumnService;
 import com.xmheart.service.RoleService;
 import com.xmheart.util.FileUtil;
@@ -55,30 +57,104 @@ public class ArticleController {
     private ColumnService columnService;
 
     @Autowired
+    private ColumnEnglishService columnEnglishService;
+    
+    @Autowired
     RoleService roleService;
 
     @Autowired
     XPWPrivMapper privMapper;
-
-    @RequiresPermissions("article")
-    @ApiOperation(value = "获取文章", notes = "获取文章")
-    @RequestMapping(value = { "/articles" }, method = RequestMethod.GET)
-    public ResponseEntity<?> index(@ApiParam("开始页号") @RequestParam(required = false, defaultValue = "1") Integer pageNo,
-            @ApiParam("每页的数目") @RequestParam(required = false, defaultValue = "10") Integer pageSize,
-            @ApiParam("栏目Id") @RequestParam(required = false) Long columnId, HttpSession httpSession) {
-        List<XPWArticle> list = null;
-        List<Long> allColumns = null;
-        List<XPWPriv> privs = null;
-        List<Long> filterColumns = new ArrayList();
-        List<Long> filterAllColumns = new ArrayList();
-        allColumns = getChildColumns(allColumns, columnId);
-
-        XPWUser user = (XPWUser) httpSession.getAttribute("user");
-        XPWUser user1 = (XPWUser) SecurityUtils.getSubject().getPrincipal();
-
-        privs = getGrantedColumns(user);
-
-        for (int i = 0; i < privs.size(); i++) {
+//  
+//    @RequiresPermissions("article")
+//    @ApiOperation(value = "获取文章", notes = "获取文章")
+//    @RequestMapping(value = { "/articles" }, method = RequestMethod.GET)
+//    public ResponseEntity<?> index(@ApiParam("开始页号") @RequestParam(required = false, defaultValue = "1") Integer pageNo,
+//            @ApiParam("每页的数目") @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+//            @ApiParam("栏目Id") @RequestParam(required = false) Long columnId, HttpSession httpSession) {
+//        List<XPWArticle> list = null;
+//        List<Long> allColumns = null;
+//        List<XPWPriv> privs = null;
+//        List<Long> filterColumns = new ArrayList();
+//        List<Long> filterAllColumns = new ArrayList();
+//        allColumns = getChildColumns(allColumns, columnId);
+//
+//        XPWUser user = (XPWUser) httpSession.getAttribute("user");
+//        XPWUser user1 = (XPWUser) SecurityUtils.getSubject().getPrincipal();
+//
+//        privs = getGrantedColumns(user);
+//
+//        for (int i = 0; i < privs.size(); i++) {
+//||||||| merged common ancestors
+//	
+//	@ApiOperation(value = "获取文章", notes = "获取文章")
+//	@RequestMapping(value = { "/articles" }, method = RequestMethod.GET)
+//	public ResponseEntity<?> index(@ApiParam("开始页号") @RequestParam(required = false, defaultValue = "1") Integer pageNo,
+//			@ApiParam("每页的数目") @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+//			@ApiParam("栏目Id") @RequestParam(required = false) Long columnId, HttpSession httpSession) {
+//		List<XPWArticle> list = null;
+//		List<Long> allColumns = null;
+//		List<XPWPriv> privs = null;
+//		List<Long> filterColumns = new ArrayList();
+//		List<Long> filterAllColumns = new ArrayList();
+//		allColumns = getChildColumns(allColumns, columnId);
+//		
+//		
+//		XPWUser user = (XPWUser) httpSession.getAttribute("user");
+//		XPWRole role = roleService.read(user.getRoleId());
+//		String privIds = role.getPrivIds();
+//        XPWPrivExample example = new XPWPrivExample();
+//        if (privIds != null) {
+//            String[] split = privIds.split(",");
+//          
+//            StringBuilder sb = new StringBuilder();
+//            for (String item : split) {
+//                long pId= Long.parseLong(item);
+//                example.or().andIdEqualTo(pId);
+//            }
+//            privs = privMapper.selectByExample(example);
+//            
+//        }
+//        
+//        for (int i = 0; i< privs.size(); i++) {
+//=======
+	
+	@ApiOperation(value = "获取文章", notes = "获取文章")
+	@RequestMapping(value = { "/articles" }, method = RequestMethod.GET)
+	public ResponseEntity<?> index(@ApiParam("开始页号") @RequestParam(required = false, defaultValue = "1") Integer pageNo,
+			@ApiParam("每页的数目") @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+			@ApiParam("栏目Id") @RequestParam(required = false) Long columnId, HttpSession httpSession) {
+		List<XPWArticle> list = null;
+		List<Long> allColumns = null;
+		List<XPWPriv> privs = null;
+		List<Long> filterColumns = new ArrayList();
+		List<Long> filterAllColumns = new ArrayList();
+		allColumns = getChildColumns(allColumns, columnId);
+		List<Long> englishColumnIds = new ArrayList();
+		
+		// 英文版
+		if (columnId == -1) {
+		    // 找到所有的英文栏目
+		    List<XPWColumnEnglish> temp = columnEnglishService.getColumns();
+		    List<XPWColumnEnglish> columns = new ArrayList<>();
+		    for (XPWColumnEnglish c : temp) {
+		        if (!(c.getId() == 1 || c.getId() == 77)) {
+		            columns.add(c);
+		            englishColumnIds.add(c.getId());
+		        }
+		    }
+		    
+		    // TODO 根据英文栏目搜索相应的文章
+		    List<XPWArticle> englishArticles = articleService.indexEnglish(englishColumnIds);
+		    PageHelper.startPage(pageNo, pageSize);
+		    PageInfo pageInfo = new PageInfo(englishArticles);
+		    return ResponseEntity.ok(pageInfo);
+		}
+		
+		XPWUser user = (XPWUser) httpSession.getAttribute("user");
+		privs = getGrantedColumns(user);
+        
+        for (int i = 0; i< privs.size(); i++) {
+//>>>>>>> f_english
             getChildColumns(filterAllColumns, privs.get(i).getColumnId());
         }
 
@@ -95,6 +171,7 @@ public class ArticleController {
                 return ResponseEntity.status(HttpServletResponse.SC_FORBIDDEN).body(null);
             }
         }
+//<<<<<<< HEAD
 
         PageInfo pageInfo = new PageInfo(list);
         // model.addAttribute("pageInfo", pageInfo);
@@ -155,6 +232,82 @@ public class ArticleController {
             @ApiParam("文章标题，必填") @RequestParam String title,
             @ApiParam("文章配图，可选") @RequestParam(required = false) String imgUrl,
             @ApiParam("文章关键字，可选") @RequestParam(required = false) String tags,
+//||||||| merged common ancestors
+//		return ResponseEntity.ok(list);
+//	}
+//
+//	/**
+//	 * 得到所有的这一栏目下的子栏目ID，包括父栏目
+//	 * @param list
+//	 * @param columnId
+//	 * @return
+//	 */
+//	public List<Long> getChildColumns(List<Long> list, Long columnId) {
+//		if (list == null) {
+//			list = new ArrayList<Long>();
+//		}
+//		List<XPWColumn> columns = columnService.getColumnsByParentId(columnId);
+//		if (columns.size() == 0) {
+//			list.add(columnId);
+//			return list;
+//		} else {
+//			for (XPWColumn item : columns) {
+//				getChildColumns(list, item.getId());
+//			}
+//		}
+//
+//		return list;
+//	}
+//    
+//	
+//    //TODO 这个接口要移到后台系统中去
+//	@ApiOperation(value = "创建一篇文章", notes = "创建一篇文章")
+//	@RequestMapping(value = { "/articles" }, method = RequestMethod.POST)
+//    public ResponseEntity<?> create(@ApiParam("子栏目Id，必填") @RequestParam Long columnId, 
+//            @ApiParam("文章标题，必填") @RequestParam String title, 
+//            @ApiParam("文章配图，可选") @RequestParam(required = false) String imgUrl, 
+//            @ApiParam("文章关键字，可选") @RequestParam(required = false) String tags, 
+//=======
+//		return ResponseEntity.ok(list);
+//	}
+//
+//	/**
+//	 * 得到所有的这一栏目下的子栏目ID，包括父栏目
+//	 * @param list
+//	 * @param columnId
+//	 * @return
+//	 */
+//	public List<Long> getChildColumns(List<Long> list, Long columnId) {
+//		if (list == null) {
+//			list = new ArrayList<Long>();
+//		}
+//		if (!list.contains(columnId)) {
+//		    list.add(columnId);
+//		}
+//		List<XPWColumn> columns = columnService.getColumnsByParentId(columnId);
+//		if (columns.size() == 0) {
+//		    if (!list.contains(columnId)) {
+//		        list.add(columnId);
+//		    }
+//			return list;
+//		} else {
+//			for (XPWColumn item : columns) {
+//				getChildColumns(list, item.getId());
+//			}
+//		}
+//		System.out.println(list);
+//		return list;
+//	}
+//    
+//	
+//    //TODO 这个接口要移到后台系统中去
+//	@ApiOperation(value = "创建一篇文章", notes = "创建一篇文章")
+//	@RequestMapping(value = { "/articles" }, method = RequestMethod.POST)
+//    public ResponseEntity<?> create(@ApiParam("子栏目Id，必填") @RequestParam Long columnId, 
+//            @ApiParam("文章标题，必填") @RequestParam String title, 
+//            @ApiParam("文章配图，可选") @RequestParam(required = false) String imgUrl, 
+//            @ApiParam("文章关键字，可选") @RequestParam(required = false) String tags, 
+//>>>>>>> f_english
             @ApiParam("文章发表时间，可选") @RequestParam(required = false) String publishTime,
             @ApiParam("文章摘要，可选") @RequestParam(required = false) String brief,
             @ApiParam("文章内容，可选") @RequestParam(required = false) String content) {
@@ -174,6 +327,7 @@ public class ArticleController {
         if (publishTime != null) {
             long milliSeconds = Long.parseLong(publishTime);
             article.setPublishTime(new Date(milliSeconds));
+//<<<<<<< HEAD
         } else {
             article.setPublishTime(new Date());
         }
@@ -212,6 +366,83 @@ public class ArticleController {
         } else {
             return ResponseEntity.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).body(null);
         }
+//||||||| merged common ancestors
+//		} else {
+//		    article.setPublishTime(new Date());
+//		}
+//		
+//		//创建的时候不设置这几项
+//		article.setIsPinned(false);
+//		article.setIsPublished(false);
+//		article.setUrl("");
+//		article.setPinOrder((byte) 0);
+//		
+//		if (tags != null) {
+//		    article.setTags(tags);
+//		} else {
+//		   article.setTags("");
+//		}
+//		
+//		if (brief != null) {
+//		    article.setBrief(brief);
+//		} else {
+//		    article.setBrief("");
+//		}
+//		
+//		if (content != null) {
+//		    article.setContent(content);
+//		} else {
+//		    article.setContent("");
+//		}
+//		
+//		int ret = articleService.create(article);
+//		if (ret > 0) {
+//		    article.setUrl("/newsDetail?id=" + String.valueOf(article.getId()));
+//		    articleService.update(article);
+//			return ResponseEntity.ok(article);
+//		} else {
+//			return ResponseEntity.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).body(null);
+//		}
+//=======
+//		} else {
+//		    article.setPublishTime(new Date());
+//		}
+//		
+//		//创建的时候不设置这几项
+//		article.setIsPinned(false);
+//		article.setIsPublished(false);
+//		article.setUrl("");
+//		article.setPinOrder((byte) 0);
+//		
+//		if (tags != null) {
+//		    article.setTags(tags);
+//		} else {
+//		   article.setTags("");
+//		}
+//		
+//		if (brief != null) {
+//		    article.setBrief(brief);
+//		} else {
+//		    article.setBrief("");
+//		}
+//		
+//		if (content != null) {
+//		    article.setContent(content);
+//		} else {
+//		    article.setContent("");
+//		}
+//		
+//		article.setIsEnglish((byte)0);
+//		
+//		int ret = articleService.create(article);
+//		if (ret > 0) {
+//		    article.setUrl("/newsDetail?id=" + String.valueOf(article.getId()));
+//		    articleService.update(article);
+//			return ResponseEntity.ok(article);
+//		} else {
+//			return ResponseEntity.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).body(null);
+//		}
+//>>>>>>> f_english
     }
 
     @ApiOperation(value = "交换文章置顶顺序", notes = "交换文章置顶顺序")
@@ -242,42 +473,44 @@ public class ArticleController {
         List<Long> parentIds = new ArrayList<>();
         XPWArticle a = articleService.read(id);
         XPWColumn parentColumn = columnService.getParentColumnById(a.getColumnId());
-        
-        do {
-            parentIds.add(parentColumn.getId());
-            parentColumn = columnService.getParentColumnById(parentColumn.getId());
-            if (parentColumn == null) {
-                break;
-            }
-        } while(parentColumn.getId() != 0);
-        // 权限判断，这里的读相当于更新操作
-        String permission = "";
-        if (parentColumn != null && parentColumn.getId() != 0) {
-            if (isPublished != null) {
-                for (long pid : parentIds) {
-                    permission = "articles:publish:" + parentColumn.getId();
-                    boolean permitted = SecurityUtils.getSubject().isPermitted(permission);
-                    
-                    if (permitted) {
-                         break;
-                    } else {
-                        throw new UnauthorizedException();
-                    }
+        if (parentColumn != null) {
+            do {
+                parentIds.add(parentColumn.getId());
+                parentColumn = columnService.getParentColumnById(parentColumn.getId());
+                if (parentColumn == null) {
+                    break;
                 }
-//                permission = "articles:publish:" + parentColumn.getId();
+            } while(parentColumn.getId() != 0);
+            // 权限判断，这里的读相当于更新操作
+            String permission = "";
+            if (parentColumn != null && parentColumn.getId() != 0) {
+                if (isPublished != null) {
+                    for (long pid : parentIds) {
+                        permission = "articles:publish:" + parentColumn.getId();
+                        boolean permitted = SecurityUtils.getSubject().isPermitted(permission);
+                        
+                        if (permitted) {
+                             break;
+                        } else {
+                            throw new UnauthorizedException();
+                        }
+                    }
+    //                permission = "articles:publish:" + parentColumn.getId();
+                }
+                // permission = "articles:update:" + parentColumn.getId();
+                // if (!SecurityUtils.getSubject().isPermitted(permission)) {
+                // throw new UnauthorizedException();
+                // }
             }
-            // permission = "articles:update:" + parentColumn.getId();
-            // if (!SecurityUtils.getSubject().isPermitted(permission)) {
-            // throw new UnauthorizedException();
-            // }
         }
 
-        XPWArticle article = new XPWArticle();
+//        XPWArticle article = new XPWArticle();
+        XPWArticle article = articleService.read(id);
         article.setId(id);
         if (columnId != null) {
             article.setColumnId(columnId);
-            XPWColumn column = columnService.getColumnById(columnId);
-            article.setColumnName(column.getColumnName());
+//            XPWColumn column = columnService.getColumnById(columnId);
+//            article.setColumnName(column.getColumnName());
         }
 
         if (imgUrl != null) {

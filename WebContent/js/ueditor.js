@@ -265,6 +265,14 @@ $(function () {
                     optionString += "<option value=\"" + jsonObj.id + "\" >" + jsonObj.columnName + "</option>";
                     $(htmlId).html("<option value='请选择'>请选择</option> " + optionString);
                 }
+                // 添加英文版
+//                if (columnId == 0) {
+//                    optionString += "<option value=\"" + "-1" + "\" >" + "英文模块" + "</option>";
+//                    $(htmlId).html("<option value='请选择'>请选择</option> " + optionString);
+//                }
+                if (data.length > 0) {
+                        $(htmlId).parent().show();
+                }
                 $(selectTitle).show();
             });
         },
@@ -301,6 +309,7 @@ $(function () {
             $('.ui-loading').show();
             var articleId = ctrl.getUrlParam('articleId');
             var col = ctrl.getUrlParam('col');
+            var isEnglish = ctrl.getUrlParam('isEnglish');
             console.log(location.href);
             ctrl.col = col.split(',')
             console.log("ctrl.col" + ctrl.col);
@@ -309,6 +318,10 @@ $(function () {
             ctrl.getColumn(0, '#J_select_first');
             if (articleId) {
                 ctrl.getArticle(articleId);
+            }
+            // 英文版不可编辑栏目
+            if (isEnglish == 1) {
+                $('#editColumn').hide();
             }
         },
         initDate: function() {

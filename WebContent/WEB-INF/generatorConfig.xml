@@ -19,8 +19,8 @@
         connectionURL="jdbc:mysql://127.0.0.1:3306/xmheart_pc_web"
         userId="root"
         password="123456">
-    </jdbcConnection>
-
+	</jdbcConnection>
+	
     <javaTypeResolver >
       <property name="forceBigDecimals" value="false" />
     </javaTypeResolver>
@@ -35,6 +35,13 @@
     </javaClientGenerator>
 
     <table schema="xmheart_pc_web" tableName="xpw_column" domainObjectName ="XPWColumn" >
+      <generatedKey column="id" sqlStatement="MySql" identity="true" />
+      <columnOverride column="position" property="position" javaType="java.lang.Boolean"/>
+      <ignoreColumn column="created_at"/>
+      <ignoreColumn column="updated_at"/>
+    </table>
+    
+    <table schema="xmeart_pc_web" tableName="xpw_column_english" domainObjectName ="XPWColumnEnglish" >
       <generatedKey column="id" sqlStatement="MySql" identity="true" />
       <columnOverride column="position" property="position" javaType="java.lang.Boolean"/>
       <ignoreColumn column="created_at"/>

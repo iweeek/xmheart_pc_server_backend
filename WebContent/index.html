@@ -56,7 +56,8 @@
                     <i class="glyphicon glyphicon-barcode"></i> 栏目管理
                     <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
                 </a>
-                <ul id="column" class="nav nav-list secondmenu collapse">
+                <!-- 设置展开样式 -->
+                <ul id="column" class="nav nav-list secondmenu collapse in">
                    <!--  <li>
                         <a onclick="document.getElementById('rightContentFrame').src = 'groupList.html'">
                             <i class="glyphicon glyphicon-magnet"></i> &nbsp;一级栏目管理
@@ -134,7 +135,7 @@
                     <i class="glyphicon glyphicon-cog"></i> 权限管理
                     <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
                 </a>
-                <ul id="priv" class="nav nav-list secondmenu collapse">
+                <ul id="priv" class="nav nav-list secondmenu collapse in">
                     <li>
                         <a onclick="document.getElementById('rightContentFrame').src = 'user_list.html'">
                              &nbsp;用户管理
@@ -154,6 +155,11 @@
             </li>
         </ul>
         <!-- <div class="manager_index_left_tip">
+        <br>
+        <br>
+        <a class="btn btn-default" href="/modify-password.html">修改密码</a>
+        <a class="btn btn-default" id="logout">退出登录</a>
+        <div class="manager_index_left_tip">
             <h4>公告</h4>
             <ul>
                 <li><a href="">热烈庆祝19大的召开普天同庆</a></li>
@@ -162,6 +168,12 @@
             </ul>
         </div> -->
     </div>
+    <!-- 头部 -->
+    <!-- <div class="xm-header">
+        <div class="xm-container">
+            <a href="#" class="header-logo"><img src="img/layout/logo.png" alt=""></a>
+        </div>
+    </div> -->
     
     <!-- 右边  -->
     <div class="col-md-10 col-xs-10 col-sm-10 col-lg-10 manager_index_right">

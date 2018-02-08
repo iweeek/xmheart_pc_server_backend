@@ -56,6 +56,7 @@ public class ColumnController {
     
     @ApiOperation(value = "获取所有栏目", notes = "获取所有栏目")
     @RequestMapping(value = { "/columns" }, method = RequestMethod.GET)
+//<<<<<<< HEAD
     public ResponseEntity<?> index(
             @ApiParam("父栏目的Id，父栏目Id为0的表示没有父栏目") @RequestParam(required = false) Long parentColumnId, 
             HttpSession httpSession, HttpServletRequest request) {
@@ -75,11 +76,25 @@ public class ColumnController {
         List<XPWColumn> list = new ArrayList();
         List<XPWColumn> temp = new ArrayList();
         
+//||||||| merged common ancestors
+//    public ResponseEntity<?> index(
+//            @ApiParam("父栏目的Id，父栏目Id为0的表示没有父栏目") @RequestParam(required = false) Long parentColumnId) {
+//=======
+//    public ResponseEntity<?> index(
+//            @ApiParam("父栏目的Id，父栏目Id为0的表示没有父栏目") @RequestParam(required = false) Long parentColumnId, 
+//            HttpSession httpSession) {
+//        List<XPWPriv> privs = null;
+//        XPWUser user = (XPWUser) httpSession.getAttribute("user");
+//        
+//        List<XPWColumn> list = new ArrayList();
+//        List<XPWColumn> temp = new ArrayList();
+//>>>>>>> f_english
         
         if (parentColumnId == null) {
             // TODO 但是前台不会传null？
             list = ColumnService.getColumns();
         } else {
+//<<<<<<< HEAD
             if (parentColumnId == 0) {
                 temp = ColumnService.getColumnsByParentId(parentColumnId);
                  // 过滤
@@ -109,6 +124,39 @@ public class ColumnController {
                 list = ColumnService.getColumnsByParentId(parentColumnId);
             }
             
+//||||||| merged common ancestors
+//            list = ColumnService.getColumnsByParentId(parentColumnId);
+//=======
+//            if (parentColumnId == 0) {
+//                temp = ColumnService.getColumnsByParentId(parentColumnId);
+//                 // 过滤
+//                  XPWRole role = roleService.read(user.getRoleId());
+//                  String privIds = role.getPrivIds();
+//                  XPWPrivExample example = new XPWPrivExample();
+//                  if (privIds != null) {
+//                      String[] split = privIds.split(",");
+//                    
+//                      for (String item : split) {
+//                          long pId= Long.parseLong(item);
+//                          if (pId <= 22 || pId == 30) {
+//                              example.or().andIdEqualTo(pId);
+//                          }
+//                      }
+//                      privs = privMapper.selectByExample(example);
+//                  }
+//                  
+//                  for (XPWColumn col : temp) {
+//                      for (XPWPriv p : privs) {
+//                          if (col.getId() == p.getColumnId()) {
+//                              list.add(col);
+//                          }
+//                      }
+//                  }
+//            } else {
+//                list = ColumnService.getColumnsByParentId(parentColumnId);
+//            }
+//            
+//>>>>>>> f_english
         }
         return ResponseEntity.status(HttpServletResponse.SC_OK).body(list);
     }

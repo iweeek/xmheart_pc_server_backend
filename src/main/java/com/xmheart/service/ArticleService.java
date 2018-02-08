@@ -47,4 +47,6 @@ public interface ArticleService {
     List<XPWArticle> searchArticleByTitle(String title);
 
     List<XPWArticle> show(String keyword, List<Long> coloumIds);
+
+    List<XPWArticle> indexEnglish(List<Long> columnIds);
 }

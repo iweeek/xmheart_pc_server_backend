@@ -56,7 +56,7 @@
 }
 
 .title-input-wrapper .article-label {
-  width: 100px;
+  width: 300px;
   border: #d4d4d4 solid 1px;
 }
 .title-input-wrapper .article-btn {
@@ -108,7 +108,7 @@
 	line-height: 26px;
 }
 .article-title-wrapper .article-title {
-	 width: 300px;
+	 width: 800px;
   	border: #d4d4d4 solid 1px;
 }
 

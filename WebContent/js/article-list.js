@@ -98,9 +98,15 @@ $(function() {
                     	optionString += "<option value=\"" + jsonObj.id + "\" >" + jsonObj.columnName + "</option>";
                     $(htmlId).html("<option value='请选择'>请选择</option> " + optionString);
                 }
+                // 添加英文版
+                if (parentColumnId == 0) {
+                    optionString += "<option value=\"" + "-1" + "\" >" + "英文模块" + "</option>";
+                    $(htmlId).html("<option value='请选择'>请选择</option> " + optionString);
+                }
                 if (data.length > 0) {
                 		$(htmlId).parent().show();
                 }
+                
                 // 自动显示select option当前选中的内容
                 if (selectedVal) {
                 		$(htmlId + ' ' + 'option[value='+selectedVal+']').attr('selected', 'selected');
@@ -150,6 +156,7 @@ $(function() {
         getArticles : function(pageNo, pageSize, columnId) {
             $('.ui-loading').show();
             var loading = true;
+// <<<<<<< HEAD
             $.ajax({ 
                 type : "get", 
                 url : "/articles", 
@@ -162,26 +169,70 @@ $(function() {
                 success : function(res){ 
                     var data = res.list;
                     ctrl.pageTotal = res.pages;
-                    if (data.length < ctrl.pageSize) {
-                        ctrl.noNextPage = true;
-                    }
-                    $.each(data, function(name, val) {
-                        val.publishTime = ctrl.dateFilter(val.publishTime)
-                    })
-                    var template = $('#J_articles_tmpl').html();
-                    Mustache.parse(template);
-                    var rendered = Mustache.render(template, {
-                        result : data
-                    });
-                    if (data.length === 0) {
-                        $('.ui-nodata').show();
-                        $("#J_articles").html('');
-                    } else {
-                        $('.ui-nodata').hide();
-                        $("#J_articles").html(rendered);
+                    if (data != null) {
+                        if (data.length < ctrl.pageSize) {
+                            ctrl.noNextPage = true;
+                        }
+                        $.each(data, function(name, val) {
+                            val.publishTime = ctrl.dateFilter(val.publishTime)
+                        })
+                        var template = $('#J_articles_tmpl').html();
+                        Mustache.parse(template);
+                        var rendered = Mustache.render(template, {
+                            result : data
+                        });
+                        if (data.length === 0) {
+                            $('.ui-nodata').show();
+                            $("#J_articles").html('');
+                        } else {
+                            $('.ui-nodata').hide();
+                            $("#J_articles").html(rendered);
+                        }
                     }
                     $('.ui-loading').hide();
                 } 
+// ||||||| merged common ancestors
+//             $.get('/articles', {
+//                 pageNo : pageNo,
+//                 pageSize : pageSize,
+//                 columnId : columnId
+//             }, function(data) {
+//                 if (data.length < ctrl.pageSize) {
+//                     ctrl.noNextPage = true;
+//                 }
+//                 $.each(data, function(name, val) {
+//                     val.publishTime = ctrl.dateFilter(val.publishTime)
+//                     //TODO这里有问题
+// //                    if (val.isPinned) {
+// //                        ctrl.pinnedNum++
+// //                    }
+//                 })
+//                 var template = $('#J_articles_tmpl').html();
+//                 Mustache.parse(template);
+//                 var rendered = Mustache.render(template, {
+//                     result : data
+// =======
+//             $.get('/articles', {
+//                 pageNo : pageNo,
+//                 pageSize : pageSize,
+//                 columnId : columnId
+//             }, function(data) {
+//                 if (data.length < ctrl.pageSize) {
+//                     ctrl.noNextPage = true;
+//                 }
+//                 $.each(data, function(name, val) {
+//                     val.publishTime = ctrl.dateFilter(val.publishTime)
+//                     //TODO这里有问题
+// //                    if (val.isPinned) {
+// //                        ctrl.pinnedNum++
+// //                    }
+//                 });
+//                 var template = $('#J_articles_tmpl').html();
+//                 Mustache.parse(template);
+                
+//                 var rendered = Mustache.render(template, {
+//                     result : data
+// >>>>>>> f_english
                 });
 //            $.get('', {
 //                pageNo : pageNo,
@@ -440,7 +491,14 @@ $(function() {
     // 编辑
     $('#J_articles').on('click','.edit-btn',function() {
         var articleId = $(this).data('id');
-        var url = '/static/ueditor.html?articleId=' + articleId + '&col=' + ctrl.col;
+        var isEnglish = $(this).data('english');
+        console.log("isEnglish: " + isEnglish);
+        console.log('/static/ueditor.html?articleId=' + articleId + '&col=' + ctrl.col);
+        if (isEnglish == 1) {
+            var url = '/static/ueditor.html?articleId=' + articleId + '&col=' + ctrl.col + "&isEnglish=1";
+        } else {
+            var url = '/static/ueditor.html?articleId=' + articleId + '&col=' + ctrl.col;
+        }
         location.href = url;
 //        window.open(url, "new window");
     });
