@@ -178,8 +178,16 @@ $(function() {
                         })
                         var template = $('#J_articles_tmpl').html();
                         Mustache.parse(template);
+                        // 判断是否是英文
+                        var sel = $('#J_filter_btn').data('first');
+                        var english
+                        if (sel == "英文模块") {
+                            var english = true;
+                        }
+                        
                         var rendered = Mustache.render(template, {
-                            result : data
+                            result : data,
+                            isEnglish: english
                         });
                         if (data.length === 0) {
                             $('.ui-nodata').show();

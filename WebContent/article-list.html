@@ -105,21 +105,24 @@
 			<td>{{publishTime}}</td>
             <td>
                 <button class='btn btn-default edit-btn' data-id={{id}} data-english={{isEnglish}}>编辑</button>
-                {{#isPublished}}
-                		<button class='btn btn-danger offline-btn' data-id={{id}}>下线</button>
-				{{/isPublished}}
-				{{^isPublished}}
-                		<button class='btn btn-default publish-btn' data-id={{id}}>发布</button>
-				{{/isPublished}}
-				{{#isPinned}}
-					<button class='btn btn-default cancel-pinned-btn' data-id={{id}}>取消置顶</button>
-					<button class='btn btn-default up-btn' data-id={{id}} data-order={{pinOrder}}>上移</button>
-					<button class='btn btn-default down-btn' data-id={{id}} data-order={{pinOrder}}>下移</button>
-				{{/isPinned}}
-				{{^isPinned}}
-					<button class='btn btn-default pinned-btn' data-id={{id}}>置顶</button>
-				{{/isPinned}}
-                <button class='btn btn-default delete-btn' data-id={{id}}>删除</button>
+
+                {{^isEnglish}}
+                    {{#isPublished}}
+                		  <button class='btn btn-danger offline-btn' data-id={{id}}>下线</button>
+				    {{/isPublished}}
+				    {{^isPublished}}
+                    		<button class='btn btn-default publish-btn' data-id={{id}}>发布</button>
+				    {{/isPublished}}
+				    {{#isPinned}}
+				    	   <button class='btn btn-default cancel-pinned-btn' data-id={{id}}>取消置顶</button>
+				    	   <button class='btn btn-default up-btn' data-id={{id}} data-order={{pinOrder}}>上移</button>
+				        	<button class='btn btn-default down-btn' data-id={{id}} data-order={{pinOrder}}>下移</button>
+				    {{/isPinned}}
+				    {{^isPinned}}
+					   <button class='btn btn-default pinned-btn' data-id={{id}}>置顶</button>
+				    {{/isPinned}}
+                    <button class='btn btn-default delete-btn' data-id={{id}}>删除</button>
+                {{/isEnglish}}
             </td>
         </tr>
         {{/result}}
