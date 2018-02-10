@@ -5,7 +5,7 @@ exports.XPW.UserUeditor = (function() {
     // 初始化页面处理。
 	UserUeditor.roleData();
 	UserUeditor.getRoleInfo();
-  	UserUeditor.postRoleInfo();
+	UserUeditor.postRoleInfo();
 	UserUeditor.cancel();
   }
   
@@ -66,27 +66,28 @@ exports.XPW.UserUeditor = (function() {
       if (false == enoughRegex.test(originPas))
       {
           $('#passstrength').html('弱');
+          UserUeditor.isPassed = fasle;
       }
       else if (strongRegex.test(originPas))
       {
 //          $('#passstrength').toggleClass("ok");
           $('#passstrength').css("color","green");
           $('#passstrength').html('强');
-          isPass = true;
+          UserUeditor.isPassed = true;
       }
       else if (mediumRegex.test(originPas))
       {
 //          $('#passstrength').toggleClass("alert");
           $('#passstrength').css("color","orange");
           $('#passstrength').html('中');
-          isPass = true;
+          UserUeditor.isPassed = true;
       }
       else
       {
 //          $('#passstrength').toggleClass("error");
           $('#passstrength').css("color","red");
           $('#passstrength').html('弱');
-          isPass = false;
+          UserUeditor.isPassed = false;
       }
   });
  
@@ -118,10 +119,13 @@ exports.XPW.UserUeditor = (function() {
 		  }
 		  
 		  if (!UserUeditor.isPassed) {
+		      swal("密码强度至少为中等");
+		      $this.removeAttr('disabled');
 		      return false;
 		  }
+		  
 		  // 进度圈
-	      $('.ui-loading').show();
+          $('.ui-loading').show();
 		  var salt = Math.ceil(Math.random()*10);
 		  var saltPassword = ($.md5(password).toString()/* + salt.toString()*/);
 		  /*这里修改了password  2018年01月10日23:06:40*/
@@ -140,7 +144,7 @@ exports.XPW.UserUeditor = (function() {
                   UserUeditor.fillData(data);
                   if (id) {
                       swal({
-                          title: "编辑成功",
+                          title: "修改成功",
                           text: "返回上一页？",
                           type: "success",
                           showCancelButton: true,
