@@ -73,6 +73,10 @@ exports.XPW.xtIndexEdit = (function() {
 		  if (data.bannerImage3ActionUrl) {
 			  $('.add-img-list').eq(2).find('.add-img-link input').val(data.bannerImage3ActionUrl);
 		  }
+		  
+		  $('.add-font-list').eq(0).find('.link-title').val(data.title),
+		  $('.add-font-list').eq(0).find('textarea').val(data.content),
+		  
 			$('.ui-loading').hide();
 	  });
   }
@@ -85,7 +89,9 @@ exports.XPW.xtIndexEdit = (function() {
 			bannerImage2Url: $('.add-img-list').eq(1).find('.add-image-url img').attr('src'),
 			bannerImage2ActionUrl: $('.add-img-list').eq(1).find('.add-img-link input').val(),
 			bannerImage3Url: $('.add-img-list').eq(2).find('.add-image-url img').attr('src'),
-			bannerImage3ActionUrl: $('.add-img-list').eq(2).find('.add-img-link input').val()
+			bannerImage3ActionUrl: $('.add-img-list').eq(2).find('.add-img-link input').val(),
+			title: $('.add-font-list').eq(0).find('.link-title').val(),
+			content: $('.add-font-list').eq(0).find('textarea').val()
 		  };
 		  var url = '/xtIndexPage/'+ xtIndexEdit.pageId;
 		  $.ajax({

@@ -161,7 +161,9 @@ public class IndexController {
             @ApiParam("轮播图3的地址") @RequestParam() String bannerImage3Url,
             @ApiParam("轮播图1的响应地址") @RequestParam() String bannerImage1ActionUrl,
             @ApiParam("轮播图2的响应地址") @RequestParam() String bannerImage2ActionUrl,
-            @ApiParam("轮播图3的响应地址") @RequestParam() String bannerImage3ActionUrl
+            @ApiParam("轮播图3的响应地址") @RequestParam() String bannerImage3ActionUrl,
+            @ApiParam("胸痛标题") @RequestParam() String title,
+            @ApiParam("胸痛内容") @RequestParam() String content
             ) {
         XPWXTIndex index = new XPWXTIndex();
         index.setId(id);
@@ -171,6 +173,8 @@ public class IndexController {
         index.setBannerImage1ActionUrl(bannerImage1ActionUrl);
         index.setBannerImage2ActionUrl(bannerImage2ActionUrl);
         index.setBannerImage3ActionUrl(bannerImage3ActionUrl);
+        index.setTitle(title);
+        index.setContent(content);
         
         int ret = indexService.xtUpdate(index);
         if (ret > 0) {
