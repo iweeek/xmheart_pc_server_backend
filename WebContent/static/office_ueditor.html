@@ -54,6 +54,25 @@
 	        		</form>
         		</div>
 		</div>
+		
+		<p class="subtit">科室大图</p>
+		<div class="upload-wrapper" id="uploadWrapper">
+			<div class="add-img-list-big">
+				<div class="add-image-button-big" id="addImgBtnBig">
+	   				 添加图片
+	  			</div>
+	  			<div class="add-image-url-big">
+	  				<img src="#" class="upload-img-big">
+	  			</div>
+	  			<div class="add-image-edit-big">
+	  				<img src="../img/manager/edit.png">
+	  			</div>
+	  			<form class="upload-form-big" id="uploadFormBig" enctype="multipart/form-data" method="post" action="/uploadImage" >
+	        			<input type="file" name="image" class="add-img-file-big" />
+	        			<input type="submit" class="add-img-submit-big" />
+	        		</form>
+        		</div>
+		</div>
 		<p class="subtit">是否出诊</p>
 		<div class="input-wrapper">
 			<input type="radio" name="outservice" class="outservice" value="true"> 是
@@ -61,12 +80,9 @@
 		</div>
 		<p class="subtit">科室简介</p>
 		<textarea id="container" name="container" style="width: 1024px; height: 300px; margin: 0 auto;"></textarea>
-        <br/>
-		<div class="">
-			<!-- <input id="save" type="button" name="" value="保存">
-			<input id="cancel" type="button" name="" value="取消"> -->
-            <button id="save" class="btn btn-primary" style="margin-bottom: 5px;">保存</button>
-            <button id="cancel" class="btn btn-primary" style="margin-bottom: 5px;">取消</button>
+		<div class="btn-group">
+			<input id="save" type="button" name="" value="保存">
+			<input id="cancel" type="button" name="" value="取消">
 			<!-- <input id="reset" type="reset" name="" value="舍弃"> -->
 		</div>
 	</div>

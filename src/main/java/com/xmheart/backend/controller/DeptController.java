@@ -63,6 +63,7 @@ public class DeptController {
 	public ResponseEntity<?> update(@ApiParam("科室的Id") @PathVariable Long id,
 			@ApiParam("名称，可选") @RequestParam(required = false) String name,
 			@ApiParam("科室的图片，可选") @RequestParam(required = false) String imageUrl,
+			@ApiParam("科室的大图") @RequestParam(required = false) String imgUrl,
 			@ApiParam("介绍") @RequestParam(required = false) String intro,
 			@ApiParam("是否是门诊科室") @RequestParam(required = false) Boolean outService,
 			@ApiParam("是否可以展示") @RequestParam(required = false) Boolean isDisplayed) {
@@ -76,6 +77,10 @@ public class DeptController {
 
 		if (imageUrl != null) {
 			dept.setImageUrl(imageUrl);
+		}
+		
+		if (imgUrl != null) {
+			dept.setImgUrl(imgUrl);
 		}
 
 		if (intro != null) {
@@ -109,6 +114,7 @@ public class DeptController {
 	public ResponseEntity<?> create(@ApiParam("科室的名称，可选") @RequestParam(required = false) String name,
 			@ApiParam("介绍") @RequestParam(required = false) String intro,
 			@ApiParam("科室的图片") @RequestParam(required = false) String imageUrl,
+			@ApiParam("科室的大图") @RequestParam(required = false) String imgUrl,
 			@ApiParam("是否是门诊科室") @RequestParam(required = false) Boolean outService,
 			@ApiParam("是否可以展示") @RequestParam(required = false) Boolean isDisplayed) {
 
@@ -120,6 +126,10 @@ public class DeptController {
 
 		if (imageUrl != null) {
 			dept.setImageUrl(imageUrl);
+		}
+		
+		if (imgUrl != null) {
+			dept.setImgUrl(imgUrl);
 		}
 
 		if (intro != null) {

@@ -310,6 +310,49 @@
 	display: none;
 }
 
+.add-img-list-big {
+	width: 150px;
+	float: left;
+	position: relative;
+}
+.add-img-list-big .add-image-button-big {
+	width: 150px;
+	height: 150px;
+	text-align: center;
+	line-height: 150px;
+	border: 1px solid #808080;
+	cursor: pointer;
+}
+.add-img-list-big .add-image-url-big {
+	width: 150px;
+	height: 150px;
+	display:none;
+}
+.add-img-list-big .add-image-edit-big {
+	width: 80px;
+	height: 80px;
+	position: absolute;
+	top: 30px;
+	left: 50%;
+	margin-left: -40px;
+	display: none;
+	cursor: pointer;
+}
+.add-img-list-big .add-image-edit-big  img {
+	width: 80px;
+	height: 80px;
+}
+.add-img-list-big .add-image-url-big img{
+	width: 150px;
+	height: 150px;
+}
+.add-img-list-big .add-img-file-big {
+	display: none;
+}
+.add-img-list-big .add-img-submit-big {
+	display: none;
+}
+
 
 .required:before { 
   content:"*";

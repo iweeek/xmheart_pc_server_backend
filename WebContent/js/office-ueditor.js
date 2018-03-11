@@ -6,6 +6,7 @@ exports.XPW.OfficeUeditor = (function() {
 	OfficeUeditor.getOfficeInfo()
   	OfficeUeditor.postOfficeInfo()
   	OfficeUeditor.uploadImg()
+  	OfficeUeditor.uploadBigImg()
   	OfficeUeditor.ue = UE.getEditor('container');
 	OfficeUeditor.isDisplayed = false;
 	OfficeUeditor.cancel();
@@ -32,10 +33,14 @@ exports.XPW.OfficeUeditor = (function() {
 	  	  $('#addImgBtn').hide();
 	  	  $('.add-image-url').show();
       }
+      if (data.imgUrl) {
+	  	  $('.upload-img-big').attr('src', data.imgUrl);
+	  	  $('#addImgBtnBig').hide();
+	  	  $('.add-image-url-big').show();
+      }
   }
   
   OfficeUeditor.getOfficeInfo = function () {
-	  $('.ui-loading').show();
     var id = OfficeUeditor.getUrlParam('deptId')
     if (id) {
 	    $.ajax({
@@ -46,16 +51,14 @@ exports.XPW.OfficeUeditor = (function() {
 	      })
 	     .done(function(data) {
 	    	   OfficeUeditor.fillData(data);
-	    	   $('.ui-loading').hide();
 	     })
      }
   }
  
   OfficeUeditor.postOfficeInfo = function () {
-	  $('.ui-loading').show();
 	  var id = OfficeUeditor.getUrlParam('deptId');
 	  var url = id ? '/depts/' + id : '/depts'
-	  $('#save').on('click', function() {
+	  $('.btn-group').on('click', '#save', function() {
 		  var $this = $(this);
 		  $this.attr('disabled','disabled');
 		  var name = $('#officeName').val();
@@ -63,8 +66,9 @@ exports.XPW.OfficeUeditor = (function() {
 		  var isDisplayed = OfficeUeditor.isDisplayed;
 		  var intro = OfficeUeditor.ue.getContent();
 		  var imageUrl = $('.upload-img').attr('src');
-		  var upateParms = {id: id, name: name, outService: outService, imageUrl: imageUrl, intro: intro, isDisplayed: isDisplayed};
-		  var newParms = {name: name, outService: outService, imageUrl: imageUrl,  intro: intro, isDisplayed: isDisplayed};
+		  var imgUrl = $('.upload-img-big').attr('src');
+		  var upateParms = {id: id, name: name, outService: outService, imageUrl: imageUrl, imgUrl: imgUrl, intro: intro, isDisplayed: isDisplayed};
+		  var newParms = {name: name, outService: outService, imageUrl: imageUrl, imgUrl: imgUrl, intro: intro, isDisplayed: isDisplayed};
 		  var parms = id ? upateParms : newParms;
 		  $.ajax({
 		  	  	url: url,
@@ -77,7 +81,6 @@ exports.XPW.OfficeUeditor = (function() {
 			  OfficeUeditor.fillData(data);
 //			  swal("保存成功!");
 			  console.log(data.id);
-			  $('.ui-loading').hide();
 			  swal({
 					title : "保存成功!",
 					type : "success",
@@ -90,7 +93,6 @@ exports.XPW.OfficeUeditor = (function() {
 					window.history.go(-1);
 //					location.href="../static/office_ueditor.html?deptId=" + data.id;
 				});
-			  
 		  });
 	  })
   }
@@ -122,6 +124,36 @@ exports.XPW.OfficeUeditor = (function() {
 	  })
 	  $('.add-img-list').on('click', '.add-image-edit', function (){
 		  $(this).siblings('.upload-form').find('.add-img-file').trigger('click');
+	  })
+  }
+  
+  OfficeUeditor.uploadBigImg = function () {
+	  $('.add-img-list-big').on('click', '#addImgBtnBig', function (){
+		  $(this).siblings('.upload-form-big').find('.add-img-file-big').trigger('click');
+	  })
+	  $('.add-img-list-big').on('change', '.add-img-file-big', function (){
+		  $(this).siblings('.add-img-submit-big').trigger('click');
+	  })
+	  $('#uploadFormBig').submit(function(){
+		  $this = $(this);
+		  $this.ajaxSubmit({
+			  success: function (responseText) {
+				  var img = responseText;
+				  $this.siblings('.add-image-url-big').find('.upload-img-big').attr('src', img);
+				  $this.siblings('.add-image-button-big').hide();
+				  $this.siblings('.add-image-url-big').show();
+			  }
+		  });
+		  return false;
+	  })
+	  $('.add-img-list-big').on('mouseover', '.add-image-url-big, .add-image-edit-big', function (){
+		  $('.add-image-edit-big').show();
+	  })
+	  $('.add-img-list-big').on('mouseleave', '.add-image-url-big, .add-image-edit-big', function (){
+		  $('.add-image-edit-big').hide();
+	  })
+	  $('.add-img-list-big').on('click', '.add-image-edit-big', function (){
+		  $(this).siblings('.upload-form-big').find('.add-img-file-big').trigger('click');
 	  })
   }
   
