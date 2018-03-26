@@ -17,6 +17,8 @@ exports.XPW.DoctorEdit = (function() {
 	DoctorEdit.hasPreviousPage = false;
 	DoctorEdit.totalPage = 0;
 	DoctorEdit.currentPage = 1;
+	DoctorEdit.setPage();
+	DoctorEdit.pageSize = 10;
   }
   DoctorEdit._getUrlParam = function (name) {
       var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
@@ -55,27 +57,46 @@ exports.XPW.DoctorEdit = (function() {
     		}
     		DoctorEdit.doctorData();
     		console.log(DoctorEdit.totalPage);
-    	    $('.M-box').pagination({
-    	        jump:true,
-    	        pageCount: DoctorEdit.totalPage,
-            current: DoctorEdit.currentPage,
-    	        callback:function(api){
-                console.log("api.getCurrent(): " + api.getCurrent());
-    	            api.setPageCount(DoctorEdit.totalPage);//动态修改总页数为20页
-    	            DoctorEdit.page(api.getCurrent());
-    	        }
-    	    });
+    		
+    		DoctorEdit.setUpPaginationa();
     })
   }
-
+  
+  DoctorEdit.setUpPaginationa = function () {
+	  $('.M-box').pagination({
+	        jump:true,
+	        pageCount: DoctorEdit.totalPage,
+      current: DoctorEdit.currentPage,
+	        callback:function(api){
+	        		console.log("api.getCurrent(): " + api.getCurrent());
+	            api.setPageCount(DoctorEdit.totalPage);//动态修改总页数为20页
+	            DoctorEdit.page(api.getCurrent());
+	        }
+	    });
+  }
+  
+  DoctorEdit.setPage = function() {
+	  $('#tools').on ('click', '#setPage', function() {
+//	      location.href = '/static/doctor_ueditor.html';
+	      DoctorEdit.pageSize = $('.page-input').val();
+	      console.log("DoctorEdit.page: " + DoctorEdit.pageSize);
+	      DoctorEdit.doctorData();
+	  })
+  }
+  
   DoctorEdit.doctorData = function () {
 	$('.ui-loading').show();
+	DoctorEdit.pageSize = $('.page-input').val();
+	console.log("DoctorEdit.page: " + DoctorEdit.pageSize);
+	console.log("DoctorEdit.totalPage: " + DoctorEdit.totalPage);
     $.ajax({
       url: '/doctors',
       type: 'GET',
       dataType: 'json',
       async : false, 
-      data: {deptId: DoctorEdit.deptId, pageNo: DoctorEdit.currentPage},
+      data: {deptId: DoctorEdit.deptId, 
+    	  		pageNo: DoctorEdit.currentPage, 
+    	  		pageSize:  DoctorEdit.pageSize},
       success : function(data){ 
           var list = data.list;
           if (data.hasPreviousPage) {
@@ -92,6 +113,7 @@ exports.XPW.DoctorEdit = (function() {
           DoctorEdit.hasPreviousPage = data.hasPreviousPage;
           DoctorEdit.totalPage = data.pages;
           DoctorEdit.currentPage = data.pageNum;
+          DoctorEdit.setUpPaginationa();
           if (list.length > 0) {
                   var doctorTemplate = $('#doctorTd').html();
                   Mustache.parse(doctorTemplate);   // optional, speeds up future uses
@@ -170,12 +192,8 @@ exports.XPW.DoctorEdit = (function() {
   }
   
   DoctorEdit.page = function (cur) {
-//      $('.pager').on ('click', '.previous a', function() {
-//          if(DoctorEdit.hasPreviousPage) {
-                DoctorEdit.currentPage = cur;
-                DoctorEdit.doctorData();
-//          }
-//      })
+	    DoctorEdit.currentPage = cur;
+	    DoctorEdit.doctorData();
   }
   
   //上移
@@ -224,7 +242,8 @@ exports.XPW.DoctorEdit = (function() {
 //             confirmButtonText : "确定！",
 //             closeOnConfirm : false
 //         }, function() {
-             location.href = 'doctor.html?deptId=' + DoctorEdit.deptId;
+//             location.href = 'doctor.html?deptId=' + DoctorEdit.deptId;
+             DoctorEdit.doctorData();
 //         });
 
      })
