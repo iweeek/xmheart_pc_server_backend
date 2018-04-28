@@ -66,7 +66,7 @@ public class ColumnController {
 //        XPWUser user = (XPWUser) httpSession.getAttribute("user");
         Subject subject = SecurityUtils.getSubject();
         try {
-            subject.checkPermission("article");
+//            subject.checkPermission("articles");
         } catch (UnauthenticatedException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);

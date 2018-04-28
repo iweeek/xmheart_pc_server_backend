@@ -481,6 +481,7 @@ public class ArticleController {
                 if (tempColumn == null) {
                     break;
                 }
+                parentColumn = tempColumn;
             } while(tempColumn.getId() != 0);
             // 权限判断，这里的读相当于更新操作
             String permission = "";
