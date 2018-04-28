@@ -75,7 +75,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 		} else {
 			String token = request.getHeader("Authorization");
 			List<XPWPriv> privs = null;
-			System.out.println("token: " + token);
+//			System.out.println("token: " + token);
 			System.out.println("request.getRequestURI():" + request.getRequestURI() + " request.getMethod(): " + request.getMethod());
 			if (token != null) {
 				Claims claims = Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).getBody();

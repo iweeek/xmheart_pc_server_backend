@@ -221,7 +221,7 @@ public class ArticleController {
                 getChildColumns(list, item.getId());
             }
         }
-        System.out.println(list);
+//        System.out.println(list);
         return list;
     }
 
@@ -474,13 +474,14 @@ public class ArticleController {
         XPWArticle a = articleService.read(id);
         XPWColumn parentColumn = columnService.getParentColumnById(a.getColumnId());
         if (parentColumn != null) {
+        	XPWColumn tempColumn = parentColumn;
             do {
                 parentIds.add(parentColumn.getId());
-                parentColumn = columnService.getParentColumnById(parentColumn.getId());
-                if (parentColumn == null) {
+                tempColumn = columnService.getParentColumnById(tempColumn.getId());
+                if (tempColumn == null) {
                     break;
                 }
-            } while(parentColumn.getId() != 0);
+            } while(tempColumn.getId() != 0);
             // 权限判断，这里的读相当于更新操作
             String permission = "";
             if (parentColumn != null && parentColumn.getId() != 0) {
