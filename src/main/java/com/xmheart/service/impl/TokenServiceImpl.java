@@ -1,12 +1,9 @@
 package com.xmheart.service.impl;
 
-import java.awt.image.BufferedImage;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -17,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 
 import com.xmheart.mapper.XPWUserMapper;
@@ -26,7 +22,6 @@ import com.xmheart.model.XPWUser;
 import com.xmheart.model.XPWUserExample;
 import com.xmheart.model.XPWVisitLog;
 import com.xmheart.service.TokenService;
-import com.xmheart.util.CaptchaUtil;
 import com.xmheart.util.MessageDigestUtil;
 import com.xmheart.util.ResponseBody;
 
@@ -50,7 +45,7 @@ public class TokenServiceImpl implements TokenService {
    @Autowired
     private XPWUserMapper userMapper;
    
-   @Autowired
+   @Autowired 
    XPWVisitLogMapper visitLogMapper;
 
 	/**

@@ -38,7 +38,7 @@ public class CaptchaServiceImpl implements CaptchaService{
         captcha.setIsPassed((byte) 0);
         
         captchaMapper.insert(captcha);
-        
+         
         //把校验码转为图像  
         BufferedImage image = CaptchaUtil.genCaptchaImg(genCaptcha);  
         return image;  

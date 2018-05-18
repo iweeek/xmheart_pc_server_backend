@@ -1,8 +1,6 @@
 package com.xmheart.backend.controller;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -13,27 +11,21 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.xmheart.mapper.XPWCaptchaMapper;
 import com.xmheart.model.XPWCaptcha;
 import com.xmheart.service.CaptchaService;
 import com.xmheart.service.TokenService;
 import com.xmheart.shiro.MyUsernamePasswordToken;
-import com.xmheart.util.FileUtil;
-import com.xmheart.util.MessageDigestUtil;
-import com.xmheart.util.PathUtil;
 import com.xmheart.util.ResponseBody;
 
 import io.swagger.annotations.Api;

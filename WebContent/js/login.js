@@ -98,17 +98,6 @@ $(function () {
             }  
         }, 
         refreshCaptcha: function () {
-//            $.get('/captcha')
-//            .success(function(res) {
-//                console.log(res);
-//                $('#captchaImg').attr('src', res);  
-//                if (res) {
-//                    $(this).attr('disabled', 'disabled');
-//                    $("#captchaChecked").show();
-//                } else {
-//                    $("#captchaChecked").hide();
-//                }
-//            })
             $('#captchaImg').attr('src', '/captcha?' + Math.random());  
         }
         
