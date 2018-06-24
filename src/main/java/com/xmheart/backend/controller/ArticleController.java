@@ -12,6 +12,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthorizedException;
@@ -27,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.xmheart.controller.exhandler.GlobalExceptionHandler;
 import com.xmheart.mapper.XPWPrivMapper;
 import com.xmheart.model.XPWArticle;
 import com.xmheart.model.XPWColumn;
@@ -64,6 +67,8 @@ public class ArticleController {
 
     @Autowired
     XPWPrivMapper privMapper;
+    
+    private final Logger logger = LogManager.getLogger(ArticleController.class);
 //  
 //    @RequiresPermissions("article")
 //    @ApiOperation(value = "获取文章", notes = "获取文章")
@@ -359,9 +364,11 @@ public class ArticleController {
         article.setIsEnglish((byte) 0);
 
         int ret = articleService.create(article);
+        logger.info("user create a article :" + article );
         if (ret > 0) {
             article.setUrl("/newsDetail?id=" + String.valueOf(article.getId()));
             articleService.update(article);
+            logger.info("user update a article :" + article );
             return ResponseEntity.ok(article);
         } else {
             return ResponseEntity.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).body(null);
@@ -558,6 +565,7 @@ public class ArticleController {
 
         int ret = articleService.update(article);
         if (ret > 0) {
+        		logger.info("user has update a article :" + article );
             return ResponseEntity.ok(null);
         } else {
             return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);
